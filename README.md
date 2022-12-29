@@ -29,7 +29,7 @@ git clone https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugi
 
 如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在Enka官网 Discord联系
 
-issue#63 : 国内网络如Enka服务访问不稳定，可尝试更换 @MiniGrayGay 大佬提供的中转服务
+国内网络如Enka服务访问不稳定，可尝试更换 @MiniGrayGay 大佬提供的中转服务
 方法:将kokomi/kokomi.go中的url二级网址替换即可
 
     【链接1】：https://enka.microgg.cn/
