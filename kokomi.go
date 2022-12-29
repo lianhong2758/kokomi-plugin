@@ -174,7 +174,7 @@ func init() { // 主函数
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
 
 		//新建图层,实现阴影
-		bg := Yinying(540, 470, 16)
+		bg := shadow(540, 470, 16)
 		//字图层
 		one := gg.NewContext(540, 470)
 		if err := one.LoadFontFace(FontFile, 30); err != nil {
@@ -293,7 +293,7 @@ func init() { // 主函数
 		}
 		//武器图层
 		//新建图层,实现阴影
-		yinwq := Yinying(340, 180, 16)
+		yinwq := shadow(340, 180, 16)
 		// 字图层
 		two := gg.NewContext(340, 180)
 		if err := two.LoadFontFace(FontFile, 30); err != nil {
@@ -333,7 +333,7 @@ func init() { // 主函数
 
 		//圣遗物
 		//缩小
-		yinsyw := Yinying(340, 350, 16)
+		yinsyw := shadow(340, 350, 16)
 		for i := 0; i < 5; i++ {
 			// 字图层
 			three := gg.NewContext(340, 350)
@@ -401,7 +401,7 @@ func init() { // 主函数
 			dc.DrawImage(three.Image(), x, y)
 		}
 		//总评分框
-		yinping := Yinying(340, 160, 16)
+		yinping := shadow(340, 160, 16)
 		// 字图层
 		four := gg.NewContext(340, 160)
 		if err := four.LoadFontFace(FontFile, 25); err != nil {
