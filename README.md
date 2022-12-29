@@ -4,7 +4,7 @@ kokomi是一个ZeroBot-Plugin的升级插件，提供包括角色查询等升级
 相比与喵喵菜单,本插件不依赖浏览器渲染,可以再树莓派等机器上运行,占用内存较低
 
 具体功能可在安装插件后 通过 /用法kokomi 进行查看。
-安装与更新
+# 安装与更新
 
 推荐使用git进行安装，以方便后续升级。在ZeroBot-Plugin根目录夹打开终端，运行
 
@@ -16,11 +16,12 @@ git clone https://github.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
 //在群文件下载
-如果是手工下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugin文件夹内。
+
+如果是手动下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugin文件夹内。
 
 然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
-功能说明(移植喵喵菜单)
+# 功能说明(移植喵喵菜单)
 #绑定uid
 #更新面板
 #全部角色面板
@@ -35,7 +36,7 @@ git clone https://github.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 
     【链接1】：https://enka.microgg.cn/
     【链接2】：https://enka.minigg.cn/
-//以后将适配的功能
+# 未来可期 (以后将适配的功能)
 #雷神伤害
 
 喵喵本地计算
