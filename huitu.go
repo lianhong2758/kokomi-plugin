@@ -11,7 +11,7 @@ import (
 )
 
 // AdjustOpacity 更改透明度
-func adjustOpacity(m image.Image, percentage float64) image.Image {
+func AdjustOpacity(m image.Image, percentage float64) image.Image {
 	bounds := m.Bounds()
 	dx := bounds.Dx()
 	dy := bounds.Dy()
