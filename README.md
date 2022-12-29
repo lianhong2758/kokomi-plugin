@@ -16,7 +16,8 @@ git clone https://github.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
 //在群文件下载
-如果是手工下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugin文件夹内。
+
+如果是手动下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugin文件夹内。
 
 然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
