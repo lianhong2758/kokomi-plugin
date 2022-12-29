@@ -9,16 +9,16 @@ kokomi是一个ZeroBot-Plugin的升级插件，提供包括角色查询等升级
 推荐使用git进行安装，以方便后续升级。在ZeroBot-Plugin根目录夹打开终端，运行
 
 // 使用github
-git clone https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+git clone https://github.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 
 进行下载插件。
 
-然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"        // kokomi原神面板
+然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
 //在群文件下载
-如果是手工下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugins文件夹内。
+如果是手工下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugin文件夹内。
 
-然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi" 
+然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
 功能说明(移植喵喵菜单)
 #绑定uid
