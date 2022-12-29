@@ -11,7 +11,7 @@ kokomi是一个ZeroBot-Plugin的升级插件，提供包括角色查询等升级
 // 使用github
 git clone https://github.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 
-进行下载插件。
+进行下载插件。 
 
 然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
