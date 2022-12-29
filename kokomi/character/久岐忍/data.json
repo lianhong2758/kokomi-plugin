@@ -1,0 +1,48 @@
+{
+  "id": 10000065,
+  "name": "久岐忍",
+  "abbr": "久岐忍",
+  "title": "烦恼刈除",
+  "star": 4,
+  "elem": "electro",
+  "allegiance": "荒泷派",
+  "weapon": "sword",
+  "birth": "7-27",
+  "astro": "烦恼刈座",
+  "desc": "干练可靠的「荒泷派」的副手——特别注明：干练可靠形容的不是「荒泷派」而是副手。",
+  "cncv": "杨凝",
+  "jpcv": "水桥香织",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 12289,
+    "atk": 212.4,
+    "def": 750.77
+  },
+  "growAttr": {
+    "key": "hpPct",
+    "value": 24
+  },
+  "talentKey": {
+    "6531": "a",
+    "6532": "e",
+    "6539": "q"
+  },
+  "talentId": {
+    "10651": 6531,
+    "10652": 6532,
+    "10655": 6539
+  },
+  "talentCons": {
+    "e": 3,
+    "q": 5
+  },
+  "materials": {
+    "gem": "最胜紫晶",
+    "boss": "符纹之齿",
+    "specialty": "鸣草",
+    "normal": "浮游晶化核",
+    "talent": "「风雅」的哲学",
+    "weekly": "祸神之禊泪"
+  }
+}

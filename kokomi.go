@@ -59,8 +59,8 @@ func init() { // 主函数
 				ctx.SendChain(message.Text("网站获取信息失败", err))
 				return
 			}
-			// 创建存储文件,路径data/kokomi/js
-			file, _ := os.OpenFile("data/kokomi/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
+			// 创建存储文件,路径plugin/kokomi/data/js
+			file, _ := os.OpenFile("plugin/kokomi/data/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 			_, _ = file.Write(es)
 			ctx.SendChain(message.Text("喵~更新成功"))
 			file.Close()
@@ -68,7 +68,7 @@ func init() { // 主函数
 		}
 		//##########################################################
 		// 获取本地缓存数据
-		txt, err := os.ReadFile("data/kokomi/js/" + suid + ".kokomi")
+		txt, err := os.ReadFile("plugin/kokomi/data/js/" + suid + ".kokomi")
 		if err != nil {
 			ctx.SendChain(message.Text("本地未找到账号信息, 请更新面板"))
 			return
@@ -133,7 +133,7 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("匹配角色元素失败"))
 			return
 		}
-		beijing, err := gg.LoadImage("data/kokomi/pro/" + pro + ".jpg")
+		beijing, err := gg.LoadImage("plugin/kokomi/data/pro/" + pro + ".jpg")
 		if err != nil {
 			ctx.SendChain(message.Text("获取背景失败", err))
 			return
@@ -143,7 +143,7 @@ func init() { // 主函数
 		dc.Scale(3/5.0, 3/5.0)
 		dc.SetRGB(1, 1, 1) // 换白色
 		// 角色立绘565*935
-		lihui, err := gg.LoadImage("data/kokomi/character/" + str + "/imgs/splash.webp")
+		lihui, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
 		if err != nil {
 			ctx.SendChain(message.Text("获取立绘失败", err))
 			return
@@ -152,14 +152,14 @@ func init() { // 主函数
 		dc.DrawImage(lihui, -300, 0)
 		dc.Scale(5.0/4, 5.0/4)
 		//角色名字
-		NameFont := "data/kokomi/font/NZBZ.ttf" // 字体
+		NameFont := "plugin/kokomi/data/font/NZBZ.ttf" // 字体
 		if err := dc.LoadFontFace(NameFont, 80); err != nil {
 			panic(err)
 		}
 		namelen := utf8.RuneCountInString(str)
 		dc.DrawString(str, float64(1050-namelen*90), float64(130))
 		// 好感度,uid
-		FontFile := "data/kokomi/font/HYWH-65W.ttf" // 汉仪文黑字体
+		FontFile := "plugin/kokomi/data/font/HYWH-65W.ttf" // 汉仪文黑字体
 		if err := dc.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
 		}
@@ -236,26 +236,26 @@ func init() { // 主函数
 		}
 		//v1版本dc.DrawString("天赋等级:"+strconv.Itoa(lin1)+"--"+strconv.Itoa(lin2)+"--"+strconv.Itoa(lin3), 630, 900)
 		//贴图
-		tulin1, err := gg.LoadImage("data/kokomi/character/" + str + "/icons/talent-a.webp")
+		tulin1, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-a.webp")
 		tulin1 = resize.Resize(80, 0, tulin1, resize.Bilinear)
 		if err != nil {
 			ctx.SendChain(message.Text("获取天赋图标失败", err))
 			return
 		}
-		tulin2, err := gg.LoadImage("data/kokomi/character/" + str + "/icons/talent-e.webp")
+		tulin2, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-e.webp")
 		tulin2 = resize.Resize(80, 0, tulin2, resize.Bilinear)
 		if err != nil {
 			ctx.SendChain(message.Text("获取天赋图标失败", err))
 			return
 		}
-		tulin3, err := gg.LoadImage("data/kokomi/character/" + str + "/icons/talent-q.webp")
+		tulin3, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-q.webp")
 		tulin3 = resize.Resize(80, 0, tulin3, resize.Bilinear)
 		if err != nil {
 			ctx.SendChain(message.Text("获取天赋图标失败", err))
 			return
 		}
 		//边框间隔180
-		kuang, err := gg.LoadPNG("data/kokomi/pro/" + pro + ".png")
+		kuang, err := gg.LoadPNG("plugin/kokomi/data/pro/" + pro + ".png")
 		if err != nil {
 			ctx.SendChain(message.Text("获取天赋边框失败", err))
 			return
@@ -276,7 +276,7 @@ func init() { // 主函数
 		dc.DrawString(strconv.Itoa(lin2), 760, 380)
 		dc.DrawString(strconv.Itoa(lin3), 940, 380)
 		//皇冠
-		tuguan, err := gg.LoadImage("data/kokomi/zawu/crown.png")
+		tuguan, err := gg.LoadImage("plugin/kokomi/data/zawu/crown.png")
 		if err != nil {
 			ctx.SendChain(message.Text("获取皇冠图标失败", err))
 			return
@@ -321,7 +321,7 @@ func init() { // 主函数
 		dc.DrawString(fucitiao+":"+strconv.Itoa(int(alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[1].Value))+baifen, 820, 270)
 		*/
 		//图片
-		tuwq, err := gg.LoadPNG("data/kokomi/wq/" + wq + ".png")
+		tuwq, err := gg.LoadPNG("plugin/kokomi/data/wq/" + wq + ".png")
 		if err != nil {
 			ctx.SendChain(message.Text("获取武器图标失败", err))
 			return
@@ -343,7 +343,7 @@ func init() { // 主函数
 			//字号30,间距50
 			three.SetRGB(1, 1, 1) //白色
 			sywname := IdforNamemap[alldata.AvatarInfoList[t].EquipList[i].Flat.SetNameTextHash]
-			tusyw, err := gg.LoadImage("data/kokomi/syw/" + sywname + "/" + strconv.Itoa(i+1) + ".webp")
+			tusyw, err := gg.LoadImage("plugin/kokomi/data/syw/" + sywname + "/" + strconv.Itoa(i+1) + ".webp")
 			if err != nil {
 				ctx.SendChain(message.Text("获取圣遗物图标失败", err))
 				return
@@ -455,8 +455,8 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("网站获取信息失败", err))
 			return
 		}
-		// 创建存储文件,路径data/kokomi/js
-		file, _ := os.OpenFile("data/kokomi/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
+		// 创建存储文件,路径plugin/kokomi/data/js
+		file, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file.Write(es)
 		ctx.SendChain(message.Text("喵~更新成功"))
 		file.Close()
@@ -469,7 +469,7 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("请输入正确的uid"))
 		}
 		sqquid := strconv.Itoa(int(ctx.Event.UserID))
-		file, _ := os.OpenFile("data/kokomi/uid/"+sqquid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
+		file, _ := os.OpenFile("plugin/kokomi/data/uid/"+sqquid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file.Write([]byte(uid))
 		file.Close()
 		ctx.SendChain(message.Text("喵~绑定成功"))

@@ -1,0 +1,50 @@
+{
+  "id": 10000042,
+  "name": "刻晴",
+  "abbr": "刻晴",
+  "title": "霆霓快雨",
+  "star": 5,
+  "elem": "electro",
+  "allegiance": "璃月七星",
+  "weapon": "sword",
+  "birth": "11-20",
+  "astro": "金紫定垂座",
+  "desc": "璃月七星之一，玉衡星。对「帝君一言而决的璃月」颇有微词——但实际上，神挺欣赏她这样的人。",
+  "cncv": "谢莹",
+  "jpcv": "喜多村英梨",
+  "costume": [
+    204201
+  ],
+  "ver": 1,
+  "baseAttr": {
+    "hp": 13103,
+    "atk": 322.89,
+    "def": 799.3
+  },
+  "growAttr": {
+    "key": "cdmg",
+    "value": 38.4
+  },
+  "talentKey": {
+    "4231": "a",
+    "4232": "e",
+    "4239": "q"
+  },
+  "talentId": {
+    "10421": 4231,
+    "10422": 4232,
+    "10425": 4239
+  },
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  },
+  "materials": {
+    "gem": "最胜紫晶",
+    "boss": "雷光棱镜",
+    "specialty": "石珀",
+    "normal": "原素花蜜",
+    "talent": "「繁荣」的哲学",
+    "weekly": "北风之环"
+  }
+}

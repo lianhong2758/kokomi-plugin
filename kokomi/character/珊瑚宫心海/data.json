@@ -1,0 +1,48 @@
+{
+  "id": 10000054,
+  "name": "珊瑚宫心海",
+  "abbr": "心海",
+  "title": "真珠之智",
+  "star": 5,
+  "elem": "hydro",
+  "allegiance": "海祇岛",
+  "weapon": "catalyst",
+  "birth": "2-22",
+  "astro": "眠龙座",
+  "desc": "海祇岛的「现人神巫女」，统管海祇岛各项事宜的少女。",
+  "cncv": "龟娘",
+  "jpcv": "三森铃子",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 13471,
+    "atk": 234.39,
+    "def": 657.11
+  },
+  "growAttr": {
+    "key": "dmg",
+    "value": 28.8
+  },
+  "talentKey": {
+    "5431": "a",
+    "5432": "e",
+    "5439": "q"
+  },
+  "talentId": {
+    "10541": 5431,
+    "10542": 5432,
+    "10545": 5439
+  },
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  },
+  "materials": {
+    "gem": "涤净青金",
+    "boss": "排异之露",
+    "specialty": "珊瑚真珠",
+    "normal": "浮游晶化核",
+    "talent": "「浮世」的哲学",
+    "weekly": "狱火之蝶"
+  }
+}

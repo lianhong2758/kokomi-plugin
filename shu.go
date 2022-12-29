@@ -380,7 +380,7 @@ type Stat struct {
 func Getuid(qquid int64) (uid int) { // 获取对应游戏uid
 	sqquid := strconv.Itoa(int(qquid))
 	// 获取本地缓存数据
-	txt, err := os.ReadFile("data/kokomi/uid/" + sqquid + ".kokomi")
+	txt, err := os.ReadFile("plugin/kokomi/data/uid/" + sqquid + ".kokomi")
 	if err != nil {
 		return 0
 	}

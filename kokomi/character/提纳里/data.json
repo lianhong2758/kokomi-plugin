@@ -1,0 +1,48 @@
+{
+  "id": 10000069,
+  "name": "提纳里",
+  "abbr": "提纳里",
+  "title": "浅蔚轻行",
+  "star": 5,
+  "elem": "dendro",
+  "allegiance": "化城郭",
+  "weapon": "bow",
+  "birth": "12-29",
+  "astro": "郭狐座",
+  "desc": "精通植物学的少年学者，现于道成林任巡林官一职。直率热忱，擅长教导脑瓜糊涂的人。",
+  "cncv": "莫然",
+  "jpcv": "小林沙苗",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 10850,
+    "atk": 267.88,
+    "def": 630.21
+  },
+  "growAttr": {
+    "key": "dmg",
+    "value": 28.8
+  },
+  "talentKey": {
+    "6931": "a",
+    "6932": "e",
+    "6939": "q"
+  },
+  "talentId": {
+    "10691": 6931,
+    "10692": 6932,
+    "10695": 6939
+  },
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  },
+  "materials": {
+    "gem": "生长碧翡",
+    "boss": "蕈王钩喙",
+    "specialty": "月莲",
+    "normal": "孢囊晶尘",
+    "talent": "「诤言」的哲学",
+    "weekly": "万劫之真意"
+  }
+}

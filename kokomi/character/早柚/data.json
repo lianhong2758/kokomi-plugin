@@ -1,0 +1,48 @@
+{
+  "id": 10000053,
+  "name": "早柚",
+  "abbr": "早柚",
+  "title": "忍里之貉",
+  "star": 4,
+  "elem": "anemo",
+  "allegiance": "终末番",
+  "weapon": "claymore",
+  "birth": "10-19",
+  "astro": "小貉座",
+  "desc": "隶属于「终末番」的忍者。身形小巧，总像没睡饱一样。",
+  "cncv": "Sakula小舞",
+  "jpcv": "洲崎绫",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 11854,
+    "atk": 244.26,
+    "def": 744.63
+  },
+  "growAttr": {
+    "key": "mastery",
+    "value": 96
+  },
+  "talentKey": {
+    "5331": "a",
+    "5332": "e",
+    "5339": "q"
+  },
+  "talentId": {
+    "10531": 5331,
+    "10532": 5332,
+    "10535": 5339
+  },
+  "talentCons": {
+    "e": 5,
+    "q": 3
+  },
+  "materials": {
+    "gem": "自在松石",
+    "boss": "魔偶机心",
+    "specialty": "晶化骨髓",
+    "normal": "原素花蜜",
+    "talent": "「天光」的哲学",
+    "weekly": "鎏金之鳞"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": 10000067,
+  "name": "柯莱",
+  "abbr": "柯莱",
+  "title": "萃念初蘖",
+  "star": 4,
+  "elem": "dendro",
+  "allegiance": "化城郭",
+  "weapon": "bow",
+  "birth": "5-8",
+  "astro": "薮猫座",
+  "desc": "活跃于道成林的见习巡林员，热情的言行背后是一颗依旧稍显内向的心。",
+  "cncv": "秦文静",
+  "jpcv": "前川凉子",
+  "costume": false,
+  "ver": 1,
+  "baseAttr": {
+    "hp": 9787,
+    "atk": 199.65,
+    "def": 600.62
+  },
+  "growAttr": {
+    "key": "atkPct",
+    "value": 24
+  },
+  "talentKey": {
+    "6731": "a",
+    "6732": "e",
+    "6739": "q"
+  },
+  "talentId": {
+    "10671": 6731,
+    "10672": 6732,
+    "10675": 6739
+  },
+  "talentCons": {
+    "e": 3,
+    "q": 5
+  },
+  "materials": {
+    "gem": "生长碧翡",
+    "boss": "蕈王钩喙",
+    "specialty": "树王圣体菇",
+    "normal": "历战的箭簇",
+    "talent": "「笃行」的哲学",
+    "weekly": "祸神之禊泪"
+  }
+}
