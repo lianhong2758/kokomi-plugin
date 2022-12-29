@@ -60,7 +60,7 @@ func init() { // 主函数
 				return
 			}
 			// 创建存储文件,路径plugin/kokomi/data/js
-			file, _ := os.OpenFile("plugin/kokomi/data/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
+			file, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 			_, _ = file.Write(es)
 			ctx.SendChain(message.Text("喵~更新成功"))
 			file.Close()
