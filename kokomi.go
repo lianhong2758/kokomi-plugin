@@ -24,9 +24,12 @@ import (
 )
 
 const (
-	url     = "https://enka.minigg.cn/u/%v/__data.json"
-	edition = "Created By ZeroBot-Plugin v1.6.1-beta2 & kokomi v2"
-	tu      = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
+	url      = "https://enka.minigg.cn/u/%v/__data.json"
+	edition  = "Created By ZeroBot-Plugin v1.6.1-beta2 & kokomi v2"
+	tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
+	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
+	FontFile = "plugin/kokomi/data/font/tttgbnumber.ttf" // 其余字字体
+
 )
 
 func init() { // 主函数
@@ -152,14 +155,12 @@ func init() { // 主函数
 		dc.DrawImage(lihui, -300, 0)
 		dc.Scale(5.0/4, 5.0/4)
 		//角色名字
-		NameFont := "plugin/kokomi/data/font/NZBZ.ttf" // 字体
 		if err := dc.LoadFontFace(NameFont, 80); err != nil {
 			panic(err)
 		}
 		namelen := utf8.RuneCountInString(str)
 		dc.DrawString(str, float64(1050-namelen*90), float64(130))
 		// 好感度,uid
-		FontFile := "plugin/kokomi/data/font/HYWH-65W.ttf" // 汉仪文黑字体
 		if err := dc.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
 		}
