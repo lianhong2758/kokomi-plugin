@@ -42,6 +42,7 @@ func init() { // 主函数
 	en.OnSuffix("面板").SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		str := ctx.State["args"].(string) // 获取key
 		var wifeid int64
+		var allfen = 0.00
 		qquid := ctx.Event.UserID
 		// 获取uid
 		uid := Getuid(qquid)
@@ -336,21 +337,23 @@ func init() { // 主函数
 			tusyw = resize.Resize(80, 0, tusyw, resize.Bilinear) //缩小
 			three.DrawImage(tusyw, 15, 15)
 			//圣遗物name
-			var weizhi = [5]string{"之花", "之羽", "之沙", "之杯", "之冠"}
-			three.DrawString(sywname+weizhi[i], 120, 50)
-			//圣遗物单个评分
-			//three.DrawString(pingfeng+"分"+pingji, 120, 85)
+			sywallname := SywNamemap[sywname]
+			three.DrawString(sywallname[i], 110, 50)
 			//圣遗物属性
 			zhuci := StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID) //主词条
 			zhucitiao := strconv.Itoa(int(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value))
 			//间隔45,初始145
-			var xx, yy float64 //xx,yy词条相对位置,x,y文本框在全图位置
+			var xx, yy, pingfeng float64 //xx,yy词条相对位置,x,y文本框在全图位置
 			var x, y int
 			xx = 15
 			yy = 145
+			pingfeng = 0
 			//主词条
 			three.DrawString("主:"+zhuci, xx, yy)                                                                                      //主词条名字
 			three.DrawString("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 200, yy) //主词条属性
+			//算分
+			pingfeng += Countcitiao(zhuci, alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value)
+			//副词条
 			for k := 0; k < 4; k++ {
 				switch k {
 				case 0:
@@ -364,7 +367,13 @@ func init() { // 主函数
 				}
 				three.DrawString(StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), xx, yy)
 				three.DrawString("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 200, yy)
+				pingfeng += Countcitiao(StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value)
 			}
+			allfen += pingfeng
+
+			//圣遗物单个评分
+			three.DrawString(strconv.FormatFloat((float64(int(pingfeng*10)))/10.0, 'f', 1, 64)+"分 --"+Pingji(pingfeng), 120, 85)
+
 			switch i {
 			case 0:
 				x = 370
@@ -385,6 +394,7 @@ func init() { // 主函数
 			dc.DrawImage(yinsyw, x, y)
 			dc.DrawImage(three.Image(), x, y)
 		}
+
 		//总评分框
 		yinping := Yinying(340, 160, 16)
 		// 字图层
@@ -393,17 +403,17 @@ func init() { // 主函数
 			panic(err)
 		}
 		four.SetRGB(1, 1, 1) //白色
-		four.DrawString("评分规则:喵喵评分", 60, 35)
+		four.DrawString("评分规则:爆伤+暴击*2", 50, 35)
 
 		if err := four.LoadFontFace(FontFile, 50); err != nil {
 			panic(err)
 		}
-		//four.DrawString(zongpingji+"  "+zongpingfen, 50, 100)
+		four.DrawString(strconv.FormatFloat((float64(int(allfen*10)))/10.0, 'f', 1, 64), 50, 100)
 
 		if err := four.LoadFontFace(FontFile, 25); err != nil {
 			panic(err)
 		}
-		four.DrawString("圣遗物评级  圣遗物总分", 40, 150)
+		four.DrawString("圣遗物总分", 50, 150)
 		dc.DrawImage(yinping, 20, 1110)
 		dc.DrawImage(four.Image(), 20, 1110)
 
