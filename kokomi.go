@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 	"unicode/utf8"
@@ -174,7 +173,7 @@ func init() { // 主函数
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
 
 		//新建图层,实现阴影
-		bg := shadow(540, 470, 16)
+		bg := Yinying(540, 470, 16)
 		//字图层
 		one := gg.NewContext(540, 470)
 		if err := one.LoadFontFace(FontFile, 30); err != nil {
@@ -216,24 +215,10 @@ func init() { // 主函数
 		if err := dc.LoadFontFace(FontFile, 30); err != nil { // 字体大小
 			panic(err)
 		}
-		var link = []int{0, 0, 0, 0}
-		var i = 0
-		for k := range alldata.AvatarInfoList[t].SkillLevelMap {
-			link[i] = k
-			i++
-		}
-		sort.Ints(link)
-		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[link[0]]
-		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[link[1]]
-		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[link[2]]
-		lin4 := alldata.AvatarInfoList[t].SkillLevelMap[link[3]]
-		//排除绫华莫娜四天赋错误
-		if lin4 != 0 {
-			lin1 = lin2
-			lin2 = lin3
-			lin3 = lin4
-			//lin4 = 0
-		}
+		talentid := IdtoTalent[wifeid]
+		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[0]]
+		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[1]]
+		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
 		//v1版本dc.DrawString("天赋等级:"+strconv.Itoa(lin1)+"--"+strconv.Itoa(lin2)+"--"+strconv.Itoa(lin3), 630, 900)
 		//贴图
 		tulin1, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-a.webp")
@@ -293,7 +278,7 @@ func init() { // 主函数
 		}
 		//武器图层
 		//新建图层,实现阴影
-		yinwq := shadow(340, 180, 16)
+		yinwq := Yinying(340, 180, 16)
 		// 字图层
 		two := gg.NewContext(340, 180)
 		if err := two.LoadFontFace(FontFile, 30); err != nil {
@@ -333,7 +318,7 @@ func init() { // 主函数
 
 		//圣遗物
 		//缩小
-		yinsyw := shadow(340, 350, 16)
+		yinsyw := Yinying(340, 350, 16)
 		for i := 0; i < 5; i++ {
 			// 字图层
 			three := gg.NewContext(340, 350)
@@ -401,7 +386,7 @@ func init() { // 主函数
 			dc.DrawImage(three.Image(), x, y)
 		}
 		//总评分框
-		yinping := shadow(340, 160, 16)
+		yinping := Yinying(340, 160, 16)
 		// 字图层
 		four := gg.NewContext(340, 160)
 		if err := four.LoadFontFace(FontFile, 25); err != nil {
