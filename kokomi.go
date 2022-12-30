@@ -463,6 +463,7 @@ func init() { // 主函数
 		int64uid, err := strconv.ParseInt(uid, 10, 64)
 		if uid == "" || int64uid < 100000000 || int64uid > 1000000000 || err != nil {
 			ctx.SendChain(message.Text("请输入正确的uid"))
+			return
 		}
 		sqquid := strconv.Itoa(int(ctx.Event.UserID))
 		file, _ := os.OpenFile("plugin/kokomi/data/uid/"+sqquid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
