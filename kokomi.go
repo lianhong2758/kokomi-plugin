@@ -17,6 +17,7 @@ import (
 	"github.com/FloatTech/floatbox/web"
 	ctrl "github.com/FloatTech/zbpctrl"
 	"github.com/FloatTech/zbputils/control"
+
 	//"github.com/FloatTech/zbputils/img"
 	"github.com/nfnt/resize"
 	zero "github.com/wdvxdr1123/ZeroBot"
@@ -27,9 +28,9 @@ const (
 	url      = "https://enka.minigg.cn/u/%v/__data.json"
 	edition  = "Created By ZeroBot-Plugin v1.6.1-beta2 & kokomi v2"
 	tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
-	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"     // 名字字体
-	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf" // 其余字字体
-
+	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
+	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf"    // 汉字字体
+	FiFile   = "plugin/kokomi/data/font/tttgbnumber.ttf" // 其余字体(数字英文)
 )
 
 func init() { // 主函数
