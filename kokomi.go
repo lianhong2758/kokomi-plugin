@@ -355,7 +355,7 @@ func init() { // 主函数
 		for m := range alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap {
 			wqjl = m
 		}
-		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.Level)+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap[wqjl]+1), 150, 90)
+		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.Level), 150, 90)
 		two.DrawString(strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap[wqjl]+1), 316, 90)
 		/*副词条,放不下
 		fucitiao, _ := IdforNamemap[alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[1].SubPropId] //名称
@@ -443,7 +443,8 @@ func init() { // 主函数
 			if err := three.LoadFontFace(FiFile, 30); err != nil {
 				panic(err)
 			}
-			three.DrawString(Ftoone(pingfeng)+"-----"+Pingji(pingfeng), 110, 85)
+			three.DrawString(Ftoone(pingfeng), 110, 85)
+			three.DrawString("-"+Pingji(pingfeng), 222, 85)
 			if err := three.LoadFontFace(FontFile, 30); err != nil {
 				panic(err)
 			}
