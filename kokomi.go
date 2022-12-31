@@ -152,9 +152,13 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("获取立绘失败", err))
 			return
 		}
-		dc.Scale(0.8, 0.8)
-		dc.DrawImage(lihui, -300, 0)
-		dc.Scale(5.0/4, 5.0/4)
+		//立绘参数
+		sxx := lihui.Bounds().Size().X
+		syy := lihui.Bounds().Size().Y
+		rate := 800 / float64(syy)
+		dc.Scale(rate, rate)
+		dc.DrawImage(lihui, int(270-float64(sxx)/2), 90)
+		dc.Scale(1/rate, 1/rate)
 		//角色名字
 		if err := dc.LoadFontFace(NameFont, 80); err != nil {
 			panic(err)
@@ -170,7 +174,14 @@ func init() { // 主函数
 		ming := len(alldata.AvatarInfoList[t].TalentIDList)
 		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 0, 40)
 		dc.DrawString(alldata.PlayerInfo.Nickname, 700, 40)
-		dc.DrawString("UID "+suid+" - LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+" - "+strconv.Itoa(ming)+"命", 600, 180)
+		if err := dc.LoadFontFace(FiFile, 30); err != nil {
+			panic(err)
+		}
+		dc.DrawString("UID:"+suid+"---LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+"---"+strconv.Itoa(ming), 600, 180)
+		if err := dc.LoadFontFace(FontFile, 30); err != nil {
+			panic(err)
+		}
+		dc.DrawString("命", 976, 180)
 		// 角色等级,命之座(合并上程序)
 		//dc.DrawString("LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level), 630, 130) // 角色等级
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
@@ -184,38 +195,72 @@ func init() { // 主函数
 		}
 		// 属性540*460,字30,间距15,60
 		one.SetRGB(1, 1, 1) //白色
-		one.DrawString("生命值:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num2000)), 70, 40)
-		one.DrawString("攻击力:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num2001)), 70, 100)
-		one.DrawString("防御力:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num2002)), 70, 160)
-		one.DrawString("元素精通:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num28)), 70, 220)
-		one.DrawString("暴击率:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num20*100))+"%", 70, 280)
-		one.DrawString("暴击伤害:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num22*100))+"%", 70, 340)
-		one.DrawString("元素充能:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num23*100))+"%", 70, 400)
+		one.DrawString("生命值:", 70, 40)
+		one.DrawString("攻击力:", 70, 100)
+		one.DrawString("防御力:", 70, 160)
+		one.DrawString("元素精通:", 70, 220)
+		one.DrawString("暴击率:", 70, 280)
+		one.DrawString("暴击伤害:", 70, 340)
+		one.DrawString("元素充能:", 70, 400)
 		// 元素加伤判断
 		e1, e2 := 70, 460
 		switch {
 		case alldata.AvatarInfoList[t].FightPropMap.Num30*100 > 0:
-			one.DrawString("物理加伤:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num30*100))+"%", float64(e1), float64(e2))
+			one.DrawString("物理加伤:", float64(e1), float64(e2))
 		case alldata.AvatarInfoList[t].FightPropMap.Num40*100 > 0:
-			one.DrawString("火元素加伤:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num40*100))+"%", float64(e1), float64(e2))
+			one.DrawString("火元素加伤:", float64(e1), float64(e2))
 		case alldata.AvatarInfoList[t].FightPropMap.Num41*100 > 0:
-			one.DrawString("雷元素加伤:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num41*100))+"%", float64(e1), float64(e2))
+			one.DrawString("雷元素加伤:", float64(e1), float64(e2))
 		case alldata.AvatarInfoList[t].FightPropMap.Num42*100 > 0:
-			one.DrawString("水元素加伤:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num42*100))+"%", float64(e1), float64(e2))
+			one.DrawString("水元素加伤:", float64(e1), float64(e2))
 		case alldata.AvatarInfoList[t].FightPropMap.Num44*100 > 0:
-			one.DrawString("风元素加伤:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num44*100))+"%", float64(e1), float64(e2))
+			one.DrawString("风元素加伤:", float64(e1), float64(e2))
 		case alldata.AvatarInfoList[t].FightPropMap.Num45*100 > 0:
-			one.DrawString("岩元素加伤:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num45*100))+"%", float64(e1), float64(e2))
+			one.DrawString("岩元素加伤:", float64(e1), float64(e2))
 		case alldata.AvatarInfoList[t].FightPropMap.Num46*100 > 0:
-			one.DrawString("冰元素加伤:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num46*100))+"%", float64(e1), float64(e2))
+			one.DrawString("冰元素加伤:", float64(e1), float64(e2))
 		default: //草或者无
-			one.DrawString("元素加伤:"+strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num43*100))+"%", float64(e1), float64(e2))
+			one.DrawString("元素加伤:", float64(e1), float64(e2))
+		}
+
+		//值,一一对应
+		if err := one.LoadFontFace(FiFile, 30); err != nil {
+			panic(err)
+		}
+		// 属性540*460,字30,间距15,60
+		one.SetRGB(1, 1, 1)                                                                       //白色
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2000), 335, 40)           //生命
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2001), 335, 100)          //攻击
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2002), 335, 160)          //防御
+		one.DrawString(strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num28)), 335, 220) //精通
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 335, 280)    //暴击
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 335, 340)    //爆伤
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 335, 400)    //充能
+		// 元素加伤判断
+		e1, e2 = 335, 460
+		switch {
+		case alldata.AvatarInfoList[t].FightPropMap.Num30*100 > 0: //物理
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num30*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num40*100 > 0: //火
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num40*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num41*100 > 0: //雷
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num41*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num42*100 > 0: //水
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num42*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num44*100 > 0: //风
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num44*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num45*100 > 0: //岩
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num45*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num46*100 > 0: //冰
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num46*100)+"%", float64(e1), float64(e2))
+		default: //草或者无
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num43*100)+"%", float64(e1), float64(e2))
 		}
 		dc.DrawImage(bg, 505, 420)
 		dc.DrawImage(one.Image(), 505, 420)
 
 		// 天赋等级
-		if err := dc.LoadFontFace(FontFile, 30); err != nil { // 字体大小
+		if err := dc.LoadFontFace(FiFile, 30); err != nil { // 字体大小
 			panic(err)
 		}
 		talentid := IdtoTalent[wifeid]
@@ -279,6 +324,7 @@ func init() { // 主函数
 		if lin3 == 10 {
 			dc.DrawImage(tuguan, 928, 215)
 		}
+
 		//武器图层
 		//新建图层,实现阴影
 		yinwq := Yinying(340, 180, 16)
@@ -289,17 +335,28 @@ func init() { // 主函数
 		}
 		two.SetRGB(1, 1, 1) //白色
 		//武器名
+		//纠正圣遗物空缺报错的无返回情况
+		if len(alldata.AvatarInfoList[t].EquipList) != 6 {
+			ctx.SendChain(message.Text("角色圣遗物有空缺,暂时无法查看"))
+			return
+		}
 		wq := IdforNamemap[alldata.AvatarInfoList[t].EquipList[5].Flat.NameTextHash]
 		two.DrawString(wq, 180, 50)
 
 		//详细
-		two.DrawString("攻击力:"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[0].Value, 'f', 1, 32), 150, 130)
+		two.DrawString("攻击力:", 150, 130)
+		two.DrawString("精炼:", 245, 90)
+		if err := two.LoadFontFace(FiFile, 30); err != nil { // 字体大小
+			panic(err)
+		}
+		two.DrawString(strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[0].Value, 'f', 1, 32), 250, 130)
 		//Lv,精炼
 		var wqjl int
 		for m := range alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap {
 			wqjl = m
 		}
-		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.Level)+"  精炼:"+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap[wqjl]+1), 150, 90)
+		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.Level)+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap[wqjl]+1), 150, 90)
+		two.DrawString(strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap[wqjl]+1), 316, 90)
 		/*副词条,放不下
 		fucitiao, _ := IdforNamemap[alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[1].SubPropId] //名称
 		var baifen = "%"
@@ -351,7 +408,10 @@ func init() { // 主函数
 			yy = 145
 			pingfeng = 0
 			//主词条
-			three.DrawString("主:"+zhuci, xx, yy)                                                                                      //主词条名字
+			three.DrawString("主:"+zhuci, xx, yy)
+			if err := three.LoadFontFace(FiFile, 30); err != nil {
+				panic(err)
+			} //主词条名字
 			three.DrawString("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 200, yy) //主词条属性
 			//算分
 			pingfeng += Countcitiao(zhuci, alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value)
@@ -367,14 +427,27 @@ func init() { // 主函数
 				case 3:
 					yy = 325
 				}
+				if err := three.LoadFontFace(FontFile, 30); err != nil {
+					panic(err)
+				}
 				three.DrawString(StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), xx, yy)
+				if err := three.LoadFontFace(FiFile, 30); err != nil {
+					panic(err)
+				}
 				three.DrawString("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 200, yy)
 				pingfeng += Countcitiao(StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value)
 			}
 			allfen += pingfeng
 
 			//圣遗物单个评分
-			three.DrawString(strconv.FormatFloat((float64(int(pingfeng*10)))/10.0, 'f', 1, 64)+"分 --"+Pingji(pingfeng), 120, 85)
+			if err := three.LoadFontFace(FiFile, 30); err != nil {
+				panic(err)
+			}
+			three.DrawString(Ftoone(pingfeng)+"-----"+Pingji(pingfeng), 110, 85)
+			if err := three.LoadFontFace(FontFile, 30); err != nil {
+				panic(err)
+			}
+			three.DrawString("分", 175, 85)
 
 			switch i {
 			case 0:
@@ -407,10 +480,10 @@ func init() { // 主函数
 		four.SetRGB(1, 1, 1) //白色
 		four.DrawString("评分规则:爆伤+暴击*2", 50, 35)
 
-		if err := four.LoadFontFace(FontFile, 50); err != nil {
+		if err := four.LoadFontFace(FiFile, 50); err != nil {
 			panic(err)
 		}
-		four.DrawString(strconv.FormatFloat((float64(int(allfen*10)))/10.0, 'f', 1, 64), 50, 100)
+		four.DrawString(Ftoone(allfen), 50, 100)
 
 		if err := four.LoadFontFace(FontFile, 25); err != nil {
 			panic(err)

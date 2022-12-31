@@ -657,3 +657,8 @@ func Pingji(val float64) string {
 	}
 	return fff
 }
+
+// Ftoone 保留一位小数并转化string
+func Ftoone(f float64) string {
+	return strconv.FormatFloat((float64(int(f*10)))/10.0, 'f', 1, 64)
+}
