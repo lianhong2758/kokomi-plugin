@@ -26,7 +26,7 @@ import (
 
 const (
 	url      = "https://enka.minigg.cn/u/%v/__data.json"
-	edition  = "Created By ZeroBot-Plugin v1.6.1-beta2 & kokomi v2"
+	edition  = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2"
 	tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
 	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
 	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf"    // 汉字字体
@@ -414,7 +414,9 @@ func init() { // 主函数
 			} //主词条名字
 			three.DrawString("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 200, yy) //主词条属性
 			//算分
-			pingfeng += Countcitiao(zhuci, alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value)
+			if i > 1 { //不算前两主词条属性
+				pingfeng += Countcitiao(str, zhuci, alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value/4)
+			}
 			//副词条
 			for k := 0; k < 4; k++ {
 				switch k {
@@ -435,7 +437,13 @@ func init() { // 主函数
 					panic(err)
 				}
 				three.DrawString("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 200, yy)
-				pingfeng += Countcitiao(StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value)
+				pingfeng += Countcitiao(str, StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value)
+			}
+			//评分处理,对齐
+			if i == 1 {
+				pingfeng += 9.5
+			} else if i > 1 {
+				pingfeng *= 0.85
 			}
 			allfen += pingfeng
 
@@ -444,7 +452,7 @@ func init() { // 主函数
 				panic(err)
 			}
 			three.DrawString(Ftoone(pingfeng), 110, 85)
-			three.DrawString("-"+Pingji(pingfeng), 222, 85)
+			three.DrawString("-"+Pingji(pingfeng), 222, 85) //评级
 			if err := three.LoadFontFace(FontFile, 30); err != nil {
 				panic(err)
 			}
@@ -479,7 +487,7 @@ func init() { // 主函数
 			panic(err)
 		}
 		four.SetRGB(1, 1, 1) //白色
-		four.DrawString("评分规则:爆伤+暴击*2", 50, 35)
+		four.DrawString("评分规则:通用评分规则", 50, 35)
 
 		if err := four.LoadFontFace(FiFile, 50); err != nil {
 			panic(err)
