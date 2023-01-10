@@ -1,4 +1,4 @@
-// Package kokomi  原神面板v2
+// Package kokomi  原神面板v2.1
 package kokomi
 
 import (
