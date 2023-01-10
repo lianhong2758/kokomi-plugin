@@ -172,8 +172,9 @@ func init() { // 主函数
 		// 版本号
 		dc.DrawString(edition, 180, 2380)
 		ming := len(alldata.AvatarInfoList[t].TalentIDList)
-		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 0, 40)
-		dc.DrawString(alldata.PlayerInfo.Nickname, 700, 40)
+		//好感度位置
+		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 20, 905)
+		dc.DrawString("昵称:"+alldata.PlayerInfo.Nickname, 700, 40)
 		if err := dc.LoadFontFace(FiFile, 30); err != nil {
 			panic(err)
 		}
@@ -187,7 +188,7 @@ func init() { // 主函数
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
 
 		//新建图层,实现阴影
-		bg := Yinying(540, 470, 16)
+		bg := Yinying(540, 470, 16, 0.6)
 		//字图层
 		one := gg.NewContext(540, 470)
 		if err := one.LoadFontFace(FontFile, 30); err != nil {
@@ -228,14 +229,14 @@ func init() { // 主函数
 			panic(err)
 		}
 		// 属性540*460,字30,间距15,60
-		one.SetRGB(1, 1, 1)                                                                       //白色
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2000), 335, 40)           //生命
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2001), 335, 100)          //攻击
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2002), 335, 160)          //防御
-		one.DrawString(strconv.Itoa(int(alldata.AvatarInfoList[t].FightPropMap.Num28)), 335, 220) //精通
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 335, 280)    //暴击
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 335, 340)    //爆伤
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 335, 400)    //充能
+		one.SetRGB(1, 1, 1)                                                                    //白色
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2000), 335, 40)        //生命
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2001), 335, 100)       //攻击
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2002), 335, 160)       //防御
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num28), 335, 220)         //精通
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 335, 280) //暴击
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 335, 340) //爆伤
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 335, 400) //充能
 		// 元素加伤判断
 		e1, e2 = 335, 460
 		switch {
@@ -304,10 +305,22 @@ func init() { // 主函数
 		dc.DrawImage(tulin2, 733, bb)
 		dc.DrawImage(tulin3, 910, 260)
 
+		//Lv背景
+		talentying := gg.NewContext(40, 35)
+		talentying.SetRGB(1, 1, 1) //白色
+		talentying.DrawRoundedRectangle(0, 0, 40, 35, 5)
+		talentying.Fill()
+		talenty := AdjustOpacity(talentying.Image(), 0.9)
+		dc.DrawImage(talenty, 570, 350)
+		dc.DrawImage(talenty, 750, 350)
+		dc.DrawImage(talenty, 930, 350)
+
 		//Lv间隔180
-		dc.DrawString(strconv.Itoa(lin1), 580, 380)
-		dc.DrawString(strconv.Itoa(lin2), 760, 380)
-		dc.DrawString(strconv.Itoa(lin3), 940, 380)
+		dc.SetRGB(0, 0, 0) // 换黑色
+		dc.DrawString(strconv.Itoa(lin1), float64(580-lin1/10*8), 380)
+		dc.DrawString(strconv.Itoa(lin2), float64(760-lin2/10*8), 380)
+		dc.DrawString(strconv.Itoa(lin3), float64(940-lin3/10*8), 380)
+		dc.SetRGB(1, 1, 1) // 换白色
 		//皇冠
 		tuguan, err := gg.LoadImage("plugin/kokomi/data/zawu/crown.png")
 		if err != nil {
@@ -327,7 +340,7 @@ func init() { // 主函数
 
 		//武器图层
 		//新建图层,实现阴影
-		yinwq := Yinying(340, 180, 16)
+		yinwq := Yinying(340, 180, 16, 0.6)
 		// 字图层
 		two := gg.NewContext(340, 180)
 		if err := two.LoadFontFace(FontFile, 30); err != nil {
@@ -378,7 +391,7 @@ func init() { // 主函数
 
 		//圣遗物
 		//缩小
-		yinsyw := Yinying(340, 350, 16)
+		yinsyw := Yinying(340, 350, 16, 0.6)
 		for i := 0; i < 5; i++ {
 			// 字图层
 			three := gg.NewContext(340, 350)
@@ -480,7 +493,7 @@ func init() { // 主函数
 		}
 
 		//总评分框
-		yinping := Yinying(340, 160, 16)
+		yinping := Yinying(340, 160, 16, 0.6)
 		// 字图层
 		four := gg.NewContext(340, 160)
 		if err := four.LoadFontFace(FontFile, 25); err != nil {

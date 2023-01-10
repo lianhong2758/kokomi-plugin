@@ -30,15 +30,15 @@ func AdjustOpacity(m image.Image, percentage float64) image.Image {
 }
 
 // Yinying 绘制阴影
-func Yinying(x int, y int, r float64) image.Image {
-	//新建图层,实现阴影400*510
+func Yinying(x int, y int, r float64, tou float64) image.Image {
+	//新建图层,实现阴影
 	zero := gg.NewContext(x, y)
-	zero.SetRGBA255(0, 0, 0, 213)
+	zero.SetRGBA255(0, 0, 0, 213) //黑色
 	zero.DrawRoundedRectangle(0, 0, float64(x), float64(y), r)
 	zero.Fill()
 	//模糊
 	//shadow := imaging.Blur(one.Image(), 16)
-	bg := AdjustOpacity(zero.Image(), 0.6)
+	bg := AdjustOpacity(zero.Image(), tou)
 	return bg
 }
 
