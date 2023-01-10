@@ -506,11 +506,12 @@ func init() { // 主函数
 			panic(err)
 		}
 		four.DrawString(Ftoone(allfen), 50, 100)
-
+		four.DrawString("-"+Pingji(allfen/5), 200, 100)
 		if err := four.LoadFontFace(FontFile, 25); err != nil {
 			panic(err)
 		}
 		four.DrawString("圣遗物总分", 50, 150)
+		four.DrawString("评级", 230, 150)
 		dc.DrawImage(yinping, 20, 1110)
 		dc.DrawImage(four.Image(), 20, 1110)
 
