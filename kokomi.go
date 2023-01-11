@@ -131,7 +131,8 @@ func init() { // 主函数
 		}
 
 		// 画图
-		dc := gg.NewContext(1080, 2400) // 画布大小
+		var height int = 2400
+		dc := gg.NewContext(1080, height) // 画布大小
 		dc.SetHexColor("#98F5FF")
 		dc.Clear() // 背景
 		pro, flg := Promap[wifeid]
@@ -178,8 +179,7 @@ func init() { // 主函数
 		if err := dc.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
 		}
-		// 版本号
-		dc.DrawString(edition, 180, 2380)
+
 		ming := len(alldata.AvatarInfoList[t].TalentIDList)
 		//好感度位置
 		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 20, 905)
@@ -539,19 +539,31 @@ func init() { // 主函数
 
 		//伤害显示区,暂时展示图片
 		pic, err := web.GetData(tu)
+		var dst image.Image
 		if err != nil {
-			ctx.SendChain(message.Text("错误：获取插图失败", err))
-			return
-		}
-		dst, _, err := image.Decode(bytes.NewReader(pic))
-		if err != nil {
-			ctx.SendChain(message.Text("错误：获取插图失败", err))
-			return
+			dst, err = gg.LoadJPG("plugin/kokomi/data/tietu/tietie.jpg")
+			if err != nil {
+				ctx.SendChain(message.Text("获取本地插图失败", err))
+				return
+			}
+		} else {
+			dst, _, err = image.Decode(bytes.NewReader(pic))
+			if err != nil {
+				ctx.SendChain(message.Text("插图解析失败", err))
+				return
+			}
 		}
 		sx := float64(1080) / float64(dst.Bounds().Size().X) // 计算缩放倍率（宽）
 		dc.Scale(sx, sx)                                     // 使画笔按倍率缩放
 		dc.DrawImage(dst, 0, int(1700*(1/sx)))               // 贴图（会受上述缩放倍率影响）
 		dc.Scale(1/sx, 1/sx)
+
+		// 版本号
+		if err := dc.LoadFontFace(FontFile, 30); err != nil {
+			panic(err)
+		}
+		dc.DrawString(edition, 180, float64(height)-20)
+
 		// 输出图片
 		ff, cl := writer.ToBytes(dc.Image())  // 图片放入缓存
 		ctx.SendChain(message.ImageBytes(ff)) // 输出
