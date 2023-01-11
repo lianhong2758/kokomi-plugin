@@ -15,7 +15,7 @@ func FindName(a string) string {
 		a = "雷电将军"
 	case "一斗":
 		a = "荒泷一斗"
-	case "八重":
+	case "八重", "神子":
 		a = "八重神子"
 	case "九条":
 		a = "九条裟罗"

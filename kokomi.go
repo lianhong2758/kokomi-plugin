@@ -2,21 +2,24 @@
 package kokomi
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"image"
+	"io/ioutil"
+
 	"os"
 	"strconv"
 	"strings"
 	"unicode/utf8"
-
-	"bytes"
-	"image"
 
 	"github.com/Coloured-glaze/gg"
 	"github.com/FloatTech/floatbox/img/writer"
 	"github.com/FloatTech/floatbox/web"
 	ctrl "github.com/FloatTech/zbpctrl"
 	"github.com/FloatTech/zbputils/control"
+	"golang.org/x/image/webp"
+
 	//"github.com/FloatTech/zbputils/img"
 	"github.com/nfnt/resize"
 	zero "github.com/wdvxdr1123/ZeroBot"
@@ -145,8 +148,15 @@ func init() { // 主函数
 		dc.DrawImage(beijing, -792, 0)
 		dc.Scale(3/5.0, 3/5.0)
 		dc.SetRGB(1, 1, 1) // 换白色
-		// 角色立绘565*935
-		lihui, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
+		// 角色立绘
+		lihuifile, err := os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
+		if err != nil {
+			ctx.SendChain(message.Text("获取立绘失败", err))
+		}
+		defer lihuifile.Close()                 // 关闭文件
+		content, _ := ioutil.ReadAll(lihuifile) // 传入io.Reader
+		lihui, err := webp.Decode(bytes.NewReader(content))
+		//lihui, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
 		if err != nil {
 			ctx.SendChain(message.Text("获取立绘失败", err))
 			return
