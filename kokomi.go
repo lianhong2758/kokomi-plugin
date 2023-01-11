@@ -17,7 +17,6 @@ import (
 	"github.com/FloatTech/floatbox/web"
 	ctrl "github.com/FloatTech/zbpctrl"
 	"github.com/FloatTech/zbputils/control"
-
 	//"github.com/FloatTech/zbputils/img"
 	"github.com/nfnt/resize"
 	zero "github.com/wdvxdr1123/ZeroBot"
@@ -449,7 +448,21 @@ func init() { // 主函数
 					panic(err)
 				}
 				three.DrawString("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 200, yy)
-				pingfeng += Countcitiao(str, StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value)
+				var fuciname = StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID)
+				var fufigure = alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value
+				switch fuciname {
+				case "小攻击":
+					fufigure = fufigure / alldata.AvatarInfoList[t].FightPropMap.Num4
+					fuciname = "大攻击"
+				case "小防御":
+					fufigure = fufigure / alldata.AvatarInfoList[t].FightPropMap.Num7
+					fuciname = "大防御"
+				case "小生命":
+					fufigure = fufigure / alldata.AvatarInfoList[t].FightPropMap.Num1
+					fuciname = "大生命"
+				default:
+				}
+				pingfeng += Countcitiao(str, fuciname, fufigure)
 			}
 			//评分处理,对齐
 			if i == 2 {
