@@ -409,5 +409,5 @@ func Pingji(val float64) string {
 
 // Ftoone 保留一位小数并转化string
 func Ftoone(f float64) string {
-	return strconv.FormatFloat((float64(int(f*10)))/10.0, 'f', 1, 64)
+	return strconv.FormatFloat(f, 'f', 1, 64)
 }

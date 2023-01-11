@@ -349,11 +349,9 @@ func init() { // 主函数
 		two.SetRGB(1, 1, 1) //白色
 		//武器名
 		//纠正圣遗物空缺报错的无返回情况
-		if len(alldata.AvatarInfoList[t].EquipList) != 6 {
-			ctx.SendChain(message.Text("角色圣遗物有空缺,暂时无法查看"))
-			return
-		}
-		wq := IdforNamemap[alldata.AvatarInfoList[t].EquipList[5].Flat.NameTextHash]
+		l := len(alldata.AvatarInfoList[t].EquipList)
+
+		wq := IdforNamemap[alldata.AvatarInfoList[t].EquipList[l-1].Flat.NameTextHash]
 		two.DrawString(wq, 150, 50)
 
 		//详细
@@ -362,14 +360,14 @@ func init() { // 主函数
 		if err := two.LoadFontFace(FiFile, 30); err != nil { // 字体大小
 			panic(err)
 		}
-		two.DrawString(strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[0].Value, 'f', 1, 32), 250, 130)
+		two.DrawString(strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[l-1].Flat.WeaponStat[0].Value, 'f', 1, 32), 250, 130)
 		//Lv,精炼
 		var wqjl int
-		for m := range alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap {
+		for m := range alldata.AvatarInfoList[t].EquipList[l-1].Weapon.AffixMap {
 			wqjl = m
 		}
-		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.Level), 150, 90)
-		two.DrawString(strconv.Itoa(alldata.AvatarInfoList[t].EquipList[5].Weapon.AffixMap[wqjl]+1), 316, 90)
+		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[l-1].Weapon.Level), 150, 90)
+		two.DrawString(strconv.Itoa(alldata.AvatarInfoList[t].EquipList[l-1].Weapon.AffixMap[wqjl]+1), 316, 90)
 		/*副词条,放不下
 		fucitiao, _ := IdforNamemap[alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[1].SubPropId] //名称
 		var baifen = "%"
@@ -392,7 +390,7 @@ func init() { // 主函数
 		//圣遗物
 		//缩小
 		yinsyw := Yinying(340, 350, 16, 0.6)
-		for i := 0; i < 5; i++ {
+		for i := 0; i < l-1; i++ {
 			// 字图层
 			three := gg.NewContext(340, 350)
 			if err := three.LoadFontFace(FontFile, 30); err != nil {
@@ -431,7 +429,8 @@ func init() { // 主函数
 				pingfeng += Countcitiao(str, zhuci, alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value/4)
 			}
 			//副词条
-			for k := 0; k < 4; k++ {
+			p := len(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats)
+			for k := 0; k < p; k++ {
 				switch k {
 				case 0:
 					yy = 190
@@ -559,7 +558,7 @@ func init() { // 主函数
 		suid := ctx.State["regex_matched"].([]string)[3] // 获取uid
 		int64uid, err := strconv.ParseInt(suid, 10, 64)
 		if suid == "" || int64uid < 100000000 || int64uid > 1000000000 || err != nil {
-			ctx.SendChain(message.Text("-请输入正确的uid"))
+			//ctx.SendChain(message.Text("-请输入正确的uid"))
 			return
 		}
 		sqquid := strconv.Itoa(int(ctx.Event.UserID))
@@ -580,4 +579,15 @@ func init() { // 主函数
 		ctx.SendChain(message.Text("-角色面板更新成功喵~"))
 		file1.Close()
 	})
+	/*预留菜单命令
+	en.OnFullMatchGroup([]string{"菜单", "kokomi菜单"}).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		menu, err := gg.LoadImage("plugin/kokomi/data/")
+		if err != nil {
+			ctx.SendChain(message.Text("获取菜单图片失败", err))
+			return
+		}
+		ff, cl := writer.ToBytes(menu)
+		ctx.SendChain(message.ImageBytes(ff))
+		cl()
+	})*/
 }
