@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
-	"io/ioutil"
+	//"io/ioutil"
 
 	"os"
 	"strconv"
@@ -154,12 +154,10 @@ func init() { // 主函数
 		if err != nil {
 			ctx.SendChain(message.Text("获取立绘失败", err))
 		}
-		defer lihuifile.Close()                 // 关闭文件
-		content, _ := ioutil.ReadAll(lihuifile) // 传入io.Reader
-		lihui, err := webp.Decode(bytes.NewReader(content))
-		//lihui, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
+		defer lihuifile.Close() // 关闭文件
+		lihui, err := webp.Decode(lihuifile)
 		if err != nil {
-			ctx.SendChain(message.Text("获取立绘失败", err))
+			ctx.SendChain(message.Text("获取立绘失败^2", err))
 			return
 		}
 		//立绘参数
