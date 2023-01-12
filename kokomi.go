@@ -149,201 +149,6 @@ func init() { // 主函数
 		dc.DrawImage(beijing, -792, 0)
 		dc.Scale(3/5.0, 3/5.0)
 		dc.SetRGB(1, 1, 1) // 换白色
-		// 角色立绘
-		lihuifile, err := os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
-		if err != nil {
-			ctx.SendChain(message.Text("获取立绘失败", err))
-		}
-		defer lihuifile.Close() // 关闭文件
-		lihui, err := webp.Decode(lihuifile)
-		if err != nil {
-			ctx.SendChain(message.Text("获取立绘失败^2", err))
-			return
-		}
-		//立绘参数
-		sxx := lihui.Bounds().Size().X
-		syy := lihui.Bounds().Size().Y
-		rate := 800 / float64(syy)
-		dc.Scale(rate, rate)
-		dc.DrawImage(lihui, int(270-float64(sxx)/2), 90)
-		dc.Scale(1/rate, 1/rate)
-		//角色名字
-		if err := dc.LoadFontFace(NameFont, 80); err != nil {
-			panic(err)
-		}
-		namelen := utf8.RuneCountInString(str)
-		dc.DrawString(str, float64(1050-namelen*90), float64(130))
-		// 好感度,uid
-		if err := dc.LoadFontFace(FontFile, 30); err != nil {
-			panic(err)
-		}
-
-		ming := len(alldata.AvatarInfoList[t].TalentIDList)
-		//好感度位置
-		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 20, 905)
-		dc.DrawString("昵称:"+alldata.PlayerInfo.Nickname, 700, 40)
-		if err := dc.LoadFontFace(FiFile, 30); err != nil {
-			panic(err)
-		}
-		dc.DrawString("UID:"+suid+"---LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+"---"+strconv.Itoa(ming), 600, 180)
-		if err := dc.LoadFontFace(FontFile, 30); err != nil {
-			panic(err)
-		}
-		dc.DrawString("命", 976, 180)
-		// 角色等级,命之座(合并上程序)
-		//dc.DrawString("LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level), 630, 130) // 角色等级
-		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
-
-		//新建图层,实现阴影
-		bg := Yinying(540, 470, 16, 0.6)
-		//字图层
-		one := gg.NewContext(540, 470)
-		if err := one.LoadFontFace(FontFile, 30); err != nil {
-			panic(err)
-		}
-		// 属性540*460,字30,间距15,60
-		one.SetRGB(1, 1, 1) //白色
-		one.DrawString("生命值:", 70, 40)
-		one.DrawString("攻击力:", 70, 100)
-		one.DrawString("防御力:", 70, 160)
-		one.DrawString("元素精通:", 70, 220)
-		one.DrawString("暴击率:", 70, 280)
-		one.DrawString("暴击伤害:", 70, 340)
-		one.DrawString("元素充能:", 70, 400)
-		// 元素加伤判断
-		e1, e2 := 70, 460
-		switch {
-		case alldata.AvatarInfoList[t].FightPropMap.Num30*100 > 0:
-			one.DrawString("物理加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num40*100 > 0:
-			one.DrawString("火元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num41*100 > 0:
-			one.DrawString("雷元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num42*100 > 0:
-			one.DrawString("水元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num44*100 > 0:
-			one.DrawString("风元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num45*100 > 0:
-			one.DrawString("岩元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num46*100 > 0:
-			one.DrawString("冰元素加伤:", float64(e1), float64(e2))
-		default: //草或者无
-			one.DrawString("元素加伤:", float64(e1), float64(e2))
-		}
-
-		//值,一一对应
-		if err := one.LoadFontFace(FiFile, 30); err != nil {
-			panic(err)
-		}
-		// 属性540*460,字30,间距15,60
-		one.SetRGB(1, 1, 1)                                                                    //白色
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2000), 335, 40)        //生命
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2001), 335, 100)       //攻击
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2002), 335, 160)       //防御
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num28), 335, 220)         //精通
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 335, 280) //暴击
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 335, 340) //爆伤
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 335, 400) //充能
-		// 元素加伤判断
-		e1, e2 = 335, 460
-		switch {
-		case alldata.AvatarInfoList[t].FightPropMap.Num30*100 > 0: //物理
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num30*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num40*100 > 0: //火
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num40*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num41*100 > 0: //雷
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num41*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num42*100 > 0: //水
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num42*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num44*100 > 0: //风
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num44*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num45*100 > 0: //岩
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num45*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num46*100 > 0: //冰
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num46*100)+"%", float64(e1), float64(e2))
-		default: //草或者无
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num43*100)+"%", float64(e1), float64(e2))
-		}
-		dc.DrawImage(bg, 505, 420)
-		dc.DrawImage(one.Image(), 505, 420)
-
-		// 天赋等级
-		if err := dc.LoadFontFace(FiFile, 30); err != nil { // 字体大小
-			panic(err)
-		}
-		talentid := IdtoTalent[wifeid]
-		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[0]]
-		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[1]]
-		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
-		//v1版本dc.DrawString("天赋等级:"+strconv.Itoa(lin1)+"--"+strconv.Itoa(lin2)+"--"+strconv.Itoa(lin3), 630, 900)
-		//贴图
-		tulin1, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-a.webp")
-		tulin1 = resize.Resize(80, 0, tulin1, resize.Bilinear)
-		if err != nil {
-			ctx.SendChain(message.Text("获取天赋图标失败", err))
-			return
-		}
-		tulin2, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-e.webp")
-		tulin2 = resize.Resize(80, 0, tulin2, resize.Bilinear)
-		if err != nil {
-			ctx.SendChain(message.Text("获取天赋图标失败", err))
-			return
-		}
-		tulin3, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-q.webp")
-		tulin3 = resize.Resize(80, 0, tulin3, resize.Bilinear)
-		if err != nil {
-			ctx.SendChain(message.Text("获取天赋图标失败", err))
-			return
-		}
-		//边框间隔180
-		kuang, err := gg.LoadPNG("plugin/kokomi/data/pro/" + pro + ".png")
-		if err != nil {
-			ctx.SendChain(message.Text("获取天赋边框失败", err))
-			return
-		}
-		dc.DrawImage(kuang, 520, 220)
-		dc.DrawImage(kuang, 700, 220)
-		dc.DrawImage(kuang, 880, 220)
-
-		//贴图间隔214
-		dc.DrawImage(tulin1, 550, 260)
-		//纠正素材问题
-		bb := Tianfujiuzhen(str)
-		dc.DrawImage(tulin2, 733, bb)
-		dc.DrawImage(tulin3, 910, 260)
-
-		//Lv背景
-		talentying := gg.NewContext(40, 35)
-		talentying.SetRGB(1, 1, 1) //白色
-		talentying.DrawRoundedRectangle(0, 0, 40, 35, 5)
-		talentying.Fill()
-		talenty := AdjustOpacity(talentying.Image(), 0.9)
-		dc.DrawImage(talenty, 570, 350)
-		dc.DrawImage(talenty, 750, 350)
-		dc.DrawImage(talenty, 930, 350)
-
-		//Lv间隔180
-		dc.SetRGB(0, 0, 0) // 换黑色
-		dc.DrawString(strconv.Itoa(lin1), float64(580-lin1/10*8), 380)
-		dc.DrawString(strconv.Itoa(lin2), float64(760-lin2/10*8), 380)
-		dc.DrawString(strconv.Itoa(lin3), float64(940-lin3/10*8), 380)
-		dc.SetRGB(1, 1, 1) // 换白色
-		//皇冠
-		tuguan, err := gg.LoadImage("plugin/kokomi/data/zawu/crown.png")
-		if err != nil {
-			ctx.SendChain(message.Text("获取皇冠图标失败", err))
-			return
-		}
-		tuguan = resize.Resize(0, 55, tuguan, resize.Bilinear)
-		if lin1 == 10 {
-			dc.DrawImage(tuguan, 568, 215)
-		}
-		if lin2 == 10 {
-			dc.DrawImage(tuguan, 748, 215)
-		}
-		if lin3 == 10 {
-			dc.DrawImage(tuguan, 928, 215)
-		}
 
 		//武器图层
 		//新建图层,实现阴影
@@ -555,7 +360,213 @@ func init() { // 主函数
 		dc.Scale(sx, sx)                                     // 使画笔按倍率缩放
 		dc.DrawImage(dst, 0, int(1700*(1/sx)))               // 贴图（会受上述缩放倍率影响）
 		dc.Scale(1/sx, 1/sx)
+		//************************************************************************************
+		//部分数据提前计算获取
+		//命之座
+		ming := len(alldata.AvatarInfoList[t].TalentIDList)
+		//天赋等级
+		talentid := IdtoTalent[wifeid]
+		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[0]]
+		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[1]]
+		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
+		// 角色立绘
+		var lihuifile *os.File
+		if allfen/5 > 49.5 || ming > 4 || (lin1 == 10 && lin2 == 10 && lin3 == 10) { //第二立绘判定条件
+			lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
+			if err != nil {
+				ctx.SendChain(message.Text("获取立绘失败", err))
+			}
+			defer lihuifile.Close() // 关闭文件
+		} else {
+			lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
+			if err != nil {
+				ctx.SendChain(message.Text("获取立绘失败", err))
+			}
+			defer lihuifile.Close() // 关闭文件
+		}
+		lihui, err := webp.Decode(lihuifile)
+		if err != nil {
+			ctx.SendChain(message.Text("获取立绘失败^2", err))
+			return
+		}
+		//立绘参数
+		sxx := lihui.Bounds().Size().X
+		//syy := lihui.Bounds().Size().Y
+		lihui = resize.Resize(0, 790, lihui, resize.Bilinear)
+		dc.DrawImage(lihui, int(360-float64(sxx)/2), 90)
 
+		//角色名字
+		if err := dc.LoadFontFace(NameFont, 80); err != nil {
+			panic(err)
+		}
+		namelen := utf8.RuneCountInString(str)
+		dc.DrawString(str, float64(1050-namelen*90), float64(130))
+		// 好感度,uid
+		if err := dc.LoadFontFace(FontFile, 30); err != nil {
+			panic(err)
+		}
+
+		//好感度位置
+		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 20, 910)
+		dc.DrawString("昵称:"+alldata.PlayerInfo.Nickname, 700, 40)
+		if err := dc.LoadFontFace(FiFile, 30); err != nil {
+			panic(err)
+		}
+		dc.DrawString("UID:"+suid+"---LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+"---"+strconv.Itoa(ming), 600, 180)
+		if err := dc.LoadFontFace(FontFile, 30); err != nil {
+			panic(err)
+		}
+		dc.DrawString("命", 976, 180)
+		// 角色等级,命之座(合并上程序)
+		//dc.DrawString("LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level), 630, 130) // 角色等级
+		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
+
+		//新建图层,实现阴影
+		bg := Yinying(540, 470, 16, 0.6)
+		//字图层
+		one := gg.NewContext(540, 470)
+		if err := one.LoadFontFace(FontFile, 30); err != nil {
+			panic(err)
+		}
+		// 属性540*460,字30,间距15,60
+		one.SetRGB(1, 1, 1) //白色
+		one.DrawString("生命值:", 70, 40)
+		one.DrawString("攻击力:", 70, 100)
+		one.DrawString("防御力:", 70, 160)
+		one.DrawString("元素精通:", 70, 220)
+		one.DrawString("暴击率:", 70, 280)
+		one.DrawString("暴击伤害:", 70, 340)
+		one.DrawString("元素充能:", 70, 400)
+		// 元素加伤判断
+		e1, e2 := 70, 460
+		switch {
+		case alldata.AvatarInfoList[t].FightPropMap.Num30*100 > 0:
+			one.DrawString("物理加伤:", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num40*100 > 0:
+			one.DrawString("火元素加伤:", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num41*100 > 0:
+			one.DrawString("雷元素加伤:", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num42*100 > 0:
+			one.DrawString("水元素加伤:", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num44*100 > 0:
+			one.DrawString("风元素加伤:", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num45*100 > 0:
+			one.DrawString("岩元素加伤:", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num46*100 > 0:
+			one.DrawString("冰元素加伤:", float64(e1), float64(e2))
+		default: //草或者无
+			one.DrawString("元素加伤:", float64(e1), float64(e2))
+		}
+
+		//值,一一对应
+		if err := one.LoadFontFace(FiFile, 30); err != nil {
+			panic(err)
+		}
+		// 属性540*460,字30,间距15,60
+		one.SetRGB(1, 1, 1)                                                                    //白色
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2000), 335, 40)        //生命
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2001), 335, 100)       //攻击
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2002), 335, 160)       //防御
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num28), 335, 220)         //精通
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 335, 280) //暴击
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 335, 340) //爆伤
+		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 335, 400) //充能
+		// 元素加伤判断
+		e1, e2 = 335, 460
+		switch {
+		case alldata.AvatarInfoList[t].FightPropMap.Num30*100 > 0: //物理
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num30*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num40*100 > 0: //火
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num40*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num41*100 > 0: //雷
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num41*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num42*100 > 0: //水
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num42*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num44*100 > 0: //风
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num44*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num45*100 > 0: //岩
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num45*100)+"%", float64(e1), float64(e2))
+		case alldata.AvatarInfoList[t].FightPropMap.Num46*100 > 0: //冰
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num46*100)+"%", float64(e1), float64(e2))
+		default: //草或者无
+			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num43*100)+"%", float64(e1), float64(e2))
+		}
+		dc.DrawImage(bg, 505, 420)
+		dc.DrawImage(one.Image(), 505, 420)
+
+		// 天赋等级
+		if err := dc.LoadFontFace(FiFile, 30); err != nil { // 字体大小
+			panic(err)
+		}
+		//贴图
+		tulin1, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-a.webp")
+		tulin1 = resize.Resize(80, 0, tulin1, resize.Bilinear)
+		if err != nil {
+			ctx.SendChain(message.Text("获取天赋图标失败", err))
+			return
+		}
+		tulin2, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-e.webp")
+		tulin2 = resize.Resize(80, 0, tulin2, resize.Bilinear)
+		if err != nil {
+			ctx.SendChain(message.Text("获取天赋图标失败", err))
+			return
+		}
+		tulin3, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/talent-q.webp")
+		tulin3 = resize.Resize(80, 0, tulin3, resize.Bilinear)
+		if err != nil {
+			ctx.SendChain(message.Text("获取天赋图标失败", err))
+			return
+		}
+		//边框间隔180
+		kuang, err := gg.LoadPNG("plugin/kokomi/data/pro/" + pro + ".png")
+		if err != nil {
+			ctx.SendChain(message.Text("获取天赋边框失败", err))
+			return
+		}
+		dc.DrawImage(kuang, 520, 220)
+		dc.DrawImage(kuang, 700, 220)
+		dc.DrawImage(kuang, 880, 220)
+
+		//贴图间隔214
+		dc.DrawImage(tulin1, 550, 260)
+		//纠正素材问题
+		bb := Tianfujiuzhen(str)
+		dc.DrawImage(tulin2, 733, bb)
+		dc.DrawImage(tulin3, 910, 260)
+
+		//Lv背景
+		talentying := gg.NewContext(40, 35)
+		talentying.SetRGB(1, 1, 1) //白色
+		talentying.DrawRoundedRectangle(0, 0, 40, 35, 5)
+		talentying.Fill()
+		talenty := AdjustOpacity(talentying.Image(), 0.9)
+		dc.DrawImage(talenty, 570, 350)
+		dc.DrawImage(talenty, 750, 350)
+		dc.DrawImage(talenty, 930, 350)
+
+		//Lv间隔180
+		dc.SetRGB(0, 0, 0) // 换黑色
+		dc.DrawString(strconv.Itoa(lin1), float64(580-lin1/10*8), 380)
+		dc.DrawString(strconv.Itoa(lin2), float64(760-lin2/10*8), 380)
+		dc.DrawString(strconv.Itoa(lin3), float64(940-lin3/10*8), 380)
+		dc.SetRGB(1, 1, 1) // 换白色
+		//皇冠
+		tuguan, err := gg.LoadImage("plugin/kokomi/data/zawu/crown.png")
+		if err != nil {
+			ctx.SendChain(message.Text("获取皇冠图标失败", err))
+			return
+		}
+		tuguan = resize.Resize(0, 55, tuguan, resize.Bilinear)
+		if lin1 == 10 {
+			dc.DrawImage(tuguan, 568, 215)
+		}
+		if lin2 == 10 {
+			dc.DrawImage(tuguan, 748, 215)
+		}
+		if lin3 == 10 {
+			dc.DrawImage(tuguan, 928, 215)
+		}
+		//**************************************************************************************************
 		// 版本号
 		if err := dc.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
@@ -609,7 +620,7 @@ func init() { // 主函数
 		// 创建存储文件,路径plugin/kokomi/data/js
 		file1, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file1.Write(es)
-		ctx.SendChain(message.Text("-角色面板更新成功喵~"))
+		ctx.SendChain(message.Text("-获取角色面板成功喵~"))
 		file1.Close()
 	})
 	/*预留菜单命令
