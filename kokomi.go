@@ -395,7 +395,7 @@ func init() { // 主函数
 		sxx := lihui.Bounds().Size().X
 		//syy := lihui.Bounds().Size().Y
 		lihui = resize.Resize(0, 790, lihui, resize.Bilinear)
-		dc.DrawImage(lihui, int(360-float64(sxx)/2), 90)
+		dc.DrawImage(lihui, int(380-float64(sxx)/2), 90)
 
 		//角色名字
 		if err := dc.LoadFontFace(NameFont, 80); err != nil {
