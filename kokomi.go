@@ -6,8 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
-	//"io/ioutil"
-
 	"os"
 	"strconv"
 	"strings"
@@ -38,7 +36,7 @@ const (
 func init() { // 主函数
 	en := control.Register("kokomi", &ctrl.Options[*zero.Ctx]{
 		DisableOnDefault: false,
-		Brief:            "原神相关功能",
+		Brief:            "原神面板查询",
 		Help: "原神面板执行方法,第一次需要依次执行\n" +
 			"- 绑定......(uid)\n" +
 			"- 更新面板\n" +
@@ -52,7 +50,6 @@ func init() { // 主函数
 		qquid := ctx.Event.UserID
 		// 获取uid
 		uid := Getuid(qquid)
-		// uid := 113781666 //测试用
 		suid := strconv.Itoa(uid)
 		if uid == 0 {
 			ctx.SendChain(message.Text("-未绑定uid"))
@@ -110,11 +107,17 @@ func init() { // 主函数
 				str = str[1:]
 			}
 			//匹配简称/外号
-			str = FindName(str)
-			var flag bool
-			wifeid, flag = Namemap[str]
-			if !flag {
+			//str = FindName(str)
+			swifeid := Findnames(str, "wife")
+			if swifeid == "" {
 				ctx.SendChain(message.Text("请输入角色全名"))
+				return
+			}
+			wifeid, _ = strconv.ParseInt(swifeid, 10, 64)
+			var flag bool
+			str, flag = Uidmap[wifeid]
+			if !flag {
+				ctx.SendChain(message.Text("Uidmap数据缺失"))
 				return
 			}
 		}
@@ -595,24 +598,6 @@ func init() { // 主函数
 		cl()
 	})
 
-	// 获取json,转移位置
-	/*en.OnFullMatch("更新面板").SetBlock(true).Handle(func(ctx *zero.Ctx) {
-		qquid := ctx.Event.UserID
-		uid := Getuid(qquid)
-		// uid := 113781666
-		suid := strconv.Itoa(uid)
-		ctx.SendChain(message.Text(uid))
-		es, err := web.GetData(fmt.Sprintf(url, uid)) // 网站返回结果
-		if err != nil {
-			ctx.SendChain(message.Text("网站获取信息失败", err))
-			return
-		}
-		// 创建存储文件,路径plugin/kokomi/data/js
-		file, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
-		_, _ = file.Write(es)
-		ctx.SendChain(message.Text("喵~更新成功"))
-		file.Close()
-	})*/
 	// 绑定uid
 	en.OnRegex(`^(#)?绑定\s*(uid)?(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		suid := ctx.State["regex_matched"].([]string)[3] // 获取uid

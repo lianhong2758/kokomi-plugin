@@ -1,5 +1,6 @@
 package kokomi // 导入yuan-shen模块
 import (
+	"encoding/json"
 	"os"
 	"strconv"
 )
@@ -21,6 +22,14 @@ type wifequan struct {
 	Recharge int //元素充能
 	Heal     int //治疗加成
 }
+
+// wiki查询地址结构解析
+type Wikimap struct {
+	Card map[string]string `json:"card"`
+}
+
+// 各种简称map查询
+var findmap map[string][]string
 
 // Uidmap wifeid->wifename
 var Uidmap = map[int64]string{ //
@@ -410,4 +419,25 @@ func Pingji(val float64) string {
 // Ftoone 保留一位小数并转化string
 func Ftoone(f float64) string {
 	return strconv.FormatFloat(f, 'f', 1, 64)
+}
+
+// Findnames 遍历寻找匹配昵称
+func Findnames(val string, typess string) string {
+	var f string = ""
+	findmap = make(map[string][]string)
+	var txt []byte
+	switch typess {
+	case "wife":
+		txt, _ = os.ReadFile("plugin/kokomi/data/json/wife_list.json")
+	}
+	_ = json.Unmarshal(txt, &findmap)
+	for k, v := range findmap {
+		for _, vv := range v {
+			if vv == val {
+				f = k
+				return f
+			}
+		}
+	}
+	return f
 }
