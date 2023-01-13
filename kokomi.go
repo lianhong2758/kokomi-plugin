@@ -200,7 +200,6 @@ func init() { // 主函数
 		dc.DrawImage(two.Image(), 20, 920)
 
 		//圣遗物
-		//缩小
 		yinsyw := Yinying(340, 350, 16, 0.6)
 		for i := 0; i < l-1; i++ {
 			// 字图层
@@ -565,6 +564,23 @@ func init() { // 主函数
 		}
 		if lin3 == 10 {
 			dc.DrawImage(tuguan, 928, 215)
+		}
+
+		//命之座
+		for m, mm := 1, 1; m < 7; m++ {
+			tuming, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/cons-" + strconv.Itoa(m) + ".webp")
+			tuming = resize.Resize(40, 40, tuming, resize.Bilinear)
+			if err != nil {
+				ctx.SendChain(message.Text("获取命之座图标失败", err))
+				return
+			}
+			kuang = resize.Resize(80, 0, kuang, resize.Bilinear)
+			dc.DrawImage(kuang, -50+m*70, 800)
+			if mm > ming {
+				tuming = AdjustOpacity(tuming, 0.5)
+			}
+			dc.DrawImage(tuming, -30+m*70, 825)
+			mm++
 		}
 		//**************************************************************************************************
 		// 版本号

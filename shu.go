@@ -402,7 +402,7 @@ func Pingji(val float64) string {
 	case val < 56.1:
 		fff = "ACE"
 	case val >= 56.1:
-		fff = "ACE^2"
+		fff = "ACES"
 	}
 	return fff
 }
