@@ -76,7 +76,7 @@ func init() { // 主函数
 		case "特产": //区域特产
 			url = url9
 			k = paths.Specialty[word]
-		case "武器": //武器图鉴
+		case "武器", "图鉴": //武器图鉴
 			url = url6
 			word = Findnames(word, "wq")
 			if word == "" {
