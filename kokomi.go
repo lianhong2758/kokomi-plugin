@@ -84,12 +84,12 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("出现错误捏：", err))
 			return
 		}
+		if len(alldata.PlayerInfo.ShowAvatarInfoList) == 0 {
+			ctx.SendChain(message.Text("-请在游戏中打开角色面板展示后再尝试"))
+			return
+		}
 		switch str {
 		case "全部", "全部角色", "#全部":
-			if len(alldata.PlayerInfo.ShowAvatarInfoList) == 0 {
-				ctx.SendChain(message.Text("-请在游戏中打开角色面板展示后再尝试"))
-				return
-			}
 			var msg strings.Builder
 			msg.WriteString("您的展示角色为:\n")
 			for i := 0; i < len(alldata.PlayerInfo.ShowAvatarInfoList); i++ {
