@@ -4,6 +4,7 @@ package kokomi
 import (
 	"encoding/json"
 	"fmt"
+	. "net/url"
 	"os"
 	"strconv"
 
@@ -15,16 +16,15 @@ import (
 )
 
 const ( //~标记已实现
-	url1  = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/GenshinWikiMap/master/results/character_map/%v.jpg" //~角色图鉴
-	url2  = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/LittlePaimonRes/main/genshin_guide/guide/%v.jpg"    //~角色攻略
-	url3  = "https://ghproxy.com/https://raw.githubusercontent.com/Nwflower/genshin-atlas/master%v"                                   //~角色材料
-	url4  = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/LittlePaimonRes/main/genshin_guide/curve/%v.jpg"    //~收益曲线
-	url5  = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/LittlePaimonRes/main/genshin_guide/panel/%v.jpg"    //~参考面板
-	url6  = "https://ghproxy.com/https://raw.githubusercontent.com/Nwflower/genshin-atlas/master%v"                                   //~武器图鉴
-	url7  = "https://ghproxy.com/https://raw.githubusercontent.com/Nwflower/genshin-atlas/master/artifact/%v.png"                     //圣遗物图鉴
-	url8  = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/GenshinWikiMap/master/results/monster_map/%v.jpg"   //~原魔图鉴
-	url9  = "https://ghproxy.com/https://raw.githubusercontent.com/Nwflower/genshin-atlas/master%v"                                   //~特产图鉴
-	url10 = "https://ghproxy.com/https://raw.githubusercontent.com/Nwflower/genshin-atlas/master%v"                                   //~七圣召唤卡
+	url1 = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/GenshinWikiMap/master/results/character_map/%v.jpg" //~角色图鉴
+	url2 = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/LittlePaimonRes/main/genshin_guide/guide/%v.jpg"    //~角色攻略
+	url3 = "https://ghproxy.com/https://raw.githubusercontent.com/Nwflower/genshin-atlas/master%v"                                   //~角色材料~七圣召唤卡~特产图鉴[已经替换]~武器图鉴
+	url4 = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/LittlePaimonRes/main/genshin_guide/curve/%v.jpg"    //~收益曲线
+	url5 = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/LittlePaimonRes/main/genshin_guide/panel/%v.jpg"    //~参考面板
+	url6 = "https://map.minigg.cn/map/get_map?resource_name=%v&is_cluster=false"                                                     //地图资源截图
+	url7 = "https://ghproxy.com/https://raw.githubusercontent.com/Nwflower/genshin-atlas/master/artifact/%v.png"                     //圣遗物图鉴
+	url8 = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/GenshinWikiMap/master/results/monster_map/%v.jpg"   //~原魔图鉴
+
 )
 
 func init() { // 主函数
@@ -56,7 +56,7 @@ func init() { // 主函数
 		_ = json.Unmarshal(t, &paths)
 		switch keys {
 		case "查卡": //七圣召唤
-			url = url10
+			url = url3
 			k = paths.Card[word]
 		case "培养", "材料": //角色素材
 			url = url3
@@ -74,10 +74,10 @@ func init() { // 主函数
 			}
 			k = paths.Matera[word]
 		case "特产": //区域特产
-			url = url9
-			k = paths.Specialty[word]
-		case "武器", "图鉴": //武器图鉴
 			url = url6
+			k = QueryEscape(word)
+		case "武器", "图鉴": //武器图鉴
+			url = url3
 			word = Findnames(word, "wq")
 			if word == "" {
 				ctx.SendChain(message.Text("请输入武器全名喵~"))
@@ -147,6 +147,7 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("未找到信息呜"))
 			return
 		}
+
 		data, err := web.GetData(fmt.Sprintf(url, k))
 		if err != nil {
 			ctx.SendChain(message.Text("获取图片失败惹", err))
