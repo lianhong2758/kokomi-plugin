@@ -1,42 +1,5 @@
 package kokomi // 导入yuan-shen模块,需要定期手动更新部分
 
-// FindName 角色外号添加
-func FindName(a string) string {
-	switch a {
-	case "公子":
-		a = "达达利亚"
-	case "绫华", "神里":
-		a = "神里绫华"
-	case "绫人":
-		a = "神里绫人"
-	case "万叶":
-		a = "枫原万叶"
-	case "雷神":
-		a = "雷电将军"
-	case "一斗":
-		a = "荒泷一斗"
-	case "八重", "神子":
-		a = "八重神子"
-	case "九条":
-		a = "九条裟罗"
-	case "罗莎":
-		a = "罗莎莉亚"
-	case "平藏":
-		a = "鹿野院平藏"
-	case "心海":
-		a = "珊瑚宫心海"
-	case "散兵":
-		a = "流浪者"
-	case "草神":
-		a = "纳西妲"
-	case "风神":
-		a = "温迪"
-	case "岩神", "帝君":
-		a = "钟离"
-	}
-	return a
-}
-
 // Wifequanmap 角色圣遗物评分权重图
 var Wifequanmap = map[string]wifequan{
 	"神里绫华":  {0, 75, 0, 100, 100, 0, 100, 0, 30, 0},
