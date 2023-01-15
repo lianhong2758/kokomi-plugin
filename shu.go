@@ -377,3 +377,22 @@ func Findnames(val string, typess string) string {
 	}
 	return f
 }
+
+// Idmap wifeid->wifename
+func Idmap(val string, typess string) string {
+	var f string = ""
+	findmap = make(map[string][]string)
+	var txt []byte
+	switch typess {
+	case "wife":
+		txt, _ = os.ReadFile("plugin/kokomi/data/json/wife_list.json")
+	}
+	_ = json.Unmarshal(txt, &findmap)
+	for k, v := range findmap {
+		if k == val {
+			f = v[0]
+			return f
+		}
+	}
+	return f
+}

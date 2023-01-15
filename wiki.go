@@ -6,7 +6,7 @@ import (
 	"fmt"
 	. "net/url"
 	"os"
-	"strconv"
+	"unicode/utf8"
 
 	"github.com/FloatTech/floatbox/web"
 	ctrl "github.com/FloatTech/zbpctrl"
@@ -44,9 +44,15 @@ func init() { // 主函数
 	})
 	en.OnPrefix("#").SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		str := ctx.State["args"].(string) // 获取key
-		keys := str[0:6]                  //匹配种类
-		word := str[6:]                   //关键字
-		var url, k string                 //匹配链接
+		var keys, word string
+		if utf8.RuneCountInString(str) > 1 {
+			keys = str[0:6] //匹配种类
+			word = str[6:]  //关键字
+		} else {
+			keys = str //单字角色
+		}
+
+		var url, k string //匹配链接
 		var paths Wikimap
 		t, err := os.ReadFile("plugin/kokomi/data/json/path.json") //获取文件
 		if err != nil {
@@ -65,11 +71,9 @@ func init() { // 主函数
 				ctx.SendChain(message.Text("请输入角色全名喵~"))
 				return
 			}
-			wifeid, _ := strconv.ParseInt(swifeid, 10, 64)
-			var flag bool
-			word, flag = Uidmap[wifeid]
-			if !flag {
-				ctx.SendChain(message.Text("Uidmap数据缺失"))
+			word = Idmap(swifeid, "wife")
+			if word == "" {
+				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
 			}
 			k = paths.Matera[word]
@@ -91,11 +95,9 @@ func init() { // 主函数
 				ctx.SendChain(message.Text("请输入角色全名喵~"))
 				return
 			}
-			wifeid, _ := strconv.ParseInt(swifeid, 10, 64)
-			var flag bool
-			k, flag = Uidmap[wifeid]
-			if !flag {
-				ctx.SendChain(message.Text("Uidmap数据缺失"))
+			k = Idmap(swifeid, "wife")
+			if k == "" {
+				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
 			}
 		case "参考": //参考面板
@@ -105,11 +107,9 @@ func init() { // 主函数
 				ctx.SendChain(message.Text("请输入角色全名喵~"))
 				return
 			}
-			wifeid, _ := strconv.ParseInt(swifeid, 10, 64)
-			var flag bool
-			k, flag = Uidmap[wifeid]
-			if !flag {
-				ctx.SendChain(message.Text("Uidmap数据缺失"))
+			k = Idmap(swifeid, "wife")
+			if k == "" {
+				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
 			}
 		case "攻略": //角色攻略
@@ -119,11 +119,9 @@ func init() { // 主函数
 				ctx.SendChain(message.Text("请输入角色全名喵~"))
 				return
 			}
-			wifeid, _ := strconv.ParseInt(swifeid, 10, 64)
-			var flag bool
-			k, flag = Uidmap[wifeid]
-			if !flag {
-				ctx.SendChain(message.Text("Uidmap数据缺失"))
+			k = Idmap(swifeid, "wife")
+			if k == "" {
+				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
 			}
 		case "原魔": //原魔图鉴
@@ -135,11 +133,9 @@ func init() { // 主函数
 			if swifeid == "" {
 				return
 			}
-			wifeid, _ := strconv.ParseInt(swifeid, 10, 64)
-			var flag bool
-			k, flag = Uidmap[wifeid]
-			if !flag {
-				ctx.SendChain(message.Text("Uidmap数据缺失"))
+			k = Idmap(swifeid, "wife")
+			if k == "" {
+				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
 			}
 		}

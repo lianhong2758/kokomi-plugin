@@ -93,7 +93,11 @@ func init() { // 主函数
 			var msg strings.Builder
 			msg.WriteString("您的展示角色为:\n")
 			for i := 0; i < len(alldata.PlayerInfo.ShowAvatarInfoList); i++ {
-				mmm := Uidmap[int64(alldata.PlayerInfo.ShowAvatarInfoList[i].AvatarID)]
+				mmm := Idmap(strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[i].AvatarID), "wife")
+				if mmm == "" {
+					ctx.SendChain(message.Text("Idmap数据缺失"))
+					return
+				}
 				msg.WriteString(mmm)
 				if i < len(alldata.PlayerInfo.ShowAvatarInfoList)-1 {
 					msg.WriteByte('\n')
@@ -113,11 +117,9 @@ func init() { // 主函数
 				ctx.SendChain(message.Text("-请输入角色全名"))
 				return
 			}
-			wifeid, _ = strconv.ParseInt(swifeid, 10, 64)
-			var flag bool
-			str, flag = Uidmap[wifeid]
-			if !flag {
-				ctx.SendChain(message.Text("Uidmap数据缺失"))
+			str = Idmap(swifeid, "wife")
+			if str == "" {
+				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
 			}
 		}
