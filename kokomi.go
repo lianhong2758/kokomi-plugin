@@ -628,9 +628,9 @@ func init() { // 主函数
 		ctx.SendChain(message.Text("-获取角色面板成功喵~"))
 		file1.Close()
 	})
-	/*预留菜单命令
+	//菜单命令
 	en.OnFullMatchGroup([]string{"菜单", "kokomi菜单"}).SetBlock(true).Handle(func(ctx *zero.Ctx) {
-		menu, err := gg.LoadImage("plugin/kokomi/data/")
+		menu, err := gg.LoadPNG("plugin/kokomi/data/zawu/menu.png")
 		if err != nil {
 			ctx.SendChain(message.Text("获取菜单图片失败", err))
 			return
@@ -638,5 +638,5 @@ func init() { // 主函数
 		ff, cl := writer.ToBytes(menu)
 		ctx.SendChain(message.ImageBytes(ff))
 		cl()
-	})*/
+	})
 }
