@@ -388,7 +388,7 @@ func init() { // 主函数
 		}
 		lihui, err := webp.Decode(lihuifile)
 		if err != nil {
-			ctx.SendChain(message.Text("获取立绘失败^2", err))
+			ctx.SendChain(message.Text("解析立绘失败", err))
 			return
 		}
 		//立绘参数
@@ -440,25 +440,40 @@ func init() { // 主函数
 		one.DrawString("暴击伤害:", 70, 340)
 		one.DrawString("元素充能:", 70, 400)
 		// 元素加伤判断
-		e1, e2 := 70, 460
-		switch {
-		case alldata.AvatarInfoList[t].FightPropMap.Num30*100 > 0:
-			one.DrawString("物理加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num40*100 > 0:
-			one.DrawString("火元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num41*100 > 0:
-			one.DrawString("雷元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num42*100 > 0:
-			one.DrawString("水元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num44*100 > 0:
-			one.DrawString("风元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num45*100 > 0:
-			one.DrawString("岩元素加伤:", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num46*100 > 0:
-			one.DrawString("冰元素加伤:", float64(e1), float64(e2))
-		default: //草或者无
-			one.DrawString("元素加伤:", float64(e1), float64(e2))
+		adds, addf := "元素加伤", 0.0
+		if alldata.AvatarInfoList[t].FightPropMap.Num30*100 > addf {
+			adds = "物理加伤:"
+			addf = alldata.AvatarInfoList[t].FightPropMap.Num30 * 100
 		}
+		if alldata.AvatarInfoList[t].FightPropMap.Num40*100 > addf {
+			adds = "火元素加伤:"
+			addf = alldata.AvatarInfoList[t].FightPropMap.Num40 * 100
+		}
+		if alldata.AvatarInfoList[t].FightPropMap.Num41*100 > addf {
+			adds = "雷元素加伤:"
+			addf = alldata.AvatarInfoList[t].FightPropMap.Num41 * 100
+		}
+		if alldata.AvatarInfoList[t].FightPropMap.Num42*100 > addf {
+			adds = "水元素加伤:"
+			addf = alldata.AvatarInfoList[t].FightPropMap.Num42 * 100
+		}
+		if alldata.AvatarInfoList[t].FightPropMap.Num44*100 > addf {
+			adds = "风元素加伤:"
+			addf = alldata.AvatarInfoList[t].FightPropMap.Num44 * 100
+		}
+		if alldata.AvatarInfoList[t].FightPropMap.Num45*100 > addf {
+			adds = "岩元素加伤:"
+			addf = alldata.AvatarInfoList[t].FightPropMap.Num45 * 100
+		}
+		if alldata.AvatarInfoList[t].FightPropMap.Num46*100 > addf {
+			adds = "冰元素加伤:"
+			addf = alldata.AvatarInfoList[t].FightPropMap.Num46 * 100
+		}
+		if alldata.AvatarInfoList[t].FightPropMap.Num43*100 > addf {
+			adds = "草元素加伤:"
+			addf = alldata.AvatarInfoList[t].FightPropMap.Num43 * 100
+		}
+		one.DrawString(adds, 70, 460)
 
 		//值,一一对应
 		if err := one.LoadFontFace(FiFile, 30); err != nil {
@@ -473,26 +488,8 @@ func init() { // 主函数
 		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 335, 280) //暴击
 		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 335, 340) //爆伤
 		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 335, 400) //充能
-		// 元素加伤判断
-		e1, e2 = 335, 460
-		switch {
-		case alldata.AvatarInfoList[t].FightPropMap.Num30*100 > 0: //物理
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num30*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num40*100 > 0: //火
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num40*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num41*100 > 0: //雷
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num41*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num42*100 > 0: //水
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num42*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num44*100 > 0: //风
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num44*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num45*100 > 0: //岩
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num45*100)+"%", float64(e1), float64(e2))
-		case alldata.AvatarInfoList[t].FightPropMap.Num46*100 > 0: //冰
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num46*100)+"%", float64(e1), float64(e2))
-		default: //草或者无
-			one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num43*100)+"%", float64(e1), float64(e2))
-		}
+		one.DrawString(Ftoone(addf)+"%", 335, 460)
+
 		dc.DrawImage(bg, 505, 420)
 		dc.DrawImage(one.Image(), 505, 420)
 
