@@ -85,7 +85,7 @@ func init() { // 主函数
 			return
 		}
 		if len(alldata.PlayerInfo.ShowAvatarInfoList) == 0 {
-			ctx.SendChain(message.Text("-请在游戏中打开角色面板展示后再尝试"))
+			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息"))
 			return
 		}
 		switch str {
@@ -110,7 +110,7 @@ func init() { // 主函数
 			//str = FindName(str)
 			swifeid := Findnames(str, "wife")
 			if swifeid == "" {
-				ctx.SendChain(message.Text("请输入角色全名"))
+				ctx.SendChain(message.Text("-请输入角色全名"))
 				return
 			}
 			wifeid, _ = strconv.ParseInt(swifeid, 10, 64)
@@ -129,7 +129,7 @@ func init() { // 主函数
 			}
 		}
 		if t == -1 { // 在返回数据中未找到想要的角色
-			ctx.SendChain(message.Text("该角色未展示"))
+			ctx.SendChain(message.Text("-该角色未展示"))
 			return
 		}
 
@@ -225,7 +225,7 @@ func init() { // 主函数
 			three.DrawString(sywallname[i], 110, 50)
 			//圣遗物属性
 			zhuci := StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID) //主词条
-			zhucitiao := strconv.Itoa(int(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value))
+			zhucitiao := Ftoone(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value)
 			//间隔45,初始145
 			var xx, yy, pingfeng float64 //xx,yy词条相对位置,x,y文本框在全图位置
 			var x, y int
@@ -375,16 +375,20 @@ func init() { // 主函数
 		var lihuifile *os.File
 		if allfen/5 > 49.5 || ming > 4 || (lin1 == 10 && lin2 == 10 && lin3 == 10) { //第二立绘判定条件
 			lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
-			if err != nil {
-				ctx.SendChain(message.Text("获取立绘失败", err))
-			}
 			defer lihuifile.Close() // 关闭文件
+			if err != nil {
+				lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
+				defer lihuifile.Close() // 关闭文件
+				if err != nil {
+					ctx.SendChain(message.Text("获取立绘失败", err))
+				}
+			}
 		} else {
 			lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
+			defer lihuifile.Close() // 关闭文件
 			if err != nil {
 				ctx.SendChain(message.Text("获取立绘失败", err))
 			}
-			defer lihuifile.Close() // 关闭文件
 		}
 		lihui, err := webp.Decode(lihuifile)
 		if err != nil {
