@@ -357,7 +357,6 @@ func Ftoone(f float64) string {
 
 // Findnames 遍历寻找匹配昵称
 func Findnames(val string, typess string) string {
-	var f string = ""
 	findmap = make(map[string][]string)
 	var txt []byte
 	switch typess {
@@ -370,17 +369,15 @@ func Findnames(val string, typess string) string {
 	for k, v := range findmap {
 		for _, vv := range v {
 			if vv == val {
-				f = k
-				return f
+				return k
 			}
 		}
 	}
-	return f
+	return ""
 }
 
 // Idmap wifeid->wifename
 func Idmap(val string, typess string) string {
-	var f string = ""
 	findmap = make(map[string][]string)
 	var txt []byte
 	switch typess {
@@ -390,9 +387,8 @@ func Idmap(val string, typess string) string {
 	_ = json.Unmarshal(txt, &findmap)
 	for k, v := range findmap {
 		if k == val {
-			f = v[0]
-			return f
+			return v[0]
 		}
 	}
-	return f
+	return ""
 }
