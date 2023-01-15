@@ -117,6 +117,7 @@ func init() { // 主函数
 				ctx.SendChain(message.Text("-请输入角色全名"))
 				return
 			}
+			wifeid, _ = strconv.ParseInt(swifeid, 10, 64)
 			str = Idmap(swifeid, "wife")
 			if str == "" {
 				ctx.SendChain(message.Text("Idmap数据缺失"))
