@@ -421,7 +421,9 @@ func init() { // 主函数
 		if err := dc.LoadFontFace(FiFile, 30); err != nil {
 			panic(err)
 		}
-		dc.DrawString("UID:"+suid+"---LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+"---"+strconv.Itoa(ming), 600, 180)
+		//计算宽度
+		b, _ := dc.MeasureString("UID:" + suid + "---LV" + strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level) + "---" + strconv.Itoa(ming))
+		dc.DrawString("UID:"+suid+"---LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+"---"+strconv.Itoa(ming), 976-b, 180)
 		if err := dc.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
 		}
