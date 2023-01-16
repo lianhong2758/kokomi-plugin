@@ -37,7 +37,7 @@ func init() { // 主函数
 	en := control.Register("kokomi", &ctrl.Options[*zero.Ctx]{
 		DisableOnDefault: false,
 		Brief:            "原神面板查询",
-		Help: "原神面板执行方法,第一次需要依次执行\n" +
+		Help: "- kokomi菜单\n" +
 			"- 绑定......(uid)\n" +
 			"- 更新面板\n" +
 			"- 全部面板\n" +
@@ -627,14 +627,14 @@ func init() { // 主函数
 		// 创建存储文件,路径plugin/kokomi/data/js
 		file1, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file1.Write(es)
-		ctx.SendChain(message.Text("-获取角色面板成功喵~"))
+		ctx.SendChain(message.Text("-获取角色面板成功喵~\n-请发送 全部面板 查看已展示角色~"))
 		file1.Close()
 	})
 	//菜单命令
 	en.OnFullMatchGroup([]string{"原神菜单", "kokomi菜单"}).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		menu, err := gg.LoadPNG("plugin/kokomi/data/zawu/menu.png")
 		if err != nil {
-			ctx.SendChain(message.Text("获取菜单图片失败", err))
+			ctx.SendChain(message.Text("-获取菜单图片失败", err))
 			return
 		}
 		ff, cl := writer.ToBytes(menu)
