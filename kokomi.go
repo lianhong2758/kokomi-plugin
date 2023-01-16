@@ -7,8 +7,10 @@ import (
 	"fmt"
 	"image"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
+	"time"
 	"unicode/utf8"
 
 	"github.com/Coloured-glaze/gg"
@@ -70,7 +72,7 @@ func init() { // 主函数
 			file.Close()
 			return
 		}
-		//##########################################################
+		//############################################################
 		// 获取本地缓存数据
 		txt, err := os.ReadFile("plugin/kokomi/data/js/" + suid + ".kokomi")
 		if err != nil {
@@ -377,27 +379,40 @@ func init() { // 主函数
 		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
 		// 角色立绘
 		var lihuifile *os.File
+		var lihui image.Image
 		if allfen/5 > 49.5 || ming > 4 || (lin1 == 10 && lin2 == 10 && lin3 == 10) { //第二立绘判定条件
-			lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
-			defer lihuifile.Close() // 关闭文件
-			if err != nil {
+			lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_two/" + str + ".jpg")
+			if err != nil { //失败使用第一立绘
+				lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_one/" + str + ".jpg")
+				if err != nil { //失败使用默认立绘
+					lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
+					defer lihuifile.Close() // 关闭文件
+					if err != nil {
+						ctx.SendChain(message.Text("获取立绘失败", err))
+						return
+					}
+					lihui, err = webp.Decode(lihuifile)
+					if err != nil {
+						ctx.SendChain(message.Text("解析立绘失败", err))
+						return
+					}
+				}
+			}
+		} else { //第一立绘
+			lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_one/" + str + ".jpg")
+			if err != nil { //失败使用默认立绘
 				lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
 				defer lihuifile.Close() // 关闭文件
 				if err != nil {
 					ctx.SendChain(message.Text("获取立绘失败", err))
+					return
+				}
+				lihui, err = webp.Decode(lihuifile)
+				if err != nil {
+					ctx.SendChain(message.Text("解析立绘失败", err))
+					return
 				}
 			}
-		} else {
-			lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
-			defer lihuifile.Close() // 关闭文件
-			if err != nil {
-				ctx.SendChain(message.Text("获取立绘失败", err))
-			}
-		}
-		lihui, err := webp.Decode(lihuifile)
-		if err != nil {
-			ctx.SendChain(message.Text("解析立绘失败", err))
-			return
 		}
 		//立绘参数
 		sxx := lihui.Bounds().Size().X
@@ -643,6 +658,7 @@ func init() { // 主函数
 		cl()
 	})
 
+	//删除账号信息,限制群内,权限管理员+
 	en.OnRegex(`^删除账号\s*(\[CQ:at,qq=)?(\d+)?`, zero.OnlyGroup, zero.AdminPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		sqquid := ctx.State["regex_matched"].([]string)[2] // 获取qquid
 		if sqquid == "" {                                  // user
@@ -655,6 +671,78 @@ func init() { // 主函数
 		} else {
 			//如果删除成功则输出 file remove OK!
 			ctx.SendChain(message.Text("-删除成功"))
+		}
+	})
+
+	//上传立绘,限制群内,权限管理员+
+	en.OnRegex(`^上传第(1|2|一|二)立绘\s*(.*)`, zero.OnlyGroup, zero.AdminPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
+		wifename := ctx.State["regex_matched"].([]string)[2]
+		var pathw string
+		swifeid := Findnames(wifename, "wife")
+		if swifeid == "" {
+			ctx.SendChain(message.Text("-请输入角色全名"))
+			return
+		}
+		wifename = Idmap(swifeid, "wife")
+		if wifename == "" {
+			ctx.SendChain(message.Text("Idmap数据缺失"))
+			return
+		}
+		switch z {
+		case "1", "一":
+			pathw = "plugin/kokomi/data/lihui_one/" + wifename + ".jpg"
+		case "2", "二":
+			pathw = "plugin/kokomi/data/lihui_two/" + wifename + ".jpg"
+		}
+		next := zero.NewFutureEvent("message", 999, false, zero.OnlyGroup, ctx.CheckSession())
+		recv, stop := next.Repeat()
+		defer stop()
+		ctx.SendChain(message.Text("-请发送面板图~"))
+		var step int
+		var origin string
+		for {
+			select {
+			case <-time.After(time.Second * 120):
+				ctx.SendChain(message.Text("-时间太久啦！摆烂惹!"))
+				return
+			case c := <-recv:
+				switch step {
+				case 0:
+					re := regexp.MustCompile(`https:(.*)&amp`)
+					origin = re.FindString(c.Event.RawMessage)
+					ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"来决定是否上传喵~"))
+					step++
+				case 1:
+					msg := c.Event.Message.ExtractPlainText()
+					if msg != "确定" && msg != "取消" {
+						ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"喵~"))
+						continue
+					}
+					if msg == "确定" {
+						ctx.SendChain(message.Text("-正在上传..."))
+						pic, err := web.GetData(origin)
+						if err != nil {
+							ctx.SendChain(message.Text("-获取插图失败", err))
+							return
+						}
+						dst, _, err := image.Decode(bytes.NewReader(pic))
+						if err != nil {
+							ctx.SendChain(message.Text("-插图解析失败", err))
+							return
+						}
+						err = gg.SaveJPG(pathw, dst, 1)
+						if err != nil {
+							ctx.SendChain(message.Text("-上传失败惹~", err))
+							return
+						}
+						ctx.SendChain(message.Text("-上传成功了喵~"))
+						return
+					}
+					ctx.SendChain(message.Text("-已经取消上传了喵~"))
+					return
+				}
+			}
 		}
 	})
 }
