@@ -381,9 +381,9 @@ func init() { // 主函数
 		var lihuifile *os.File
 		var lihui image.Image
 		if allfen/5 > 49.5 || ming > 4 || (lin1 == 10 && lin2 == 10 && lin3 == 10) { //第二立绘判定条件
-			lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_two/" + str + ".jpg")
+			lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_two/" + str + ".png")
 			if err != nil { //失败使用第一立绘
-				lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_one/" + str + ".jpg")
+				lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_one/" + str + ".png")
 				if err != nil { //失败使用默认立绘
 					lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
 					defer lihuifile.Close() // 关闭文件
@@ -399,7 +399,7 @@ func init() { // 主函数
 				}
 			}
 		} else { //第一立绘
-			lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_one/" + str + ".jpg")
+			lihui, err = gg.LoadJPG("plugin/kokomi/data/lihui_one/" + str + ".png")
 			if err != nil { //失败使用默认立绘
 				lihuifile, err = os.Open("plugin/kokomi/data/character/" + str + "/imgs/splash.webp")
 				defer lihuifile.Close() // 关闭文件
@@ -691,9 +691,9 @@ func init() { // 主函数
 		}
 		switch z {
 		case "1", "一":
-			pathw = "plugin/kokomi/data/lihui_one/" + wifename + ".jpg"
+			pathw = "plugin/kokomi/data/lihui_one/" + wifename + ".png"
 		case "2", "二":
-			pathw = "plugin/kokomi/data/lihui_two/" + wifename + ".jpg"
+			pathw = "plugin/kokomi/data/lihui_two/" + wifename + ".png"
 		}
 		next := zero.NewFutureEvent("message", 999, false, zero.OnlyGroup, ctx.CheckSession())
 		recv, stop := next.Repeat()
@@ -731,7 +731,7 @@ func init() { // 主函数
 							ctx.SendChain(message.Text("-插图解析失败", err))
 							return
 						}
-						err = gg.SaveJPG(pathw, dst, 1)
+						err = gg.SavePNG(pathw, dst)
 						if err != nil {
 							ctx.SendChain(message.Text("-上传失败惹~", err))
 							return
