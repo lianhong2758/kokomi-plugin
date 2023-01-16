@@ -709,7 +709,7 @@ func init() { // 主函数
 			case c := <-recv:
 				switch step {
 				case 0:
-					re := regexp.MustCompile(`https:(.*)&amp`)
+					re := regexp.MustCompile(`https:(.*)is_origin=0`)
 					origin = re.FindString(c.Event.RawMessage)
 					ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"来决定是否上传喵~"))
 					step++
