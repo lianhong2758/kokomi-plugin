@@ -41,7 +41,8 @@ func init() { // 主函数
 			"- 绑定......(uid)\n" +
 			"- 更新面板\n" +
 			"- 全部面板\n" +
-			"- XX面板",
+			"- XX面板\n" +
+			"- 删除账号[@xx]",
 	})
 	en.OnSuffix("面板").SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		str := ctx.State["args"].(string) // 获取key
@@ -640,5 +641,20 @@ func init() { // 主函数
 		ff, cl := writer.ToBytes(menu)
 		ctx.SendChain(message.ImageBytes(ff))
 		cl()
+	})
+
+	en.OnRegex(`^删除账号\s*(\[CQ:at,qq=)?(\d+)?`, zero.OnlyGroup, zero.AdminPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		sqquid := ctx.State["regex_matched"].([]string)[2] // 获取qquid
+		if sqquid == "" {                                  // user
+			sqquid = strconv.FormatInt(ctx.Event.UserID, 10)
+		}
+		err := os.Remove("plugin/kokomi/data/uid/" + sqquid + ".kokomi")
+		if err != nil {
+			//如果删除失败则输出 file remove Error!
+			ctx.SendChain(message.Text("-未找到该账号信息"))
+		} else {
+			//如果删除成功则输出 file remove OK!
+			ctx.SendChain(message.Text("-删除成功"))
+		}
 	})
 }
