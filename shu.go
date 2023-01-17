@@ -3,6 +3,7 @@ import (
 	"encoding/json"
 	"os"
 	"strconv"
+	"regexp"
 )
 
 const (
@@ -391,4 +392,13 @@ func Idmap(val string, typess string) string {
 		}
 	}
 	return ""
+}
+
+// StringStrip 字符串删空格
+func StringStrip(input string) string {
+	if input == "" {
+		return ""
+	}
+	reg := regexp.MustCompile(`[\s\p{Zs}]{1,}`)
+	return reg.ReplaceAllString(input, "")
 }

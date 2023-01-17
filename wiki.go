@@ -44,6 +44,7 @@ func init() { // 主函数
 	})
 	en.OnPrefix("#").SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		str := ctx.State["args"].(string) // 获取key
+		str = StringStrip(str)            //删除可能存在的空格
 		var keys, word string
 		if utf8.RuneCountInString(str) > 1 {
 			keys = str[0:6] //匹配种类

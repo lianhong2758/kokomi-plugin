@@ -28,11 +28,14 @@ import (
 
 const (
 	url      = "https://enka.minigg.cn/u/%v/__data.json"
+	Postfix  = "喵~"
 	edition  = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2.1"
 	tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
 	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
 	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf"    // 汉字字体
 	FiFile   = "plugin/kokomi/data/font/tttgbnumber.ttf" // 其余字体(数字英文)
+	BaFile   = "plugin/kokomi/data/font/STLITI.TTF"      // 华文隶书版本版本号字体
+
 )
 
 func init() { // 主函数
@@ -55,7 +58,7 @@ func init() { // 主函数
 		uid := Getuid(qquid)
 		suid := strconv.Itoa(uid)
 		if uid == 0 {
-			ctx.SendChain(message.Text("-未绑定uid"))
+			ctx.SendChain(message.Text("-未绑定uid" + Postfix))
 			return
 		}
 		//############################################################判断数据更新,逻辑原因不能合并进switch
@@ -68,7 +71,7 @@ func init() { // 主函数
 			// 创建存储文件,路径plugin/kokomi/data/js
 			file, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 			_, _ = file.Write(es)
-			ctx.SendChain(message.Text("-角色面板更新成功喵~"))
+			ctx.SendChain(message.Text("-获取角色面板成功" + Postfix + "\n-请发送 全部面板 查看已展示角色" + Postfix))
 			file.Close()
 			return
 		}
@@ -76,7 +79,7 @@ func init() { // 主函数
 		// 获取本地缓存数据
 		txt, err := os.ReadFile("plugin/kokomi/data/js/" + suid + ".kokomi")
 		if err != nil {
-			ctx.SendChain(message.Text("-本地未找到账号信息, 请更新面板"))
+			ctx.SendChain(message.Text("-本地未找到账号信息, 请更新面板" + Postfix))
 			return
 		}
 
@@ -88,7 +91,7 @@ func init() { // 主函数
 			return
 		}
 		if len(alldata.PlayerInfo.ShowAvatarInfoList) == 0 {
-			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息"))
+			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + Postfix + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix))
 			return
 		}
 		switch str {
@@ -117,7 +120,7 @@ func init() { // 主函数
 			//str = FindName(str)
 			swifeid := Findnames(str, "wife")
 			if swifeid == "" {
-				ctx.SendChain(message.Text("-请输入角色全名"))
+				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
 			wifeid, _ = strconv.ParseInt(swifeid, 10, 64)
@@ -135,7 +138,7 @@ func init() { // 主函数
 			}
 		}
 		if t == -1 { // 在返回数据中未找到想要的角色
-			ctx.SendChain(message.Text("-该角色未展示"))
+			ctx.SendChain(message.Text("-该角色未展示" + Postfix))
 			return
 		}
 
@@ -609,7 +612,7 @@ func init() { // 主函数
 		}
 		//**************************************************************************************************
 		// 版本号
-		if err := dc.LoadFontFace(FontFile, 30); err != nil {
+		if err := dc.LoadFontFace(BaFile, 30); err != nil {
 			panic(err)
 		}
 		dc.DrawString(edition, 180, float64(height)-20)
@@ -632,25 +635,25 @@ func init() { // 主函数
 		file, _ := os.OpenFile("plugin/kokomi/data/uid/"+sqquid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file.Write([]byte(suid))
 		file.Close()
-		ctx.SendChain(message.Text("-绑定uid" + suid + "成功喵~\n" + "-尝试获取角色面板信息~"))
+		ctx.SendChain(message.Text("-绑定uid" + suid + "成功" + Postfix + "\n-尝试获取角色面板信息" + Postfix))
 
 		//更新面板程序
 		es, err := web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
 		if err != nil {
-			ctx.SendChain(message.Text("-网站获取角色信息失败", err))
+			ctx.SendChain(message.Text("-网站获取角色信息失败"+Postfix, err))
 			return
 		}
 		// 创建存储文件,路径plugin/kokomi/data/js
 		file1, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file1.Write(es)
-		ctx.SendChain(message.Text("-获取角色面板成功喵~\n-请发送 全部面板 查看已展示角色~"))
+		ctx.SendChain(message.Text("-获取角色面板成功" + Postfix + "\n-请发送 全部面板 查看已展示角色" + Postfix))
 		file1.Close()
 	})
 	//菜单命令
 	en.OnFullMatchGroup([]string{"原神菜单", "kokomi菜单"}).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		menu, err := gg.LoadPNG("plugin/kokomi/data/zawu/menu.png")
 		if err != nil {
-			ctx.SendChain(message.Text("-获取菜单图片失败", err))
+			ctx.SendChain(message.Text("-获取菜单图片失败"+Postfix, err))
 			return
 		}
 		ff, cl := writer.ToBytes(menu)
@@ -658,19 +661,26 @@ func init() { // 主函数
 		cl()
 	})
 
-	//删除账号信息,限制群内,权限管理员+
-	en.OnRegex(`^删除账号\s*(\[CQ:at,qq=)?(\d+)?`, zero.OnlyGroup, zero.AdminPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
-		sqquid := ctx.State["regex_matched"].([]string)[2] // 获取qquid
-		if sqquid == "" {                                  // user
+	//删除账号信息,限制群内,权限管理员+可以删除别人账号信息
+	en.OnRegex(`^删除账号\s*(\[CQ:at,qq=)?(\d+)?`, zero.OnlyGroup).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		var sqquid = ""
+		if ctx.State["regex_matched"].([]string)[2] != "" {
+			if zero.AdminPermission(ctx) {
+				sqquid = ctx.State["regex_matched"].([]string)[2] // 获取qquid
+			} else {
+				ctx.SendChain(message.Text("-您的权限不足" + Postfix))
+			}
+		}
+		if sqquid == "" { // user
 			sqquid = strconv.FormatInt(ctx.Event.UserID, 10)
 		}
 		err := os.Remove("plugin/kokomi/data/uid/" + sqquid + ".kokomi")
 		if err != nil {
 			//如果删除失败则输出 file remove Error!
-			ctx.SendChain(message.Text("-未找到该账号信息"))
+			ctx.SendChain(message.Text("-未找到该账号信息" + Postfix))
 		} else {
 			//如果删除成功则输出 file remove OK!
-			ctx.SendChain(message.Text("-删除成功"))
+			ctx.SendChain(message.Text("-删除成功" + Postfix))
 		}
 	})
 
@@ -681,7 +691,7 @@ func init() { // 主函数
 		var pathw string
 		swifeid := Findnames(wifename, "wife")
 		if swifeid == "" {
-			ctx.SendChain(message.Text("-请输入角色全名"))
+			ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 			return
 		}
 		wifename = Idmap(swifeid, "wife")
@@ -698,7 +708,7 @@ func init() { // 主函数
 		next := zero.NewFutureEvent("message", 999, false, zero.OnlyGroup, ctx.CheckSession())
 		recv, stop := next.Repeat()
 		defer stop()
-		ctx.SendChain(message.Text("-请发送面板图~"))
+		ctx.SendChain(message.Text("-请发送面板图" + Postfix))
 		var step int
 		var origin string
 		for {
@@ -711,24 +721,24 @@ func init() { // 主函数
 				case 0:
 					re := regexp.MustCompile(`https:(.*)is_origin=(0|1)`)
 					origin = re.FindString(c.Event.RawMessage)
-					ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"来决定是否上传喵~"))
+					ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"来决定是否上传" + Postfix))
 					step++
 				case 1:
 					msg := c.Event.Message.ExtractPlainText()
 					if msg != "确定" && msg != "取消" {
-						ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"喵~"))
+						ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"" + Postfix))
 						continue
 					}
 					if msg == "确定" {
-						ctx.SendChain(message.Text("-正在上传..."))
+						ctx.SendChain(message.Text("-正在上传..." + Postfix))
 						pic, err := web.GetData(origin)
 						if err != nil {
-							ctx.SendChain(message.Text("-获取插图失败", err))
+							ctx.SendChain(message.Text("-获取插图失败"+Postfix, err))
 							return
 						}
 						dst, _, err := image.Decode(bytes.NewReader(pic))
 						if err != nil {
-							ctx.SendChain(message.Text("-插图解析失败", err))
+							ctx.SendChain(message.Text("-插图解析失败"+Postfix, err))
 							return
 						}
 						err = gg.SavePNG(pathw, dst)
@@ -736,12 +746,65 @@ func init() { // 主函数
 							ctx.SendChain(message.Text("-上传失败惹~", err))
 							return
 						}
-						ctx.SendChain(message.Text("-上传成功了喵~"))
+						ctx.SendChain(message.Text("-上传成功了" + Postfix))
 						return
 					}
-					ctx.SendChain(message.Text("-已经取消上传了喵~"))
+					ctx.SendChain(message.Text("-已经取消上传了" + Postfix))
 					return
 				}
+			}
+		}
+	})
+	//删除立绘图,权限同上
+	en.OnRegex(`^删除第(1|2|一|二)立绘\s*(.*)`, zero.OnlyGroup, zero.AdminPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
+		wifename := ctx.State["regex_matched"].([]string)[2]
+		var pathw string
+		swifeid := Findnames(wifename, "wife")
+		if swifeid == "" {
+			ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
+			return
+		}
+		wifename = Idmap(swifeid, "wife")
+		if wifename == "" {
+			ctx.SendChain(message.Text("Idmap数据缺失"))
+			return
+		}
+		switch z {
+		case "1", "一":
+			pathw = "plugin/kokomi/data/lihui_one/" + wifename + ".png"
+		case "2", "二":
+			pathw = "plugin/kokomi/data/lihui_two/" + wifename + ".png"
+		}
+		next := zero.NewFutureEvent("message", 999, false, zero.OnlyGroup, ctx.CheckSession())
+		recv, stop := next.Repeat()
+		defer stop()
+		ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"来决定是否删除" + Postfix))
+		var origin string
+		for {
+			select {
+			case <-time.After(time.Second * 120):
+				ctx.SendChain(message.Text("-时间太久啦！摆烂惹!"))
+				return
+			case c := <-recv:
+				origin = c.Event.Message.ExtractPlainText()
+				if origin != "确定" && origin != "取消" {
+					ctx.SendChain(message.Text("-请输入\"确定\"或者\"取消\"" + Postfix))
+					continue
+				}
+				if origin == "确定" {
+					err := os.Remove(pathw)
+					if err != nil {
+						//如果删除失败则输出 file remove Error!
+						ctx.SendChain(message.Text("-未找到该面板图" + Postfix))
+					} else {
+						//如果删除成功则输出 file remove OK!
+						ctx.SendChain(message.Text("-删除成功" + Postfix))
+					}
+					return
+				}
+				ctx.SendChain(message.Text("-已经取消删除了" + Postfix))
+				return
 			}
 		}
 	})
