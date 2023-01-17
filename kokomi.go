@@ -418,10 +418,10 @@ func init() { // 主函数
 			}
 		}
 		//立绘参数
-		sxx := lihui.Bounds().Size().X
 		//syy := lihui.Bounds().Size().Y
-		lihui = resize.Resize(0, 790, lihui, resize.Bilinear)
-		dc.DrawImage(lihui, int(380-float64(sxx)/2), 90)
+		lihui = resize.Resize(0, 880, lihui, resize.Bilinear)
+		sxx := lihui.Bounds().Size().X
+		dc.DrawImage(lihui, int(270-float64(sxx)/2), 0)
 
 		//角色名字
 		if err := dc.LoadFontFace(NameFont, 80); err != nil {
