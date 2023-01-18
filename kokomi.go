@@ -616,7 +616,7 @@ func init() { // 主函数
 		if err := dc.LoadFontFace(BaFile, 30); err != nil {
 			panic(err)
 		}
-		dc.DrawString(edition, 180, float64(height)-20)
+		dc.DrawStringAnchored(edition, 540, float64(height)-30, 0.5, 0.5)
 
 		// 输出图片
 		ff, cl := writer.ToBytes(dc.Image())  // 图片放入缓存
