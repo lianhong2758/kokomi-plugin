@@ -69,7 +69,7 @@ func init() { // 主函数
 			url = url3
 			swifeid := Findnames(word, "wife")
 			if swifeid == "" {
-				ctx.SendChain(message.Text("请输入角色全名喵~"))
+				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
 			word = Idmap(swifeid, "wife")
@@ -85,7 +85,7 @@ func init() { // 主函数
 			url = url3
 			word = Findnames(word, "wq")
 			if word == "" {
-				ctx.SendChain(message.Text("请输入武器全名喵~"))
+				ctx.SendChain(message.Text("-请输入武器全名" + Postfix))
 				return
 			}
 			k = paths.Weapon[word]
@@ -93,7 +93,7 @@ func init() { // 主函数
 			url = url4
 			swifeid := Findnames(word, "wife")
 			if swifeid == "" {
-				ctx.SendChain(message.Text("请输入角色全名喵~"))
+				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
 			k = Idmap(swifeid, "wife")
@@ -105,7 +105,7 @@ func init() { // 主函数
 			url = url5
 			swifeid := Findnames(word, "wife")
 			if swifeid == "" {
-				ctx.SendChain(message.Text("请输入角色全名喵~"))
+				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
 			k = Idmap(swifeid, "wife")
@@ -117,7 +117,7 @@ func init() { // 主函数
 			url = url2
 			swifeid := Findnames(word, "wife")
 			if swifeid == "" {
-				ctx.SendChain(message.Text("请输入角色全名喵~"))
+				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
 			k = Idmap(swifeid, "wife")
@@ -141,13 +141,13 @@ func init() { // 主函数
 			}
 		}
 		if k == "" {
-			ctx.SendChain(message.Text("未找到信息呜"))
+			ctx.SendChain(message.Text("-未找到信息" + Postfix))
 			return
 		}
 
 		data, err := web.GetData(fmt.Sprintf(url, k))
 		if err != nil {
-			ctx.SendChain(message.Text("获取图片失败惹", err))
+			ctx.SendChain(message.Text("-获取图片失败惹", err))
 			return
 		}
 		ctx.SendChain(message.ImageBytes(data))

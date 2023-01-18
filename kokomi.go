@@ -18,6 +18,7 @@ import (
 	"github.com/FloatTech/floatbox/web"
 	ctrl "github.com/FloatTech/zbpctrl"
 	"github.com/FloatTech/zbputils/control"
+	//"github.com/golang/freetype"
 	"golang.org/x/image/webp"
 
 	//"github.com/FloatTech/zbputils/img"
@@ -28,7 +29,7 @@ import (
 
 const (
 	url      = "https://enka.minigg.cn/u/%v/__data.json"
-	Postfix  = "喵~"
+	Postfix  = "~" //语句后缀
 	edition  = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2.1"
 	tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
 	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
@@ -91,7 +92,7 @@ func init() { // 主函数
 			return
 		}
 		if len(alldata.PlayerInfo.ShowAvatarInfoList) == 0 {
-			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + Postfix + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix))
+			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix))
 			return
 		}
 		switch str {
@@ -421,7 +422,7 @@ func init() { // 主函数
 		//syy := lihui.Bounds().Size().Y
 		lihui = resize.Resize(0, 880, lihui, resize.Bilinear)
 		sxx := lihui.Bounds().Size().X
-		dc.DrawImage(lihui, int(270-float64(sxx)/2), 0)
+		dc.DrawImage(lihui, int(260-float64(sxx)/2), 0)
 
 		//角色名字
 		if err := dc.LoadFontFace(NameFont, 80); err != nil {
@@ -635,7 +636,7 @@ func init() { // 主函数
 		file, _ := os.OpenFile("plugin/kokomi/data/uid/"+sqquid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file.Write([]byte(suid))
 		file.Close()
-		ctx.SendChain(message.Text("-绑定uid" + suid + "成功" + Postfix + "\n-尝试获取角色面板信息" + Postfix))
+		ctx.SendChain(message.Text("-绑定uid" + suid + "成功" + "\n-尝试获取角色面板信息" + Postfix))
 
 		//更新面板程序
 		es, err := web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
@@ -646,7 +647,7 @@ func init() { // 主函数
 		// 创建存储文件,路径plugin/kokomi/data/js
 		file1, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file1.Write(es)
-		ctx.SendChain(message.Text("-获取角色面板成功" + Postfix + "\n-请发送 全部面板 查看已展示角色" + Postfix))
+		ctx.SendChain(message.Text("-获取角色面板成功" + "\n-请发送 全部面板 查看已展示角色" + Postfix))
 		file1.Close()
 	})
 	//菜单命令
