@@ -62,9 +62,12 @@ git clone https://github.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 
 其他
 
-    喵喵插件 Miao-Plugin : 感谢喵喵菜单提供模板学习
+    喵喵插件 Miao-Plugin:感谢喵喵菜单提供模板学习
     Enka: 感谢Enka提供的面板服务
     genshin-atlas:感谢西风驿站提供wiki查询功能
      LittlePaimon:感谢小派蒙提供json数据库
+# 获得帮助
+    欢迎进行提问,如果可能,我将尽快回答你的问题,或者fix该问题
+    若有开发建议,欢迎来开发群内进行讨论
     QQ群
        ZeroBot-Plugin官方二群609640932
