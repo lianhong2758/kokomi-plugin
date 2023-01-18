@@ -30,7 +30,7 @@ import (
 const (
 	url      = "https://enka.minigg.cn/u/%v/__data.json"
 	Postfix  = "~" //语句后缀
-	edition  = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2.1"
+	edition  = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2.2"
 	tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
 	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
 	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf"    // 汉字字体

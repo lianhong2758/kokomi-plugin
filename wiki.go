@@ -4,7 +4,7 @@ package kokomi
 import (
 	"encoding/json"
 	"fmt"
-	. "net/url"
+	www "net/url"
 	"os"
 	"unicode/utf8"
 
@@ -78,9 +78,9 @@ func init() { // 主函数
 				return
 			}
 			k = paths.Matera[word]
-		case "特产": //区域特产
+		case "特产", "位置": //区域特产
 			url = url6
-			k = QueryEscape(word)
+			k = www.QueryEscape(word)
 		case "武器", "图鉴": //武器图鉴
 			url = url3
 			word = Findnames(word, "wq")
