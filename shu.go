@@ -40,6 +40,17 @@ type Wikimap struct {
 // 各种简称map查询
 var findmap map[string][]string
 
+// 角色信息json解析
+type Talents struct {
+	Elem       string         `json:"elem"`
+	TalentKey  map[int]string `json:"talentKey"`
+	TalentID   map[int]int    `json:"talentId"`
+	TalentCons struct {
+		E int `json:"e"`
+		Q int `json:"q"`
+	} `json:"talentCons"`
+}
+
 // Data 从网站获取的数据
 type Data struct {
 	PlayerInfo struct {
@@ -408,7 +419,7 @@ func StringStrip(input string) string {
 	return reg.ReplaceAllString(input, "")
 }
 
-// 圣遗物,武器名匹配
+// Findwq圣遗物,武器名匹配
 func Findwq(a string) string {
 	txt, err := os.ReadFile("plugin/kokomi/data/json/loc.json")
 	if err != nil {
@@ -420,4 +431,54 @@ func Findwq(a string) string {
 		return ""
 	}
 	return alldata.FfMap[a]
+}
+
+// Findtalent 天赋列表
+func Findtalent(str string) [3]int {
+	var f [3]int
+	txt, err := os.ReadFile("plugin/kokomi/data/character/" + str + "/data.json")
+	if err != nil {
+		return f
+	}
+	var data Talents
+	err = json.Unmarshal(txt, &data)
+	if err != nil {
+		return f
+	}
+	for k, v := range data.TalentKey {
+		switch v {
+		case "a":
+			f[0] = k
+		case "e":
+			f[1] = k
+		case "q":
+			f[2] = k
+		}
+	}
+	for m, n := range data.TalentID {
+		switch n {
+		case f[0]:
+			f[0] = m
+		case f[1]:
+			f[1] = m
+		case f[2]:
+			f[2] = m
+		}
+	}
+	return f
+}
+
+// Findelem 判断元素种类
+func Findelem(str string) string {
+	var f string = "" //默认空
+	txt, err := os.ReadFile("plugin/kokomi/data/character/" + str + "/data.json")
+	if err != nil {
+		return f
+	}
+	var data Talents
+	err = json.Unmarshal(txt, &data)
+	if err != nil {
+		return f
+	}
+	return data.Elem
 }

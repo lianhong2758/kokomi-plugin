@@ -148,8 +148,8 @@ func init() { // 主函数
 		dc := gg.NewContext(1080, height) // 画布大小
 		dc.SetHexColor("#98F5FF")
 		dc.Clear() // 背景
-		pro, flg := Promap[wifeid]
-		if !flg {
+		pro := Findelem(str)
+		if pro == "" {
 			ctx.SendChain(message.Text("匹配角色元素失败"))
 			return
 		}
@@ -383,7 +383,7 @@ func init() { // 主函数
 		//命之座
 		ming := len(alldata.AvatarInfoList[t].TalentIDList)
 		//天赋等级
-		talentid := IdtoTalent[wifeid]
+		talentid := Findtalent(str)
 		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[0]]
 		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[1]]
 		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
