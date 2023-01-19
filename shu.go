@@ -6,9 +6,8 @@ import (
 	"strconv"
 )
 
-const (
-// url = "https://enka.microgg.cn/u/%v/__data.json"
-)
+// 全局变量减少占用
+var Role Talents
 
 // 圣遗物武器名匹配
 type Fff struct {
@@ -434,18 +433,9 @@ func Findwq(a string) string {
 }
 
 // Findtalent 天赋列表
-func Findtalent(str string) [3]int {
+func Findtalent() [3]int {
 	var f [3]int
-	txt, err := os.ReadFile("plugin/kokomi/data/character/" + str + "/data.json")
-	if err != nil {
-		return f
-	}
-	var data Talents
-	err = json.Unmarshal(txt, &data)
-	if err != nil {
-		return f
-	}
-	for k, v := range data.TalentKey {
+	for k, v := range Role.TalentKey {
 		switch v {
 		case "a":
 			f[0] = k
@@ -455,7 +445,7 @@ func Findtalent(str string) [3]int {
 			f[2] = k
 		}
 	}
-	for m, n := range data.TalentID {
+	for m, n := range Role.TalentID {
 		switch n {
 		case f[0]:
 			f[0] = m
@@ -466,19 +456,4 @@ func Findtalent(str string) [3]int {
 		}
 	}
 	return f
-}
-
-// Findelem 判断元素种类
-func Findelem(str string) string {
-	var f string = "" //默认空
-	txt, err := os.ReadFile("plugin/kokomi/data/character/" + str + "/data.json")
-	if err != nil {
-		return f
-	}
-	var data Talents
-	err = json.Unmarshal(txt, &data)
-	if err != nil {
-		return f
-	}
-	return data.Elem
 }

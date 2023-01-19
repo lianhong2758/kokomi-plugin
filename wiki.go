@@ -62,7 +62,7 @@ func init() { // 主函数
 		}
 		_ = json.Unmarshal(t, &paths)
 		switch keys {
-		case "查卡": //七圣召唤
+		case "查卡", "七圣": //七圣召唤
 			url = url3
 			k = paths.Card[word]
 		case "培养", "材料": //角色素材

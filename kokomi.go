@@ -1,4 +1,4 @@
-// Package kokomi  原神面板v2.1
+// Package kokomi  原神面板v2.2
 package kokomi
 
 import (
@@ -148,11 +148,18 @@ func init() { // 主函数
 		dc := gg.NewContext(1080, height) // 画布大小
 		dc.SetHexColor("#98F5FF")
 		dc.Clear() // 背景
-		pro := Findelem(str)
-		if pro == "" {
-			ctx.SendChain(message.Text("匹配角色元素失败"))
-			return
+		//*******************************************************
+		//降低资源重复次数
+		zz, err := os.ReadFile("plugin/kokomi/data/character/" + str + "/data.json")
+		if err != nil {
+			ctx.SendChain(message.Text("获取角色json失败"))
 		}
+		err = json.Unmarshal(zz, &Role)
+		if err != nil {
+			ctx.SendChain(message.Text("解析角色json失败"))
+		}
+		//*******************************************************
+		pro := Role.Elem
 		beijing, err := gg.LoadImage("plugin/kokomi/data/pro/" + pro + ".jpg")
 		if err != nil {
 			ctx.SendChain(message.Text("获取背景失败", err))
@@ -383,7 +390,7 @@ func init() { // 主函数
 		//命之座
 		ming := len(alldata.AvatarInfoList[t].TalentIDList)
 		//天赋等级
-		talentid := Findtalent(str)
+		talentid := Findtalent()
 		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[0]]
 		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[1]]
 		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
@@ -578,6 +585,13 @@ func init() { // 主函数
 		dc.DrawImage(talenty, 750, 350)
 		dc.DrawImage(talenty, 930, 350)
 
+		//Lv-天赋等级修复
+		if ming >= Role.TalentCons.E {
+			lin2 += 3
+		}
+		if ming >= Role.TalentCons.Q {
+			lin3 += 3
+		}
 		//Lv间隔180
 		dc.SetRGB(0, 0, 0) // 换黑色
 		dc.DrawString(strconv.Itoa(lin1), float64(580-lin1/10*8), 380)
