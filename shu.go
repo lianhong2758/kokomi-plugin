@@ -2,13 +2,18 @@ package kokomi // 导入yuan-shen模块
 import (
 	"encoding/json"
 	"os"
-	"strconv"
 	"regexp"
+	"strconv"
 )
 
 const (
 // url = "https://enka.microgg.cn/u/%v/__data.json"
 )
+
+// 圣遗物武器名匹配
+type Fff struct {
+	FfMap map[string]string `json:"zh-CN"`
+}
 
 // 评分权重结构
 type wifequan struct {
@@ -401,4 +406,18 @@ func StringStrip(input string) string {
 	}
 	reg := regexp.MustCompile(`[\s\p{Zs}]{1,}`)
 	return reg.ReplaceAllString(input, "")
+}
+
+// 圣遗物,武器名匹配
+func Findwq(a string) string {
+	txt, err := os.ReadFile("plugin/kokomi/data/json/loc.json")
+	if err != nil {
+		return ""
+	}
+	var alldata Fff
+	err = json.Unmarshal(txt, &alldata)
+	if err != nil {
+		return ""
+	}
+	return alldata.FfMap[a]
 }
