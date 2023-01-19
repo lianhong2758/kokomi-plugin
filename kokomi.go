@@ -64,10 +64,14 @@ func init() { // 主函数
 		}
 		//############################################################判断数据更新,逻辑原因不能合并进switch
 		if str == "更新" || str == "#更新" {
-			es, err := web.GetData(fmt.Sprintf(url, uid)) // 网站返回结果
+			es, err := web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
 			if err != nil {
-				ctx.SendChain(message.Text("网站获取信息失败", err))
-				return
+				time.Sleep(500 * time.Microsecond)            //0.5s
+				es, err = web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
+				if err != nil {
+					ctx.SendChain(message.Text("-网站获取角色信息失败"+Postfix, err))
+					return
+				}
 			}
 			// 创建存储文件,路径plugin/kokomi/data/js
 			file, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
@@ -668,8 +672,12 @@ func init() { // 主函数
 		//更新面板程序
 		es, err := web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
 		if err != nil {
-			ctx.SendChain(message.Text("-网站获取角色信息失败"+Postfix, err))
-			return
+			time.Sleep(500 * time.Microsecond)            //0.5s
+			es, err = web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
+			if err != nil {
+				ctx.SendChain(message.Text("-网站获取角色信息失败"+Postfix, err))
+				return
+			}
 		}
 		// 创建存储文件,路径plugin/kokomi/data/js
 		file1, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
