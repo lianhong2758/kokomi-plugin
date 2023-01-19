@@ -150,13 +150,16 @@ func init() { // 主函数
 		dc.Clear() // 背景
 		//*******************************************************
 		//降低资源重复次数
+		var Role Talents
 		zz, err := os.ReadFile("plugin/kokomi/data/character/" + str + "/data.json")
 		if err != nil {
 			ctx.SendChain(message.Text("获取角色json失败"))
+			return
 		}
 		err = json.Unmarshal(zz, &Role)
 		if err != nil {
 			ctx.SendChain(message.Text("解析角色json失败"))
+			return
 		}
 		//*******************************************************
 		pro := Role.Elem
@@ -390,7 +393,7 @@ func init() { // 主函数
 		//命之座
 		ming := len(alldata.AvatarInfoList[t].TalentIDList)
 		//天赋等级
-		talentid := Findtalent()
+		talentid := Findtalent(Role)
 		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[0]]
 		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[1]]
 		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
@@ -642,7 +645,6 @@ func init() { // 主函数
 			panic(err)
 		}
 		dc.DrawStringAnchored(edition, 540, float64(height)-30, 0.5, 0.5)
-
 		// 输出图片
 		ff, cl := writer.ToBytes(dc.Image())  // 图片放入缓存
 		ctx.SendChain(message.ImageBytes(ff)) // 输出
