@@ -585,19 +585,6 @@ func init() { // 主函数
 		dc.DrawImage(talenty, 750, 350)
 		dc.DrawImage(talenty, 930, 350)
 
-		//Lv-天赋等级修复
-		if ming >= Role.TalentCons.E {
-			lin2 += 3
-		}
-		if ming >= Role.TalentCons.Q {
-			lin3 += 3
-		}
-		//Lv间隔180
-		dc.SetRGB(0, 0, 0) // 换黑色
-		dc.DrawString(strconv.Itoa(lin1), float64(580-lin1/10*8), 380)
-		dc.DrawString(strconv.Itoa(lin2), float64(760-lin2/10*8), 380)
-		dc.DrawString(strconv.Itoa(lin3), float64(940-lin3/10*8), 380)
-		dc.SetRGB(1, 1, 1) // 换白色
 		//皇冠
 		tuguan, err := gg.LoadImage("plugin/kokomi/data/zawu/crown.png")
 		if err != nil {
@@ -615,6 +602,20 @@ func init() { // 主函数
 			dc.DrawImage(tuguan, 928, 215)
 		}
 
+		//Lv-天赋等级修复
+		if ming >= Role.TalentCons.E {
+			lin2 += 3
+		}
+		if ming >= Role.TalentCons.Q {
+			lin3 += 3
+		}
+		//Lv间隔180
+		dc.SetRGB(0, 0, 0) // 换黑色
+		dc.DrawString(strconv.Itoa(lin1), float64(580-lin1/10*8), 380)
+		dc.DrawString(strconv.Itoa(lin2), float64(760-lin2/10*8), 380)
+		dc.DrawString(strconv.Itoa(lin3), float64(940-lin3/10*8), 380)
+		dc.SetRGB(1, 1, 1) // 换白色
+
 		//命之座
 		for m, mm := 1, 1; m < 7; m++ {
 			tuming, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/cons-" + strconv.Itoa(m) + ".webp")
@@ -624,11 +625,15 @@ func init() { // 主函数
 				return
 			}
 			kuang = resize.Resize(80, 0, kuang, resize.Bilinear)
-			dc.DrawImage(kuang, -50+m*70, 800)
+			kuangblakc := AdjustOpacity(kuang, 0.5)
 			if mm > ming {
+				dc.DrawImage(kuangblakc, -50+m*70, 800)
 				tuming = AdjustOpacity(tuming, 0.5)
+				dc.DrawImage(tuming, -30+m*70, 825)
+			} else {
+				dc.DrawImage(kuang, -50+m*70, 800)
+				dc.DrawImage(tuming, -30+m*70, 825)
 			}
-			dc.DrawImage(tuming, -30+m*70, 825)
 			mm++
 		}
 		//**************************************************************************************************
