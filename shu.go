@@ -460,3 +460,47 @@ func (m *Role) GetTalentId() []int {
 	}
 	return f
 }
+
+// 圣遗物列表名解析
+type Syws map[string]struct {
+	Name string `json:"name"`
+	Sets struct {
+		Num1 struct {
+			Name string `json:"name"`
+		} `json:"1"`
+		Num2 struct {
+			Name string `json:"name"`
+		} `json:"2"`
+		Num3 struct {
+			Name string `json:"name"`
+		} `json:"3"`
+		Num4 struct {
+			Name string `json:"name"`
+		} `json:"4"`
+		Num5 struct {
+			Name string `json:"name"`
+		} `json:"5"`
+	} `json:"sets"`
+}
+
+func Sywname_list(syw string) (f [5]string) {
+	t, err := os.ReadFile("plugin/kokomi/data/json/sywname_list.json")
+	if err != nil {
+		return
+	}
+	var o Syws
+	if nil != json.Unmarshal(t, &o) {
+		return
+	}
+	for _, v := range o {
+		if v.Name == syw {
+			f[0] = v.Sets.Num1.Name
+			f[1] = v.Sets.Num2.Name
+			f[2] = v.Sets.Num3.Name
+			f[3] = v.Sets.Num4.Name
+			f[4] = v.Sets.Num5.Name
+			return
+		}
+	}
+	return
+}

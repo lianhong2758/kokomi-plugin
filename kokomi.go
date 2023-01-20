@@ -251,8 +251,8 @@ func init() { // 主函数
 			tusyw = resize.Resize(80, 0, tusyw, resize.Bilinear) //缩小
 			three.DrawImage(tusyw, 15, 15)
 			//圣遗物name
-			sywallname := SywNamemap[sywname]
-			three.DrawString(sywallname[i], 110, 50)
+			sywname_list := Sywname_list(sywname)
+			three.DrawString(sywname_list[i], 110, 50)
 			//圣遗物属性
 			zhuci := StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID) //主词条
 			zhucitiao := Ftoone(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value)

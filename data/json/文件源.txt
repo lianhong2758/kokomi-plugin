@@ -6,3 +6,5 @@ path.json
 https://github.com/Nwflower/genshin-atlas/blob/master/path.json
 loc.json
 https://github.com/EnkaNetwork/API-docs/blob/master/store/loc.json
+sywname_list.json
+https://github.com/yoimiya-kokomi/miao-plugin/blob/master/resources/meta/artifact/data.json
