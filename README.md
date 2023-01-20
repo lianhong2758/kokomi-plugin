@@ -8,9 +8,9 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 
 推荐使用git进行安装，以方便后续升级。在ZeroBot-Plugin根目录夹打开终端，运行
 
-// 使用github
+//使用github
 
-git clone https://github.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
+    git clone https://github.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 
 进行下载插件。 
 
