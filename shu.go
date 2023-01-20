@@ -343,10 +343,8 @@ func Pingji(val float64) string {
 		return "SSS"
 	case val < 56.1:
 		return "ACE"
-	case val >= 56.1:
-		return "ACES"
 	}
-	return ""
+	return "ACES"
 }
 
 // Ftoone 保留一位小数并转化string
@@ -483,24 +481,29 @@ type Syws map[string]struct {
 	} `json:"sets"`
 }
 
-func Sywname_list(syw string) (f [5]string) {
-	t, err := os.ReadFile("plugin/kokomi/data/json/sywname_list.json")
+func GetSywName() Syws {
+	data, err := os.ReadFile("plugin/kokomi/data/json/sywname_list.json")
 	if err != nil {
-		return
+		return nil
 	}
-	var o Syws
-	if nil != json.Unmarshal(t, &o) {
-		return
+	var p Syws
+	if nil == json.Unmarshal(data, &p) {
+		return p
 	}
-	for _, v := range o {
+	return nil
+}
+
+func (m Syws) Names(syw string) []string {
+	for _, v := range m {
 		if v.Name == syw {
-			f[0] = v.Sets.Num1.Name
-			f[1] = v.Sets.Num2.Name
-			f[2] = v.Sets.Num3.Name
-			f[3] = v.Sets.Num4.Name
-			f[4] = v.Sets.Num5.Name
-			return
+			return []string{
+				v.Sets.Num1.Name,
+				v.Sets.Num2.Name,
+				v.Sets.Num3.Name,
+				v.Sets.Num4.Name,
+				v.Sets.Num5.Name,
+			}
 		}
 	}
-	return
+	return nil
 }

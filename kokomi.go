@@ -230,6 +230,7 @@ func init() { // 主函数
 
 		//圣遗物
 		yinsyw := Yinying(340, 350, 16, 0.6)
+		syw := GetSywName()
 		for i := 0; i < l-1; i++ {
 			// 字图层
 			three := gg.NewContext(340, 350)
@@ -251,8 +252,12 @@ func init() { // 主函数
 			tusyw = resize.Resize(80, 0, tusyw, resize.Bilinear) //缩小
 			three.DrawImage(tusyw, 15, 15)
 			//圣遗物name
-			sywname_list := Sywname_list(sywname)
-			three.DrawString(sywname_list[i], 110, 50)
+			sywallname := syw.Names(sywname)
+			if i >= len(sywallname) {
+				ctx.SendChain(message.Text("获取圣遗物名失败"))
+				return
+			}
+			three.DrawString(sywallname[i], 110, 50)
 			//圣遗物属性
 			zhuci := StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID) //主词条
 			zhucitiao := Ftoone(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value)
@@ -266,7 +271,8 @@ func init() { // 主函数
 			three.DrawString("主:"+zhuci, xx, yy)
 			if err := three.LoadFontFace(FiFile, 30); err != nil {
 				panic(err)
-			} //主词条名字
+			}
+			//主词条名字
 			three.DrawString("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 200, yy) //主词条属性
 			//算分
 			if i > 1 { //不算前两主词条属性
