@@ -253,6 +253,10 @@ func init() { // 主函数
 			three.DrawImage(tusyw, 15, 15)
 			//圣遗物name
 			sywallname := syw.Names(sywname)
+			if i >= len(sywallname) {
+				ctx.SendChain(message.Text("获取圣遗物名失败"))
+				return
+			}
 			three.DrawString(sywallname[i], 110, 50)
 			//圣遗物属性
 			zhuci := StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID) //主词条
