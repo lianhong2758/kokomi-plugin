@@ -180,6 +180,7 @@ func init() { // 主函数
 			panic(err)
 		}
 		two.SetRGB(1, 1, 1) //白色
+
 		//武器名
 		//纠正圣遗物空缺报错的无返回情况
 		l := len(alldata.AvatarInfoList[t].EquipList)
@@ -329,20 +330,15 @@ func init() { // 主函数
 
 			switch i {
 			case 0:
-				x = 370
-				y = 920
+				x, y = 370, 920
 			case 1:
-				x = 720
-				y = 920
+				x, y = 720, 920
 			case 2:
-				x = 20
-				y = 1280
+				x, y = 20, 1280
 			case 3:
-				x = 370
-				y = 1280
+				x, y = 370, 1280
 			case 4:
-				x = 720
-				y = 1280
+				x, y = 720, 1280
 			}
 			dc.DrawImage(yinsyw, x, y)
 			dc.DrawImage(three.Image(), x, y)
