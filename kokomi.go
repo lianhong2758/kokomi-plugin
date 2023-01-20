@@ -1,4 +1,4 @@
-// Package kokomi  原神面板v2.2
+// Package kokomi 原神面板v2.2
 package kokomi
 
 import (
@@ -36,7 +36,6 @@ const (
 	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf"    // 汉字字体
 	FiFile   = "plugin/kokomi/data/font/tttgbnumber.ttf" // 其余字体(数字英文)
 	BaFile   = "plugin/kokomi/data/font/STLITI.TTF"      // 华文隶书版本版本号字体
-
 )
 
 func init() { // 主函数
@@ -99,12 +98,15 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix))
 			return
 		}
+
+		wife := GetWifeOrWq("wife")
+
 		switch str {
 		case "全部", "全部角色", "#全部":
 			var msg strings.Builder
 			msg.WriteString("您的展示角色为:\n")
 			for i := 0; i < len(alldata.PlayerInfo.ShowAvatarInfoList); i++ {
-				mmm := Idmap(strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[i].AvatarID), "wife")
+				mmm := wife.Idmap(strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[i].AvatarID))
 				if mmm == "" {
 					ctx.SendChain(message.Text("Idmap数据缺失"))
 					return
@@ -122,14 +124,13 @@ func init() { // 主函数
 				str = str[1:]
 			}
 			//匹配简称/外号
-			//str = FindName(str)
-			swifeid := Findnames(str, "wife")
+			swifeid := wife.Findnames(str)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
 			wifeid, _ = strconv.ParseInt(swifeid, 10, 64)
-			str = Idmap(swifeid, "wife")
+			str = wife.Idmap(swifeid)
 			if str == "" {
 				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
@@ -153,20 +154,13 @@ func init() { // 主函数
 		dc.SetHexColor("#98F5FF")
 		dc.Clear() // 背景
 		//*******************************************************
-		//降低资源重复次数
-		var Role Talents
-		zz, err := os.ReadFile("plugin/kokomi/data/character/" + str + "/data.json")
-		if err != nil {
-			ctx.SendChain(message.Text("获取角色json失败"))
-			return
-		}
-		err = json.Unmarshal(zz, &Role)
-		if err != nil {
-			ctx.SendChain(message.Text("解析角色json失败"))
+		role := GetRole(str)
+		if role == nil {
+			ctx.SendChain(message.Text("获取角色失败"))
 			return
 		}
 		//*******************************************************
-		pro := Role.Elem
+		pro := role.Elem
 		beijing, err := gg.LoadImage("plugin/kokomi/data/pro/" + pro + ".jpg")
 		if err != nil {
 			ctx.SendChain(message.Text("获取背景失败", err))
@@ -186,13 +180,18 @@ func init() { // 主函数
 			panic(err)
 		}
 		two.SetRGB(1, 1, 1) //白色
+
 		//武器名
 		//纠正圣遗物空缺报错的无返回情况
 		l := len(alldata.AvatarInfoList[t].EquipList)
 
-		wq := Findwq(alldata.AvatarInfoList[t].EquipList[l-1].Flat.NameTextHash)
+		reliquary := GetReliquary()
+		if reliquary == nil {
+			ctx.SendChain(message.Text("缺少loc.son资源"))
+		}
+		wq := reliquary.WQ[alldata.AvatarInfoList[t].EquipList[l-1].Flat.NameTextHash]
 		if wq == "" {
-			ctx.SendChain(message.Text("缺少loc.son资源", err))
+			ctx.SendChain(message.Text("获取圣遗物武器失败"))
 		}
 		two.DrawString(wq, 150, 50)
 
@@ -239,9 +238,10 @@ func init() { // 主函数
 			}
 			//字号30,间距50
 			three.SetRGB(1, 1, 1) //白色
-			sywname := Findwq(alldata.AvatarInfoList[t].EquipList[i].Flat.SetNameTextHash)
+
+			sywname := reliquary.WQ[alldata.AvatarInfoList[t].EquipList[i].Flat.SetNameTextHash]
 			if sywname == "" {
-				ctx.SendChain(message.Text("缺少loc.son资源", err))
+				ctx.SendChain(message.Text("缺少loc.son资源"))
 			}
 			tusyw, err := gg.LoadImage("plugin/kokomi/data/syw/" + sywname + "/" + strconv.Itoa(i+1) + ".webp")
 			if err != nil {
@@ -330,20 +330,15 @@ func init() { // 主函数
 
 			switch i {
 			case 0:
-				x = 370
-				y = 920
+				x, y = 370, 920
 			case 1:
-				x = 720
-				y = 920
+				x, y = 720, 920
 			case 2:
-				x = 20
-				y = 1280
+				x, y = 20, 1280
 			case 3:
-				x = 370
-				y = 1280
+				x, y = 370, 1280
 			case 4:
-				x = 720
-				y = 1280
+				x, y = 720, 1280
 			}
 			dc.DrawImage(yinsyw, x, y)
 			dc.DrawImage(three.Image(), x, y)
@@ -397,7 +392,7 @@ func init() { // 主函数
 		//命之座
 		ming := len(alldata.AvatarInfoList[t].TalentIDList)
 		//天赋等级
-		talentid := Findtalent(Role)
+		talentid := role.GetTalentId()
 		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[0]]
 		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[1]]
 		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
@@ -610,10 +605,10 @@ func init() { // 主函数
 		}
 
 		//Lv-天赋等级修复
-		if ming >= Role.TalentCons.E {
+		if ming >= role.TalentCons.E {
 			lin2 += 3
 		}
-		if ming >= Role.TalentCons.Q {
+		if ming >= role.TalentCons.Q {
 			lin3 += 3
 		}
 		//Lv间隔180
@@ -623,24 +618,23 @@ func init() { // 主函数
 		dc.DrawString(strconv.Itoa(lin3), float64(940-lin3/10*8), 380)
 		dc.SetRGB(1, 1, 1) // 换白色
 
-		//命之座
+		// 命之座
+		kuang = resize.Resize(80, 0, kuang, resize.Bilinear)
 		for m, mm := 1, 1; m < 7; m++ {
 			tuming, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/cons-" + strconv.Itoa(m) + ".webp")
-			tuming = resize.Resize(40, 40, tuming, resize.Bilinear)
 			if err != nil {
 				ctx.SendChain(message.Text("获取命之座图标失败", err))
 				return
 			}
-			kuang = resize.Resize(80, 0, kuang, resize.Bilinear)
-			kuangblakc := AdjustOpacity(kuang, 0.5)
+			tuming = resize.Resize(40, 40, tuming, resize.Bilinear)
 			if mm > ming {
+				kuangblakc := AdjustOpacity(kuang, 0.5)
 				dc.DrawImage(kuangblakc, -50+m*70, 800)
 				tuming = AdjustOpacity(tuming, 0.5)
-				dc.DrawImage(tuming, -30+m*70, 825)
 			} else {
 				dc.DrawImage(kuang, -50+m*70, 800)
-				dc.DrawImage(tuming, -30+m*70, 825)
 			}
+			dc.DrawImage(tuming, -30+m*70, 825)
 			mm++
 		}
 		//**************************************************************************************************
@@ -725,12 +719,13 @@ func init() { // 主函数
 		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
 		wifename := ctx.State["regex_matched"].([]string)[2]
 		var pathw string
-		swifeid := Findnames(wifename, "wife")
+		wife := GetWifeOrWq("wife")
+		swifeid := wife.Findnames(wifename)
 		if swifeid == "" {
 			ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 			return
 		}
-		wifename = Idmap(swifeid, "wife")
+		wifename = wife.Idmap(swifeid)
 		if wifename == "" {
 			ctx.SendChain(message.Text("Idmap数据缺失"))
 			return
@@ -796,12 +791,13 @@ func init() { // 主函数
 		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
 		wifename := ctx.State["regex_matched"].([]string)[2]
 		var pathw string
-		swifeid := Findnames(wifename, "wife")
+		wife := GetWifeOrWq("wife")
+		swifeid := wife.Findnames(wifename)
 		if swifeid == "" {
 			ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 			return
 		}
-		wifename = Idmap(swifeid, "wife")
+		wifename = wife.Idmap(swifeid)
 		if wifename == "" {
 			ctx.SendChain(message.Text("Idmap数据缺失"))
 			return
