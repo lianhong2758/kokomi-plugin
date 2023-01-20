@@ -52,6 +52,7 @@ func init() { // 主函数
 	en.OnRegex(`(.*)面板\s*(\[CQ:at,qq=)?(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		var wifeid, qquid int64
 		var allfen float64 = 0.00
+		var err error
 		sqquid := ctx.State["regex_matched"].([]string)[3] // 获取第三者qquid
 		if sqquid == "" {
 			qquid = ctx.Event.UserID
