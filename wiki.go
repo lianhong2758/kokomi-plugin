@@ -60,14 +60,14 @@ func init() { // 主函数
 			return
 		}
 		_ = json.Unmarshal(t, &paths)
-		
+
 		switch keys {
 		case "查卡", "七圣": //七圣召唤
 			url = url3
 			k = paths.Card[word]
 		case "培养", "材料": //角色素材
 			url = url3
-			wife    := GetWifeOrWq("wife")
+			wife := GetWifeOrWq("wife")
 			swifeid := wife.Findnames(word)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
@@ -84,7 +84,7 @@ func init() { // 主函数
 			k = www.QueryEscape(word)
 		case "武器", "图鉴": //武器图鉴
 			url = url3
-			wq  := GetWifeOrWq("wq")
+			wq := GetWifeOrWq("wq")
 			word = wq.Findnames(word)
 			if word == "" {
 				ctx.SendChain(message.Text("-请输入武器全名" + Postfix))
@@ -93,7 +93,7 @@ func init() { // 主函数
 			k = paths.Weapon[word]
 		case "收益": //收益曲线
 			url = url4
-			wife    := GetWifeOrWq("wife")
+			wife := GetWifeOrWq("wife")
 			swifeid := wife.Findnames(word)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
@@ -106,7 +106,7 @@ func init() { // 主函数
 			}
 		case "参考": //参考面板
 			url = url5
-			wife    := GetWifeOrWq("wife")
+			wife := GetWifeOrWq("wife")
 			swifeid := wife.Findnames(word)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
@@ -119,7 +119,7 @@ func init() { // 主函数
 			}
 		case "攻略": //角色攻略
 			url = url2
-			wife    := GetWifeOrWq("wife")
+			wife := GetWifeOrWq("wife")
 			swifeid := wife.Findnames(word)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
@@ -135,7 +135,7 @@ func init() { // 主函数
 			k = word
 		default: //角色图鉴
 			url = url1
-			wife    := GetWifeOrWq("wife")
+			wife := GetWifeOrWq("wife")
 			swifeid := wife.Findnames(str)
 			if swifeid == "" {
 				return

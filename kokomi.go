@@ -185,9 +185,13 @@ func init() { // 主函数
 		l := len(alldata.AvatarInfoList[t].EquipList)
 
 		reliquary := GetReliquary()
-		if reliquary == nil { ctx.SendChain(message.Text("缺少loc.son资源")) }
+		if reliquary == nil {
+			ctx.SendChain(message.Text("缺少loc.son资源"))
+		}
 		wq := reliquary.WQ[alldata.AvatarInfoList[t].EquipList[l-1].Flat.NameTextHash]
-		if wq == "" { ctx.SendChain(message.Text("获取圣遗物武器失败")) }
+		if wq == "" {
+			ctx.SendChain(message.Text("获取圣遗物武器失败"))
+		}
 		two.DrawString(wq, 150, 50)
 
 		//详细
@@ -233,9 +237,11 @@ func init() { // 主函数
 			}
 			//字号30,间距50
 			three.SetRGB(1, 1, 1) //白色
-			
+
 			sywname := reliquary.WQ[alldata.AvatarInfoList[t].EquipList[i].Flat.SetNameTextHash]
-			if sywname == "" { ctx.SendChain(message.Text("缺少loc.son资源")) }
+			if sywname == "" {
+				ctx.SendChain(message.Text("缺少loc.son资源"))
+			}
 			tusyw, err := gg.LoadImage("plugin/kokomi/data/syw/" + sywname + "/" + strconv.Itoa(i+1) + ".webp")
 			if err != nil {
 				ctx.SendChain(message.Text("获取圣遗物图标失败", err))
@@ -717,7 +723,7 @@ func init() { // 主函数
 		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
 		wifename := ctx.State["regex_matched"].([]string)[2]
 		var pathw string
-		wife    := GetWifeOrWq("wife")
+		wife := GetWifeOrWq("wife")
 		swifeid := wife.Findnames(wifename)
 		if swifeid == "" {
 			ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
@@ -789,7 +795,7 @@ func init() { // 主函数
 		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
 		wifename := ctx.State["regex_matched"].([]string)[2]
 		var pathw string
-		wife    := GetWifeOrWq("wife")
+		wife := GetWifeOrWq("wife")
 		swifeid := wife.Findnames(wifename)
 		if swifeid == "" {
 			ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
