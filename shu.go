@@ -1,4 +1,5 @@
 package kokomi // 导入yuan-shen模块
+
 import (
 	"encoding/json"
 	"os"
@@ -8,7 +9,7 @@ import (
 
 // 圣遗物武器名匹配
 type Fff struct {
-	FfMap map[string]string `json:"zh-CN"`
+	WQ map[string]string `json:"zh-CN"`
 }
 
 // 评分权重结构
@@ -33,14 +34,11 @@ type Wikimap struct {
 	Weapon    map[string]string `json:"weapon"`
 }
 
-// 各种简称map查询
-var findmap map[string][]string
-
 // 角色信息json解析
-type Talents struct {
-	Elem       string         `json:"elem"`
-	TalentKey  map[int]string `json:"talentKey"`
+type Role struct {
 	TalentID   map[int]int    `json:"talentId"`
+	TalentKey  map[int]string `json:"talentKey"`
+	Elem       string         `json:"elem"`
 	TalentCons struct {
 		E int `json:"e"`
 		Q int `json:"q"`
@@ -213,78 +211,49 @@ func Getuid(qquid int64) (uid int) { // 获取对应游戏uid
 	sqquid := strconv.Itoa(int(qquid))
 	// 获取本地缓存数据
 	txt, err := os.ReadFile("plugin/kokomi/data/uid/" + sqquid + ".kokomi")
-	if err != nil {
-		return 0
-	}
-	sss, _ := strconv.Atoi(string(txt))
-	return sss
+	if err != nil { return 0 }
+	uid, _ = strconv.Atoi(string(txt))
+	return
 }
 
 // StoS 圣遗物词条简单描述
 func StoS(val string) string {
-	var vv string
 	switch val {
-	case "FIGHT_PROP_HP":
-		vv = "小生命"
-	case "FIGHT_PROP_HP_PERCENT":
-		vv = "大生命"
-	case "FIGHT_PROP_ATTACK":
-		vv = "小攻击"
-	case "FIGHT_PROP_ATTACK_PERCENT":
-		vv = "大攻击"
-	case "FIGHT_PROP_DEFENSE":
-		vv = "小防御"
-	case "FIGHT_PROP_DEFENSE_PERCENT":
-		vv = "大防御"
-	case "FIGHT_PROP_CRITICAL":
-		vv = "暴击率"
-	case "FIGHT_PROP_CRITICAL_HURT":
-		vv = "暴击伤害"
-	case "FIGHT_PROP_CHARGE_EFFICIENCY":
-		vv = "元素充能"
-	case "FIGHT_PROP_HEAL_ADD":
-		vv = "治疗加成"
-	case "FIGHT_PROP_ELEMENT_MASTERY":
-		vv = "元素精通"
-	case "FIGHT_PROP_PHYSICAL_ADD_HURT":
-		vv = "物理加伤"
-	case "FIGHT_PROP_FIRE_ADD_HURT":
-		vv = "火元素加伤"
-	case "FIGHT_PROP_ELEC_ADD_HURT":
-		vv = "雷元素加伤"
-	case "FIGHT_PROP_WATER_ADD_HURT":
-		vv = "水元素加伤"
-	case "FIGHT_PROP_GRASS_ADD_HURT":
-		vv = "草元素加伤"
-	case "FIGHT_PROP_WIND_ADD_HURT":
-		vv = "风元素加伤"
-	case "FIGHT_PROP_ROCK_ADD_HURT":
-		vv = "岩元素加伤"
-	case "FIGHT_PROP_ICE_ADD_HURT":
-		vv = "冰元素加伤"
+	case "FIGHT_PROP_HP": return "小生命"
+	case "FIGHT_PROP_HP_PERCENT": return "大生命"
+	case "FIGHT_PROP_ATTACK": return "小攻击"
+	case "FIGHT_PROP_ATTACK_PERCENT": return "大攻击"
+	case "FIGHT_PROP_DEFENSE": return "小防御"
+	case "FIGHT_PROP_DEFENSE_PERCENT": return "大防御"
+	case "FIGHT_PROP_CRITICAL": return "暴击率"
+	case "FIGHT_PROP_CRITICAL_HURT": return "暴击伤害"
+	case "FIGHT_PROP_CHARGE_EFFICIENCY": return "元素充能"
+	case "FIGHT_PROP_HEAL_ADD": return "治疗加成"
+	case "FIGHT_PROP_ELEMENT_MASTERY": return "元素精通"
+	case "FIGHT_PROP_PHYSICAL_ADD_HURT": return "物理加伤"
+	case "FIGHT_PROP_FIRE_ADD_HURT": return "火元素加伤"
+	case "FIGHT_PROP_ELEC_ADD_HURT": return "雷元素加伤"
+	case "FIGHT_PROP_WATER_ADD_HURT": return "水元素加伤"
+	case "FIGHT_PROP_GRASS_ADD_HURT": return "草元素加伤"
+	case "FIGHT_PROP_WIND_ADD_HURT": return "风元素加伤"
+	case "FIGHT_PROP_ROCK_ADD_HURT": return "岩元素加伤"
+	case "FIGHT_PROP_ICE_ADD_HURT": return "冰元素加伤"
 	}
-	return vv
+	return ""
 }
 
 // Stofen 判断词条分号
 func Stofen(val string) string {
-	var vv = "%"
 	switch val {
-	case "FIGHT_PROP_HP":
-		vv = ""
+	case "FIGHT_PROP_HP", "FIGHT_PROP_ATTACK", "FIGHT_PROP_DEFENSE", "FIGHT_PROP_ELEMENT_MASTERY": return ""
+/*
 	case "FIGHT_PROP_HP_PERCENT":
-	case "FIGHT_PROP_ATTACK":
-		vv = ""
 	case "FIGHT_PROP_ATTACK_PERCENT":
-	case "FIGHT_PROP_DEFENSE":
-		vv = ""
 	case "FIGHT_PROP_DEFENSE_PERCENT":
 	case "FIGHT_PROP_CRITICAL":
 	case "FIGHT_PROP_CRITICAL_HURT":
 	case "FIGHT_PROP_CHARGE_EFFICIENCY":
 	case "FIGHT_PROP_HEAL_ADD":
-	case "FIGHT_PROP_ELEMENT_MASTERY":
-		vv = ""
 	case "FIGHT_PROP_PHYSICAL_ADD_HURT":
 	case "FIGHT_PROP_FIRE_ADD_HURT":
 	case "FIGHT_PROP_ELEC_ADD_HURT":
@@ -293,74 +262,52 @@ func Stofen(val string) string {
 	case "FIGHT_PROP_WIND_ADD_HURT":
 	case "FIGHT_PROP_ROCK_ADD_HURT":
 	case "FIGHT_PROP_ICE_ADD_HURT":
+*/
 	}
-	return vv
+	return "%"
 }
 
 // Tianfujiuzhen 修复部分贴图大小错误
 func Tianfujiuzhen(val string) int {
-	var bb = 257 //280
 	switch val {
 	case "芭芭拉", "北斗", "多莉", "甘雨", "胡桃", "科莱", "雷电将军", "罗莎莉亚", "凝光", "赛诺", "魈", "行秋", "烟绯", "夜兰", "早柚":
-		bb = 280
+		return 280
 	}
-	return bb
+	return 257
 }
 
 // Countcitiao 计算圣遗物单词条分
-func Countcitiao(wifename string, funame string, figure float64) float64 {
-	var grade float64
-	var ti wifequan
-	ti = Wifequanmap[wifename]
+func Countcitiao(wifename, funame string, figure float64) float64 {
+	ti := Wifequanmap[wifename]
 	switch funame {
-	case "大生命":
-		grade = figure * 1.33 * float64(ti.Hp) / 100
-	case "大攻击":
-		grade = figure * 1.33 * float64(ti.Atk) / 100
-	case "大防御":
-		grade = figure * 1.33 * float64(ti.Def) / 100
-	case "暴击率":
-		grade = figure * 2.0 * float64(ti.Cpct) / 100
-	case "暴击伤害":
-		grade = figure * 1.0 * float64(ti.Cdmg) / 100
-	case "元素精通":
-		grade = figure * 0.33 * float64(ti.Mastery) / 100
+	case "大生命": return figure * 1.33 * float64(ti.Hp) / 100
+	case "大攻击": return figure * 1.33 * float64(ti.Atk) / 100
+	case "大防御": return figure * 1.33 * float64(ti.Def) / 100
+	case "暴击率": return figure * 2.0  * float64(ti.Cpct) / 100
+	case "暴击伤害": return figure * 1.0 * float64(ti.Cdmg) / 100
+	case "元素精通": return figure * 0.33 * float64(ti.Mastery) / 100
 	case "雷元素加伤", "水元素加伤", "火元素加伤", "风元素加伤", "草元素加伤", "岩元素加伤", "冰元素加伤":
-		grade = figure * 1.33 * float64(ti.Dmg) / 100
-	case "物理加伤":
-		grade = figure * 1.33 * float64(ti.Phy) / 100
-	case "元素充能":
-		grade = figure * 1.2 * float64(ti.Recharge) / 100
-	case "治疗加成":
-		grade = figure * 1.73 * float64(ti.Heal) / 100
-	default:
-		grade = 0
+		return figure * 1.33 * float64(ti.Dmg) / 100
+	case "物理加伤": return figure * 1.33 * float64(ti.Phy) / 100
+	case "元素充能": return figure * 1.2 * float64(ti.Recharge) / 100
+	case "治疗加成": return figure * 1.73 * float64(ti.Heal) / 100
 	}
-	return grade
+	return 0
 }
 
 // Pingji 词条评级
 func Pingji(val float64) string {
-	var fff string
 	switch {
-	case val < 18:
-		fff = "C"
-	case val < 24:
-		fff = "B"
-	case val < 29.7:
-		fff = "A"
-	case val < 36.3:
-		fff = "S"
-	case val < 42.9:
-		fff = "SS"
-	case val < 49.5:
-		fff = "SSS"
-	case val < 56.1:
-		fff = "ACE"
-	case val >= 56.1:
-		fff = "ACES"
+	case val < 18: return "C"
+	case val < 24: return "B"
+	case val < 29.7: return "A"
+	case val < 36.3: return "S"
+	case val < 42.9: return "SS"
+	case val < 49.5: return "SSS"
+	case val < 56.1: return "ACE"
+	case val >= 56.1: return "ACES"
 	}
-	return fff
+	return ""
 }
 
 // Ftoone 保留一位小数并转化string
@@ -368,89 +315,86 @@ func Ftoone(f float64) string {
 	return strconv.FormatFloat(f, 'f', 1, 64)
 }
 
-// Findnames 遍历寻找匹配昵称
-func Findnames(val string, typess string) string {
-	findmap = make(map[string][]string)
+
+// 各种简称map查询
+type FindMap map[string][]string
+
+func GetWifeOrWq(val string) FindMap {
 	var txt []byte
-	switch typess {
-	case "wife":
-		txt, _ = os.ReadFile("plugin/kokomi/data/json/wife_list.json")
-	case "wq":
-		txt, _ = os.ReadFile("plugin/kokomi/data/json/wq.json")
+	switch val {
+		case "wife": txt, _ = os.ReadFile("plugin/kokomi/data/json/wife_list.json")
+		case "wq"  : txt, _ = os.ReadFile("plugin/kokomi/data/json/wq.json")
 	}
-	_ = json.Unmarshal(txt, &findmap)
-	for k, v := range findmap {
+	var m FindMap = make(map[string][]string)
+	if nil == json.Unmarshal(txt, &m) { return m }
+	return nil
+}
+
+// Findnames 遍历寻找匹配昵称
+func (m FindMap) Findnames(val string) string {
+	for k, v := range m {
 		for _, vv := range v {
-			if vv == val {
-				return k
-			}
+			if vv == val { return k }
 		}
 	}
 	return ""
 }
 
 // Idmap wifeid->wifename
-func Idmap(val string, typess string) string {
-	findmap = make(map[string][]string)
-	var txt []byte
-	switch typess {
-	case "wife":
-		txt, _ = os.ReadFile("plugin/kokomi/data/json/wife_list.json")
-	}
-	_ = json.Unmarshal(txt, &findmap)
-	for k, v := range findmap {
-		if k == val {
-			return v[0]
-		}
+func (m FindMap) Idmap(val string) string {
+	for k, v := range m {
+		if k == val { return v[0] }
 	}
 	return ""
 }
 
 // StringStrip 字符串删空格
 func StringStrip(input string) string {
-	if input == "" {
-		return ""
-	}
+	if input == "" { return "" }
 	reg := regexp.MustCompile(`[\s\p{Zs}]{1,}`)
 	return reg.ReplaceAllString(input, "")
 }
 
-// Findwq圣遗物,武器名匹配
-func Findwq(a string) string {
+// GetReliquary 读取圣遗物信息
+func GetReliquary() *Fff {
 	txt, err := os.ReadFile("plugin/kokomi/data/json/loc.json")
-	if err != nil {
-		return ""
-	}
-	var alldata Fff
-	err = json.Unmarshal(txt, &alldata)
-	if err != nil {
-		return ""
-	}
-	return alldata.FfMap[a]
+	if err != nil { return nil }
+	var p Fff
+	if nil == json.Unmarshal(txt, &p) { return &p }
+	return nil
 }
 
-// Findtalent 天赋列表
-func Findtalent(Role Talents) [3]int {
-	var f [2][3]int
-	for k, v := range Role.TalentKey {
+// Findwq圣遗物,武器名匹配
+func (m *Fff) Findwq(a string) string {
+	return m.WQ[a]
+}
+
+// GetRole 角色信息
+func GetRole(str string) *Role {
+	txt, err := os.ReadFile("plugin/kokomi/data/character/" + str + "/data.json")
+	if err != nil { return nil }
+	var p Role
+	if nil == json.Unmarshal(txt, &p) { return &p }
+	return nil
+}
+
+// GetTalentId 天赋列表
+func (m *Role) GetTalentId() []int {
+	var a, e, q int
+	for k, v := range m.TalentKey {
 		switch v {
-		case "a":
-			f[0][0] = k
-		case "e":
-			f[0][1] = k
-		case "q":
-			f[0][2] = k
+			case "a": a = k
+			case "e": e = k
+			case "q": q = k
 		}
 	}
-	for m, n := range Role.TalentID {
-		switch n {
-		case f[0][0]:
-			f[1][0] = m
-		case f[0][1]:
-			f[1][1] = m
-		case f[0][2]:
-			f[1][2] = m
+	f := make([]int, 3)
+	for k, v := range m.TalentID {
+		switch v {
+			case a: f[0] = k
+			case e: f[1] = k
+			case q: f[2] = k
 		}
 	}
-	return f[1]
+	return f
 }

@@ -24,7 +24,6 @@ const ( //~标记已实现
 	url6 = "https://map.minigg.cn/map/get_map?resource_name=%v&is_cluster=false"                                                     //地图资源截图
 	url7 = "https://ghproxy.com/https://raw.githubusercontent.com/Nwflower/genshin-atlas/master/artifact/%v.png"                     //圣遗物图鉴
 	url8 = "https://ghproxy.com/https://raw.githubusercontent.com/CMHopeSunshine/GenshinWikiMap/master/results/monster_map/%v.jpg"   //~原魔图鉴
-
 )
 
 func init() { // 主函数
@@ -61,18 +60,20 @@ func init() { // 主函数
 			return
 		}
 		_ = json.Unmarshal(t, &paths)
+		
 		switch keys {
 		case "查卡", "七圣": //七圣召唤
 			url = url3
 			k = paths.Card[word]
 		case "培养", "材料": //角色素材
 			url = url3
-			swifeid := Findnames(word, "wife")
+			wife    := GetWifeOrWq("wife")
+			swifeid := wife.Findnames(word)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
-			word = Idmap(swifeid, "wife")
+			word = wife.Idmap(swifeid)
 			if word == "" {
 				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
@@ -83,7 +84,8 @@ func init() { // 主函数
 			k = www.QueryEscape(word)
 		case "武器", "图鉴": //武器图鉴
 			url = url3
-			word = Findnames(word, "wq")
+			wq  := GetWifeOrWq("wq")
+			word = wq.Findnames(word)
 			if word == "" {
 				ctx.SendChain(message.Text("-请输入武器全名" + Postfix))
 				return
@@ -91,36 +93,39 @@ func init() { // 主函数
 			k = paths.Weapon[word]
 		case "收益": //收益曲线
 			url = url4
-			swifeid := Findnames(word, "wife")
+			wife    := GetWifeOrWq("wife")
+			swifeid := wife.Findnames(word)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
-			k = Idmap(swifeid, "wife")
+			k = wife.Idmap(swifeid)
 			if k == "" {
 				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
 			}
 		case "参考": //参考面板
 			url = url5
-			swifeid := Findnames(word, "wife")
+			wife    := GetWifeOrWq("wife")
+			swifeid := wife.Findnames(word)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
-			k = Idmap(swifeid, "wife")
+			k = wife.Idmap(swifeid)
 			if k == "" {
 				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
 			}
 		case "攻略": //角色攻略
 			url = url2
-			swifeid := Findnames(word, "wife")
+			wife    := GetWifeOrWq("wife")
+			swifeid := wife.Findnames(word)
 			if swifeid == "" {
 				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
-			k = Idmap(swifeid, "wife")
+			k = wife.Idmap(swifeid)
 			if k == "" {
 				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
@@ -130,11 +135,12 @@ func init() { // 主函数
 			k = word
 		default: //角色图鉴
 			url = url1
-			swifeid := Findnames(str, "wife")
+			wife    := GetWifeOrWq("wife")
+			swifeid := wife.Findnames(str)
 			if swifeid == "" {
 				return
 			}
-			k = Idmap(swifeid, "wife")
+			k = wife.Idmap(swifeid)
 			if k == "" {
 				ctx.SendChain(message.Text("Idmap数据缺失"))
 				return
