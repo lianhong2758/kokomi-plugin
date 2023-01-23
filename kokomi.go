@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"unicode/utf8"
+	//"unicode/utf8"
 
 	"github.com/Coloured-glaze/gg"
 	"github.com/FloatTech/floatbox/img/writer"
@@ -49,7 +49,7 @@ func init() { // 主函数
 			"- XX面板\n" +
 			"- 删除账号[@xx]",
 	})
-	en.OnRegex(`(.*)面板\s*(\[CQ:at,qq=)?(\d+)?(.*)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`#?＃?(.*)面板\s*(\[CQ:at,qq=)?(\d+)?(.*)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		var wifeid, qquid int64
 		var allfen float64 = 0.00
 		sqquid := ctx.State["regex_matched"].([]string)[3] // 获取第三者qquid
@@ -73,7 +73,7 @@ func init() { // 主函数
 			return
 		}
 		//############################################################判断数据更新,逻辑原因不能合并进switch
-		if str == "更新" || str == "#更新" {
+		if str == "更新" {
 			es, err := web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
 			if err != nil {
 				time.Sleep(500 * time.Microsecond)            //0.5s
@@ -86,7 +86,7 @@ func init() { // 主函数
 			// 创建存储文件,路径plugin/kokomi/data/js
 			file, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 			_, _ = file.Write(es)
-			ctx.SendChain(message.Text("-获取角色面板成功" + Postfix + "\n-请发送 全部面板 查看已展示角色" + Postfix))
+			ctx.SendChain(message.Text("-获取角色面板成功" + "\n-请发送 全部面板 查看已展示角色" + Postfix))
 			file.Close()
 			return
 		}
@@ -113,7 +113,7 @@ func init() { // 主函数
 		wife := GetWifeOrWq("wife")
 
 		switch str {
-		case "全部", "全部角色", "#全部":
+		case "全部", "全部角色":
 			var msg strings.Builder
 			msg.WriteString("您的展示角色为:\n")
 			for i := 0; i < len(alldata.PlayerInfo.ShowAvatarInfoList); i++ {
@@ -131,9 +131,9 @@ func init() { // 主函数
 			return
 		default: // 角色名解析为id
 			//排除#
-			if str[0:1] == "#" {
-				str = str[1:]
-			}
+			//if string(([]rune(str))[0]) == "＃" || string(([]rune(str))[0]) == "#" {
+			//	str = string([]rune(str))[1:]
+			//}
 			//匹配简称/外号
 			swifeid := wife.Findnames(str)
 			if swifeid == "" {
@@ -283,8 +283,9 @@ func init() { // 主函数
 			if err := three.LoadFontFace(FiFile, 30); err != nil {
 				panic(err)
 			}
-			//主词条名字
-			three.DrawString("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 200, yy) //主词条属性
+			//主词条属性
+			//+对齐three.DrawString("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 200, yy)
+			three.DrawStringAnchored("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 325, yy, 1, 0) //主词条属性
 			//算分
 			if i > 1 { //不算前两主词条属性
 				pingfeng += Countcitiao(str, zhuci, alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value/4)
@@ -309,7 +310,8 @@ func init() { // 主函数
 				if err := three.LoadFontFace(FiFile, 30); err != nil {
 					panic(err)
 				}
-				three.DrawString("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 200, yy)
+				//+对齐three.DrawString("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 200, yy)
+				three.DrawStringAnchored("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 325, yy, 1, 0)
 				var fuciname = StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID)
 				var fufigure = alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value
 				switch fuciname {
@@ -454,35 +456,37 @@ func init() { // 主函数
 		//syy := lihui.Bounds().Size().Y
 		lihui = resize.Resize(0, 880, lihui, resize.Bilinear)
 		sxx := lihui.Bounds().Size().X
-		dc.DrawImage(lihui, int(260-float64(sxx)/2), 0)
+		dc.DrawImage(lihui, int(300-float64(sxx)/2), 0)
 
-		//角色名字
-		if err := dc.LoadFontFace(NameFont, 80); err != nil {
-			panic(err)
-		}
-		namelen := utf8.RuneCountInString(str)
-		dc.DrawString(str, float64(1050-namelen*90), float64(130))
 		// 好感度,uid
 		if err := dc.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
 		}
-
 		//好感度位置
 		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 20, 910)
-		dc.DrawString("昵称:"+alldata.PlayerInfo.Nickname, 700, 40)
-		if err := dc.LoadFontFace(FiFile, 30); err != nil {
+		//昵称图框
+		newying := Yinying(540, 200, 16, 0.5)
+		five := gg.NewContext(540, 200)
+		five.SetRGB(1, 1, 1) //白色
+		//角色名字
+		if err := five.LoadFontFace(NameFont, 80); err != nil {
 			panic(err)
 		}
-		//计算宽度
-		b, _ := dc.MeasureString("UID:" + suid + "---LV" + strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level) + "---" + strconv.Itoa(ming))
-		dc.DrawString("UID:"+suid+"---LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+"---"+strconv.Itoa(ming), 976-b, 180)
-		if err := dc.LoadFontFace(FontFile, 30); err != nil {
+		five.DrawStringAnchored(str, 505, 130, 1, 0)
+		if err := five.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
 		}
-		dc.DrawString("命", 976, 180)
+		five.DrawStringAnchored("昵称:"+alldata.PlayerInfo.Nickname, 505, 40, 1, 0)
+		five.DrawString("命", 470, 180)
+		if err := five.LoadFontFace(FiFile, 30); err != nil {
+			panic(err)
+		}
+		five.DrawStringAnchored("UID:"+suid+"--LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+"--"+strconv.Itoa(ming), 470, 180, 1, 0)
 		// 角色等级,命之座(合并上程序)
 		//dc.DrawString("LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level), 630, 130) // 角色等级
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
+		dc.DrawImage(newying, 505, 20)
+		dc.DrawImage(five.Image(), 505, 20)
 
 		//新建图层,实现阴影
 		bg := Yinying(540, 470, 16, 0.6)
@@ -541,15 +545,15 @@ func init() { // 主函数
 			panic(err)
 		}
 		// 属性540*460,字30,间距15,60
-		one.SetRGB(1, 1, 1)                                                                    //白色
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2000), 335, 40)        //生命
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2001), 335, 100)       //攻击
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2002), 335, 160)       //防御
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num28), 335, 220)         //精通
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 335, 280) //暴击
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 335, 340) //爆伤
-		one.DrawString(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 335, 400) //充能
-		one.DrawString(Ftoone(addf)+"%", 335, 460)
+		one.SetRGB(1, 1, 1)                                                                                  //白色
+		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2000), 470, 40, 1, 0)        //生命
+		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2001), 470, 100, 1, 0)       //攻击
+		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2002), 470, 160, 1, 0)       //防御
+		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num28), 470, 220, 1, 0)         //精通
+		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 470, 280, 1, 0) //暴击
+		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 470, 340, 1, 0) //爆伤
+		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 470, 400, 1, 0) //充能
+		one.DrawStringAnchored(Ftoone(addf)+"%", 470, 460, 1, 0)
 
 		dc.DrawImage(bg, 505, 420)
 		dc.DrawImage(one.Image(), 505, 420)
@@ -667,7 +671,7 @@ func init() { // 主函数
 	})
 
 	// 绑定uid
-	en.OnRegex(`^(#)?绑定\s*(uid)?(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(#|＃)?绑定\s*(uid)?(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		suid := ctx.State["regex_matched"].([]string)[3] // 获取uid
 		int64uid, err := strconv.ParseInt(suid, 10, 64)
 		if suid == "" || int64uid < 100000000 || int64uid > 1000000000 || err != nil {
