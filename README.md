@@ -6,6 +6,13 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 具体功能可在安装插件后 通过"kokomi菜单","/用法kokomi","/用法kokomi_wiki"进行查看。
 # 安装与更新
 
+请先安装ZeroBot-Plugin,仓库地址为
+
+  https://github.com/FloatTech/ZeroBot-Plugin
+
+在配置成功上述程序后源码后,再安装本插件,否则无法生效
+
+
 推荐使用git进行安装，以方便后续升级。在ZeroBot-Plugin根目录夹打开终端，运行
 
 //使用github
