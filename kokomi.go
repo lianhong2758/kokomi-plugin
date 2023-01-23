@@ -377,7 +377,7 @@ func init() { // 主函数
 			panic(err)
 		}
 		four.DrawString(Ftoone(allfen), 50, 100)
-		four.DrawString("-"+Pingji(allfen/5), 200, 100)
+		four.DrawStringAnchored("-"+Pingji(allfen/5), 255, 100, 0.5, 0)
 		if err := four.LoadFontFace(FontFile, 25); err != nil {
 			panic(err)
 		}
