@@ -316,15 +316,14 @@ func init() { // 主函数
 				var fufigure = alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value
 				switch fuciname {
 				case "小攻击":
-					fufigure = fufigure / alldata.AvatarInfoList[t].FightPropMap.Num4
+					fufigure = fufigure / (alldata.AvatarInfoList[t].FightPropMap.Num4 - fufigure)
 					fuciname = "大攻击"
 				case "小防御":
-					fufigure = fufigure / alldata.AvatarInfoList[t].FightPropMap.Num7
+					fufigure = fufigure / (alldata.AvatarInfoList[t].FightPropMap.Num7 - fufigure)
 					fuciname = "大防御"
 				case "小生命":
-					fufigure = fufigure / alldata.AvatarInfoList[t].FightPropMap.Num1
+					fufigure = fufigure / (alldata.AvatarInfoList[t].FightPropMap.Num1 - fufigure)
 					fuciname = "大生命"
-				default:
 				}
 				pingfeng += Countcitiao(str, fuciname, fufigure)
 			}
