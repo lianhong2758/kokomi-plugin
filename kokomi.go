@@ -137,7 +137,7 @@ func init() { // 主函数
 			//匹配简称/外号
 			swifeid := wife.Findnames(str)
 			if swifeid == "" {
-				ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
+				//ctx.SendChain(message.Text("-请输入角色全名" + Postfix))
 				return
 			}
 			wifeid, _ = strconv.ParseInt(swifeid, 10, 64)
