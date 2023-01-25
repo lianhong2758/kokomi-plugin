@@ -2,16 +2,16 @@
   "id": 10000077,
   "name": "瑶瑶",
   "abbr": "瑶瑶",
-  "title": "？？？",
+  "title": "仙蕊玲珑",
   "star": 4,
   "elem": "dendro",
-  "allegiance": "？？？",
+  "allegiance": "歌尘浪市真君洞天",
   "weapon": "polearm",
-  "birth": "1-1",
+  "birth": "3-6",
   "astro": "木樨座",
-  "desc": "测试角色",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "desc": "歌尘浪市真君膝下最年幼的弟子，温柔体贴的「小大人」。",
+  "cncv": "刘颐诺",
+  "jpcv": "门胁舞以",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -28,7 +28,11 @@
     "7732": "e",
     "7739": "q"
   },
-  "talentId": {},
+  "talentId": {
+    "10771": 7731,
+    "10772": 7732,
+    "10775": 7739
+  },
   "talentCons": {
     "e": 3,
     "q": 5
