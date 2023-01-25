@@ -83,10 +83,37 @@ func init() { // 主函数
 					return
 				}
 			}
+			//解析
+			var ndata Data
+			err = json.Unmarshal(es, &ndata)
+			if err != nil {
+				ctx.SendChain(message.Text("出现错误捏：", err))
+				return
+			}
+			if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 {
+				ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix))
+				return
+			}
+			wife := GetWifeOrWq("wife")
+			var msg strings.Builder
+			msg.WriteString("-获取角色面板成功\n")
+			msg.WriteString("-您的展示角色为:\n")
+			for i := 0; i < len(ndata.PlayerInfo.ShowAvatarInfoList); i++ {
+				mmm := wife.Idmap(strconv.Itoa(ndata.PlayerInfo.ShowAvatarInfoList[i].AvatarID))
+				if mmm == "" {
+					ctx.SendChain(message.Text("Idmap数据缺失"))
+					return
+				}
+				msg.WriteString(" ")
+				msg.WriteString(mmm)
+				if i < len(ndata.PlayerInfo.ShowAvatarInfoList)-1 {
+					msg.WriteByte('\n')
+				}
+			}
 			// 创建存储文件,路径plugin/kokomi/data/js
 			file, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 			_, _ = file.Write(es)
-			ctx.SendChain(message.Text("-获取角色面板成功" + "\n-请发送 全部面板 查看已展示角色" + Postfix))
+			ctx.SendChain(message.Text(msg.String()))
 			file.Close()
 			return
 		}
@@ -115,13 +142,14 @@ func init() { // 主函数
 		switch str {
 		case "全部", "全部角色":
 			var msg strings.Builder
-			msg.WriteString("您的展示角色为:\n")
+			msg.WriteString("-您的展示角色为:\n")
 			for i := 0; i < len(alldata.PlayerInfo.ShowAvatarInfoList); i++ {
 				mmm := wife.Idmap(strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[i].AvatarID))
 				if mmm == "" {
 					ctx.SendChain(message.Text("Idmap数据缺失"))
 					return
 				}
+				msg.WriteString(" ")
 				msg.WriteString(mmm)
 				if i < len(alldata.PlayerInfo.ShowAvatarInfoList)-1 {
 					msg.WriteByte('\n')
@@ -670,7 +698,7 @@ func init() { // 主函数
 	})
 
 	// 绑定uid
-	en.OnRegex(`^(#|＃)?绑定\s*(uid)?(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(#|＃)?绑定\s*(uid)?\s*(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		suid := ctx.State["regex_matched"].([]string)[3] // 获取uid
 		int64uid, err := strconv.ParseInt(suid, 10, 64)
 		if suid == "" || int64uid < 100000000 || int64uid > 1000000000 || err != nil {
@@ -693,10 +721,37 @@ func init() { // 主函数
 				return
 			}
 		}
+		//解析
+		var ndata Data
+		err = json.Unmarshal(es, &ndata)
+		if err != nil {
+			ctx.SendChain(message.Text("出现错误捏：", err))
+			return
+		}
+		if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 {
+			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix))
+			return
+		}
+		wife := GetWifeOrWq("wife")
+		var msg strings.Builder
+		msg.WriteString("-获取角色面板成功\n")
+		msg.WriteString("-您的展示角色为:\n")
+		for i := 0; i < len(ndata.PlayerInfo.ShowAvatarInfoList); i++ {
+			mmm := wife.Idmap(strconv.Itoa(ndata.PlayerInfo.ShowAvatarInfoList[i].AvatarID))
+			if mmm == "" {
+				ctx.SendChain(message.Text("Idmap数据缺失"))
+				return
+			}
+			msg.WriteString(" ")
+			msg.WriteString(mmm)
+			if i < len(ndata.PlayerInfo.ShowAvatarInfoList)-1 {
+				msg.WriteByte('\n')
+			}
+		}
 		// 创建存储文件,路径plugin/kokomi/data/js
 		file1, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file1.Write(es)
-		ctx.SendChain(message.Text("-获取角色面板成功" + "\n-请发送 全部面板 查看已展示角色" + Postfix))
+		ctx.SendChain(message.Text(msg.String()))
 		file1.Close()
 	})
 	//菜单命令
