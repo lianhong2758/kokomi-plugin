@@ -28,7 +28,7 @@ import (
 )
 
 const (
-	url      = "https://enka.minigg.cn/u/%v/__data.json"
+	url      = "https://enka.microgg.cn/u/%v"
 	Postfix  = "~" //语句后缀
 	edition  = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2.2"
 	tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
