@@ -17,14 +17,14 @@ const (
 )
 
 type LelaerApi struct {
-	ndata     Data
-	wife      FindMap
+	ndata Data
+
 	reliquary *Fff
 	syw       Syws
 }
 
-func (api *LelaerApi) GetSumComment(uid string) ([]byte, error) {
-	p, err := api.transToTeyvat(uid)
+func (ndata Data) GetSumComment(uid string, wife FindMap) ([]byte, error) {
+	p, err := ndata.transToTeyvat(uid, wife)
 	if err != nil {
 		return nil, err
 	}
@@ -134,28 +134,26 @@ var (
 	k_error_promap = errors.New("获取角色失败")
 )
 
-func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
-	if api.wife == nil {
-		if api.wife = GetWifeOrWq("wife"); api.wife == nil {
+func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error) {
+	if wife == nil {
+		if wife = GetWifeOrWq("wife"); wife == nil {
 			return nil, k_error_sys
 		}
 	}
-	if api.reliquary == nil {
-		if api.reliquary = GetReliquary(); api.reliquary == nil {
-			return nil, k_error_sys
-		}
+	reliquary := GetReliquary()
+	if reliquary == nil {
+		return nil, k_error_sys
 	}
-	if api.syw == nil {
-		if api.syw = GetSywName(); api.syw == nil {
-			return nil, k_error_sys
-		}
+	syw := GetSywName()
+	if syw == nil {
+		return nil, k_error_sys
 	}
 
 	server := getServer(uid)
 	res := &TeyvatHelper{Time: 0}
 
-	for _, v := range api.ndata.AvatarInfoList {
-		name := api.wife.Idmap(strconv.Itoa(v.AvatarID))
+	for _, v := range ndata.AvatarInfoList {
+		name := wife.Idmap(strconv.Itoa(v.AvatarID))
 		cons := len(v.TalentIDList)
 
 		n := len(v.EquipList) // 纠正圣遗物空缺报错的无返回情况
@@ -169,7 +167,7 @@ func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
 		equip_affix := equip_last.Weapon.AffixMap[n] + 1
 
 		// 武器名
-		wqname := api.reliquary.WQ[equip_last.Flat.NameTextHash]
+		wqname := reliquary.WQ[equip_last.Flat.NameTextHash]
 		if wqname == "" {
 			return nil, k_error_sys
 		}
@@ -177,7 +175,7 @@ func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
 		roleData := TeyvatHelperData{
 			Uid:         uid,
 			Server:      server,
-			UserLevel:   api.ndata.PlayerInfo.Level,
+			UserLevel:   ndata.PlayerInfo.Level,
 			Role:        name,
 			Cons:        cons,
 			Weapon:      wqname,
@@ -186,7 +184,7 @@ func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
 			Fetter:      v.FetterInfo.ExpLevel,
 		}
 
-		for _, item := range api.ndata.PlayerInfo.ShowAvatarInfoList {
+		for _, item := range ndata.PlayerInfo.ShowAvatarInfoList {
 			if item.AvatarID == v.AvatarID {
 				roleData.Level = item.Level
 				break
@@ -255,12 +253,12 @@ func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
 			if equip.Flat.SetNameTextHash == "" {
 				return nil, k_error_sys
 			}
-			roleData.Artifacts = api.reliquary.WQ[equip.Flat.SetNameTextHash]
+			roleData.Artifacts = reliquary.WQ[equip.Flat.SetNameTextHash]
 			if roleData.Artifacts == "" {
 				return nil, k_error_sys
 			}
 
-			sywallname := api.syw.Names(roleData.Artifacts)[i] // 圣遗物name
+			sywallname := syw.Names(roleData.Artifacts)[i] // 圣遗物name
 			// fmt.Println(roleData.Artifacts, sywallname)
 
 			var main_value any
