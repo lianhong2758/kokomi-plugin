@@ -16,11 +16,17 @@ const (
 	k_lelaer_sum = "https://api.lelaer.com/ys/getSumComment.php"
 )
 
-func (ndata Data) GetSumComment(uid string) ([]byte, error) {
-	var err error
-	p, e := transToTeyvat(uid, &ndata)
-	if e != nil {
-		return nil, e
+type LelaerApi struct {
+	ndata     Data
+	wife      FindMap
+	reliquary *Fff
+	syw       Syws
+}
+
+func (api *LelaerApi) GetSumComment(uid string) ([]byte, error) {
+	p, err := api.transToTeyvat(uid)
+	if err != nil {
+		return nil, err
 	}
 	d, _ := json.Marshal(p)
 	if d, err = web.RequestDataWith(web.NewTLS12Client(),
@@ -128,25 +134,28 @@ var (
 	k_error_promap = errors.New("获取角色失败")
 )
 
-func transToTeyvat(uid string, ndata *Data) (*TeyvatHelper, error) {
-	wife := GetWifeOrWq("wife")
-	if wife == nil {
-		return nil, k_error_sys
+func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
+	if api.wife == nil {
+		if api.wife = GetWifeOrWq("wife"); api.wife == nil {
+			return nil, k_error_sys
+		}
 	}
-	reliquary := GetReliquary()
-	if reliquary == nil {
-		return nil, k_error_sys
+	if api.reliquary == nil {
+		if api.reliquary = GetReliquary(); api.reliquary == nil {
+			return nil, k_error_sys
+		}
 	}
-	syw := GetSywName()
-	if syw == nil {
-		return nil, k_error_sys
+	if api.syw == nil {
+		if api.syw = GetSywName(); api.syw == nil {
+			return nil, k_error_sys
+		}
 	}
 
 	server := getServer(uid)
 	res := &TeyvatHelper{Time: 0}
 
-	for _, v := range ndata.AvatarInfoList {
-		name := wife.Idmap(strconv.Itoa(v.AvatarID))
+	for _, v := range api.ndata.AvatarInfoList {
+		name := api.wife.Idmap(strconv.Itoa(v.AvatarID))
 		cons := len(v.TalentIDList)
 
 		n := len(v.EquipList) // 纠正圣遗物空缺报错的无返回情况
@@ -160,7 +169,7 @@ func transToTeyvat(uid string, ndata *Data) (*TeyvatHelper, error) {
 		equip_affix := equip_last.Weapon.AffixMap[n] + 1
 
 		// 武器名
-		wqname := reliquary.WQ[equip_last.Flat.NameTextHash]
+		wqname := api.reliquary.WQ[equip_last.Flat.NameTextHash]
 		if wqname == "" {
 			return nil, k_error_sys
 		}
@@ -168,7 +177,7 @@ func transToTeyvat(uid string, ndata *Data) (*TeyvatHelper, error) {
 		roleData := TeyvatHelperData{
 			Uid:         uid,
 			Server:      server,
-			UserLevel:   ndata.PlayerInfo.Level,
+			UserLevel:   api.ndata.PlayerInfo.Level,
 			Role:        name,
 			Cons:        cons,
 			Weapon:      wqname,
@@ -177,7 +186,7 @@ func transToTeyvat(uid string, ndata *Data) (*TeyvatHelper, error) {
 			Fetter:      v.FetterInfo.ExpLevel,
 		}
 
-		for _, item := range ndata.PlayerInfo.ShowAvatarInfoList {
+		for _, item := range api.ndata.PlayerInfo.ShowAvatarInfoList {
 			if item.AvatarID == v.AvatarID {
 				roleData.Level = item.Level
 				break
@@ -244,14 +253,14 @@ func transToTeyvat(uid string, ndata *Data) (*TeyvatHelper, error) {
 		// 圣遗物数据
 		for i, equip := range v.EquipList {
 			if equip.Flat.SetNameTextHash == "" {
-				continue
+				return nil, k_error_sys
 			}
-			roleData.Artifacts = reliquary.WQ[equip.Flat.SetNameTextHash]
+			roleData.Artifacts = api.reliquary.WQ[equip.Flat.SetNameTextHash]
 			if roleData.Artifacts == "" {
 				return nil, k_error_sys
 			}
 
-			sywallname := syw.Names(roleData.Artifacts)[i] // 圣遗物name
+			sywallname := api.syw.Names(roleData.Artifacts)[i] // 圣遗物name
 			// fmt.Println(roleData.Artifacts, sywallname)
 
 			var main_value any
@@ -261,29 +270,27 @@ func transToTeyvat(uid string, ndata *Data) (*TeyvatHelper, error) {
 				main_value = Ftoone(equip.Flat.ReliquaryMainStat.Value) + s
 			}
 
-			roleData.Detail = append(roleData.Detail, TeyvatHelperDetail{
+			detail := TeyvatHelperDetail{
 				Name:      sywallname,
 				Type:      GetEquipType(equip.Flat.EquipType),
 				Level:     equip.Reliquary.Level - 1,
 				MainTips:  GetAppendProp(equip.Flat.ReliquaryMainStat.MainPropID),
 				MainValue: main_value,
-				Tips1: fmt.Sprintf("%s+%v%s",
-					GetAppendProp(equip.Flat.ReliquarySubStats[0].SubPropID),
-					equip.Flat.ReliquarySubStats[0].Value,
-					Stofen(equip.Flat.ReliquarySubStats[0].SubPropID)),
-				Tips2: fmt.Sprintf("%s+%v%s",
-					GetAppendProp(equip.Flat.ReliquarySubStats[1].SubPropID),
-					equip.Flat.ReliquarySubStats[1].Value,
-					Stofen(equip.Flat.ReliquarySubStats[1].SubPropID)),
-				Tips3: fmt.Sprintf("%s+%v%s",
-					GetAppendProp(equip.Flat.ReliquarySubStats[2].SubPropID),
-					equip.Flat.ReliquarySubStats[2].Value,
-					Stofen(equip.Flat.ReliquarySubStats[2].SubPropID)),
-				Tips4: fmt.Sprintf("%s+%v%s",
-					GetAppendProp(equip.Flat.ReliquarySubStats[3].SubPropID),
-					equip.Flat.ReliquarySubStats[3].Value,
-					Stofen(equip.Flat.ReliquarySubStats[3].SubPropID)),
-			})
+			}
+			for i, stats := range equip.Flat.ReliquarySubStats {
+				s := fmt.Sprintf("%s+%v%s", GetAppendProp(stats.SubPropID), stats.Value, Stofen(stats.SubPropID))
+				switch i {
+				case 0:
+					detail.Tips1 = s
+				case 1:
+					detail.Tips2 = s
+				case 2:
+					detail.Tips3 = s
+				case 3:
+					detail.Tips4 = s
+				}
+			}
+			roleData.Detail = append(roleData.Detail, detail)
 		}
 
 		if roleData.Artifacts == "" {

@@ -276,33 +276,54 @@ func StoS(val string) string {
 
 func GetAppendProp(v string) string {
 	switch v {
-		case "FIGHT_PROP_HP"     , "FIGHT_PROP_HP_PERCENT"     : return "生命值"
-		case "FIGHT_PROP_ATTACK" , "FIGHT_PROP_ATTACK_PERCENT" : return "攻击力"
-		case "FIGHT_PROP_DEFENSE", "FIGHT_PROP_DEFENSE_PERCENT": return "防御力"
-		case "FIGHT_PROP_CRITICAL"         : return "暴击率"
-		case "FIGHT_PROP_CRITICAL_HURT"    : return "暴击伤害"
-		case "FIGHT_PROP_CHARGE_EFFICIENCY": return "元素充能效率"
-		case "FIGHT_PROP_HEAL_ADD"         : return "治疗加成"
-		case "FIGHT_PROP_ELEMENT_MASTERY"  : return "元素精通"
-		case "FIGHT_PROP_PHYSICAL_ADD_HURT": return "物理伤害加成"
-		case "FIGHT_PROP_FIRE_ADD_HURT"    : return "火元素伤害加成"
-		case "FIGHT_PROP_ELEC_ADD_HURT"    : return "雷元素伤害加成"
-		case "FIGHT_PROP_WATER_ADD_HURT"   : return "水元素伤害加成"
-		case "FIGHT_PROP_GRASS_ADD_HURT"   : return "草元素伤害加成"
-		case "FIGHT_PROP_WIND_ADD_HURT"    : return "风元素伤害加成"
-		case "FIGHT_PROP_ROCK_ADD_HURT"    : return "岩元素伤害加成"
-		case "FIGHT_PROP_ICE_ADD_HURT"     : return "冰元素伤害加成"
+	case "FIGHT_PROP_HP", "FIGHT_PROP_HP_PERCENT":
+		return "生命值"
+	case "FIGHT_PROP_ATTACK", "FIGHT_PROP_ATTACK_PERCENT":
+		return "攻击力"
+	case "FIGHT_PROP_DEFENSE", "FIGHT_PROP_DEFENSE_PERCENT":
+		return "防御力"
+	case "FIGHT_PROP_CRITICAL":
+		return "暴击率"
+	case "FIGHT_PROP_CRITICAL_HURT":
+		return "暴击伤害"
+	case "FIGHT_PROP_CHARGE_EFFICIENCY":
+		return "元素充能效率"
+	case "FIGHT_PROP_HEAL_ADD":
+		return "治疗加成"
+	case "FIGHT_PROP_ELEMENT_MASTERY":
+		return "元素精通"
+	case "FIGHT_PROP_PHYSICAL_ADD_HURT":
+		return "物理伤害加成"
+	case "FIGHT_PROP_FIRE_ADD_HURT":
+		return "火元素伤害加成"
+	case "FIGHT_PROP_ELEC_ADD_HURT":
+		return "雷元素伤害加成"
+	case "FIGHT_PROP_WATER_ADD_HURT":
+		return "水元素伤害加成"
+	case "FIGHT_PROP_GRASS_ADD_HURT":
+		return "草元素伤害加成"
+	case "FIGHT_PROP_WIND_ADD_HURT":
+		return "风元素伤害加成"
+	case "FIGHT_PROP_ROCK_ADD_HURT":
+		return "岩元素伤害加成"
+	case "FIGHT_PROP_ICE_ADD_HURT":
+		return "冰元素伤害加成"
 	}
 	return ""
 }
 
 func GetEquipType(v string) string {
 	switch v {
-		case "EQUIP_BRACER"  : return "生之花"
-		case "EQUIP_NECKLACE": return "死之羽"
-		case "EQUIP_SHOES"   : return "时之沙"
-		case "EQUIP_RING"    : return "空之杯"
-		case "EQUIP_DRESS"   : return "理之冠"
+	case "EQUIP_BRACER":
+		return "生之花"
+	case "EQUIP_NECKLACE":
+		return "死之羽"
+	case "EQUIP_SHOES":
+		return "时之沙"
+	case "EQUIP_RING":
+		return "空之杯"
+	case "EQUIP_DRESS":
+		return "理之冠"
 	}
 	return ""
 }
@@ -395,7 +416,7 @@ func Pingji(val float64) string {
 func Ftoone(f float64) string {
 	// return strconv.FormatFloat(f, 'f', 1, 64)
 	if f == 0 {
-	return "0"
+		return "0"
 	}
 	return strconv.FormatFloat(f, 'f', 1, 64)
 }
