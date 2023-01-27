@@ -16,13 +16,6 @@ const (
 	k_lelaer_sum = "https://api.lelaer.com/ys/getSumComment.php"
 )
 
-type LelaerApi struct {
-	ndata Data
-
-	reliquary *Fff
-	syw       Syws
-}
-
 func (ndata Data) GetSumComment(uid string, wife FindMap) ([]byte, error) {
 	p, err := ndata.transToTeyvat(uid, wife)
 	if err != nil {
