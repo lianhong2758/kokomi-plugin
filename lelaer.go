@@ -130,14 +130,20 @@ var (
 )
 
 func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
+	if api.wife == nil {
 	if api.wife = GetWifeOrWq("wife"); api.wife == nil {
 		return nil, k_error_sys
 	}
+	}
+	if api.reliquary == nil {
 	if api.reliquary = GetReliquary(); api.reliquary == nil {
 		return nil, k_error_sys
 	}
+	}
+	if api.syw == nil {
 	if api.syw = GetSywName(); api.syw == nil {
 		return nil, k_error_sys
+	}
 	}
 
 	server := getServer(uid)
