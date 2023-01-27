@@ -439,9 +439,11 @@ func init() { // 主函数
 			ok = 0
 		}
 		var role_dam Dam
-		err = json.Unmarshal(damfile, &role_dam)
-		if err != nil {
-			ok = 1
+		if ok != 0 {
+			err = json.Unmarshal(damfile, &role_dam)
+			if err != nil {
+				ok = 1
+			}
 		}
 		//绘图区
 		damying := Yinying(1040, 325, 16, 0.6)
