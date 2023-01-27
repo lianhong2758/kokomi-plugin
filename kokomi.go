@@ -141,7 +141,7 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("出现错误捏：", err))
 			return
 		}
-		if len(alldata.PlayerInfo.ShowAvatarInfoList) == 0 {
+		if len(alldata.PlayerInfo.ShowAvatarInfoList) == 0 || len(alldata.AvatarInfoList) == 0 {
 			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix))
 			return
 		}
@@ -796,7 +796,7 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("出现错误捏：", err))
 			return
 		}
-		if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 {
+		if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 || len(ndata.AvatarInfoList) == 0 {
 			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix))
 			return
 		}
