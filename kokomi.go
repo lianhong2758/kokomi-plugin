@@ -28,10 +28,10 @@ import (
 )
 
 const (
-	url      = "https://enka.microgg.cn/u/%v"
-	Postfix  = "~" //语句后缀
-	edition  = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2.2"
-	tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
+	url     = "https://enka.microgg.cn/u/%v"
+	Postfix = "~" //语句后缀
+	edition = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2.2"
+	//tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
 	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
 	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf"    // 汉字字体
 	FiFile   = "plugin/kokomi/data/font/tttgbnumber.ttf" // 其余字体(数字英文)
@@ -188,7 +188,7 @@ func init() { // 主函数
 		}
 
 		// 画图
-		var height int = 2400
+		var height int = 2400 - 360
 		dc := gg.NewContext(1080, height) // 画布大小
 		dc.SetHexColor("#98F5FF")
 		dc.Clear() // 背景
@@ -414,7 +414,7 @@ func init() { // 主函数
 		dc.DrawImage(four.Image(), 20, 1110)
 
 		//伤害显示区,暂时展示图片
-		pic, err := web.GetData(tu)
+		/*pic, err := web.GetData(tu)
 		var dst image.Image
 		if err != nil {
 			dst, err = gg.LoadJPG("plugin/kokomi/data/tietu/tietie.jpg")
@@ -432,7 +432,65 @@ func init() { // 主函数
 		sx := float64(1080) / float64(dst.Bounds().Size().X) // 计算缩放倍率（宽）
 		dc.Scale(sx, sx)                                     // 使画笔按倍率缩放
 		dc.DrawImage(dst, 0, int(1700*(1/sx)))               // 贴图（会受上述缩放倍率影响）
-		dc.Scale(1/sx, 1/sx)
+		dc.Scale(1/sx, 1/sx)*/
+		var ok int = -1
+		damfile, err := os.ReadFile("plugin/kokomi/data/damage/" + suid + ".kokomi")
+		if err != nil {
+			ok = 0
+		}
+		var role_dam Dam
+		err = json.Unmarshal(damfile, &role_dam)
+		if err != nil {
+			ok = 1
+		}
+		//绘图区
+		damying := Yinying(1040, 325, 16, 0.6)
+		six := gg.NewContext(1040, 325)
+		six.SetRGB(1, 1, 1) //白色
+		//汉字描述
+		if err := six.LoadFontFace(FontFile, 30); err != nil {
+			panic(err)
+		}
+		for c := 1; c <= 4; c++ {
+			six.DrawLine(0, 65*float64(c), 1040, 65*float64(c)) //横线条分割
+		}
+		for c := 1; c <= 3; c++ {
+			six.DrawLine(346*float64(c), 65, 346*float64(c), 325) //竖线条分割
+		}
+		six.Stroke()
+		six.DrawString("伤害计算", 50, 40)
+		six.DrawStringAnchored("伤害类型", 290, 105, 1, 0)
+		six.DrawStringAnchored("暴击伤害/治疗", 520, 105, 0.5, 0)
+		six.DrawStringAnchored("期望伤害(EX)", 867, 105, 0.5, 0)
+		switch ok {
+		case -1:
+			for c := 1; c <= 3 && c <= len(role_dam.Result[t].DamageResultArr); c++ {
+				six.DrawStringAnchored(role_dam.Result[t].DamageResultArr[c-1].Title, 290, 105+65*float64(c), 1, 0)
+			}
+			if len(role_dam.Result[t].DamageResultArr) < 3 {
+				six.DrawStringAnchored("暂无数据", 290, 300, 1, 0)
+			}
+			if err := six.LoadFontFace(FiFile, 30); err != nil {
+				panic(err)
+			}
+			for c := 1; c <= 3 && c <= len(role_dam.Result[t].DamageResultArr); c++ {
+				six.DrawStringAnchored(fmt.Sprint(role_dam.Result[t].DamageResultArr[c-1].Value), 520, 105+65*float64(c), 0.5, 0)
+				if role_dam.Result[t].DamageResultArr[c-1].Expect != "" {
+					six.DrawStringAnchored(role_dam.Result[t].DamageResultArr[c-1].Expect[6:], 867, 105+65*float64(c), 0.5, 0)
+				} else {
+					six.DrawLine(692, 65*float64(c+1), 1040, 65*float64(c+2))
+				}
+			}
+		case 0:
+			six.DrawStringAnchored("暂无数据", 290, 170, 1, 0)
+			six.DrawString("请\"更新面板\"", 360, 180)
+		case 1:
+			six.DrawStringAnchored("数据错误", 290, 170, 1, 0)
+			six.DrawString("请联系维护人员", 360, 170)
+		}
+		dc.DrawImage(damying, 20, 1660)
+		dc.DrawImage(six.Image(), 20, 1660)
+
 		//************************************************************************************
 		//部分数据提前计算获取
 		//命之座

@@ -1,0 +1,1698 @@
+{
+    "code": 200,
+    "ad_open": false,
+    "is_quene": false, 
+    "result": [
+        {
+            "uid": "113781666",
+            "gameid": "UID:11378***6",
+            "avatar": "https://shp.qpic.cn/cfwebcap/0/90f1adbc934a7e2c095924fc05968ae8/0",
+            "role_side_img": "https://shp.qpic.cn/cfwebcap/0/73f7e57c631a8263bf656bc4c5e2f68c/0",
+            "user_level": "59级",
+            "server_name": "天空岛",
+            "zdl_result": "C",
+            "zdl_result2": "",
+            "show_zdl_result2": true,
+            "zdl_tips0": "经鉴定，你的胡桃角色伤害评级为:",
+            "zdl_tips1": "",
+            "zdl_tips2": "",
+            "zdl_tips3": "",
+            "ability1": "9",
+            "ability2": "9",
+            "ability3": "8",
+            "role_level": 90,
+            "role_class": 0,
+            "role_avatar": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Hutao.png",
+            "role_star": 5,
+            "weapon": "决斗之枪",
+            "weapon_level": "Lv90",
+            "weapon_class": "精炼1阶",
+            "weapon_class2": "1",
+            "weapon_avatar": "https://patchwiki.biligame.com/images/ys/thumb/4/49/6kwk4rcg7hrag06ru43n001345slipa.png/150px-%E5%86%B3%E6%96%97%E4%B9%8B%E6%9E%AA.png",
+            "weapon_star": 0,
+            "hp": "生命值：31014",
+            "attack": "攻击力：1045",
+            "defend": "防御力：920",
+            "element": "元素精通：86",
+            "crit": "暴击率：66.3%",
+            "crit_dmg": "暴击伤害：246.2%",
+            "crit2": "66.3%",
+            "crit_dmg2": "246.2%",
+            "heal": "火伤加成：46.6%",
+            "recharge": "元素充能效率：117.5%",
+            "artifacts": "圣遗物套装：追忆之注连4",
+            "hp_important": "important",
+            "attack_important": "important",
+            "defend_important": "",
+            "element_important": "important",
+            "crit_important": "important",
+            "crit_dmg_important": "important",
+            "heal_important": "important",
+            "recharge_important": "",
+            "artifacts_important": "",
+            "bonus": [
+                {
+                    "type": "attack_bonus",
+                    "apply": "all",
+                    "value": 135,
+                    "intro": "决斗之枪被动：单个敌人时攻击力提升135(24%攻击力)"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "A",
+                    "value": 0.5,
+                    "intro": "追忆4效果：开E后普攻/重击伤害提升50%"
+                },
+                {
+                    "type": "attack_bonus",
+                    "apply": "all",
+                    "value": 1848,
+                    "intro": "胡桃E：开E获得1848(5.96%生命值)攻击力加成"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "all",
+                    "value": 0.33,
+                    "intro": "胡桃天赋：低于半血时获得33%火伤加成"
+                },
+                {
+                    "type": "null",
+                    "apply": "mull",
+                    "value": 16.1,
+                    "intro": "精通加成：蒸发、融化反应伤害提升16.1%"
+                }
+            ],
+            "damage_result_arr": [
+                {
+                    "title": "半血开E重击伤害",
+                    "value": 25034,
+                    "expect": "期望19034",
+                    "detail": [
+                        {
+                            "content": "(1045+1983)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*2.287",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.5+0.33+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+2.462)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=25034",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "半血开E重击蒸发",
+                    "value": 43592,
+                    "expect": "期望33145",
+                    "detail": [
+                        {
+                            "content": "(1045+1983)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*2.287",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.5+0.33+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+2.462)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*1.5*(1+0.161)",
+                            "intro": "反应区",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=43592",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "半血开E后Q蒸发",
+                    "value": 83198,
+                    "expect": "期望63259",
+                    "detail": [
+                        {
+                            "content": "(1045+1983)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*5.58",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.33+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+2.462)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*1.5*(1+0.161)",
+                            "intro": "反应区",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=83198",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                }
+            ],
+            "damage_result_arr2": []
+        },
+        {
+            "uid": "113781666",
+            "gameid": "UID:11378***6",
+            "avatar": "https://shp.qpic.cn/cfwebcap/0/90f1adbc934a7e2c095924fc05968ae8/0",
+            "role_side_img": "https://shp.qpic.cn/cfwebcap/0/571dda0e51ac682e6817754ab6079288/0",
+            "user_level": "59级",
+            "server_name": "天空岛",
+            "zdl_result": "S+",
+            "zdl_result2": "",
+            "show_zdl_result2": true,
+            "zdl_tips0": "经鉴定，你的神里绫华角色伤害评级为:",
+            "zdl_tips1": "",
+            "zdl_tips2": "",
+            "zdl_tips3": "",
+            "ability1": "9",
+            "ability2": "9",
+            "ability3": "10",
+            "role_level": 90,
+            "role_class": 0,
+            "role_avatar": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Ayaka.png",
+            "role_star": 5,
+            "weapon": "风鹰剑",
+            "weapon_level": "Lv90",
+            "weapon_class": "精炼1阶",
+            "weapon_class2": "1",
+            "weapon_avatar": "https://patchwiki.biligame.com/images/ys/thumb/5/5d/0nq1evrhhxelybr3mogpxoouc4s6b98.png/150px-%E9%A3%8E%E9%B9%B0%E5%89%91.png",
+            "weapon_star": 0,
+            "hp": "生命值：18313",
+            "attack": "攻击力：2464",
+            "defend": "防御力：907",
+            "element": "元素精通：21",
+            "crit": "暴击率：35.7%",
+            "crit_dmg": "暴击伤害：196.5%",
+            "crit2": "35.7%",
+            "crit_dmg2": "196.5%",
+            "heal": "冰伤加成：61.6%",
+            "recharge": "元素充能效率：142.1%",
+            "artifacts": "圣遗物套装：冰风迷途的勇士4",
+            "hp_important": "",
+            "attack_important": "important",
+            "defend_important": "",
+            "element_important": "",
+            "crit_important": "important",
+            "crit_dmg_important": "important",
+            "heal_important": "important",
+            "recharge_important": "",
+            "artifacts_important": "",
+            "bonus": [
+                {
+                    "type": "null",
+                    "apply": "null",
+                    "value": 203,
+                    "intro": "风鹰剑被动：攻击力提升203(20%攻击力)"
+                },
+                {
+                    "type": "crit_rate_bonus",
+                    "apply": "all",
+                    "value": 0.4,
+                    "intro": "冰套4效果：对处于冻结的敌人暴击率提升40%"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "all",
+                    "value": 0.18,
+                    "intro": "神里绫华天赋：霰步命中敌人后获得18%冰伤加成"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "A",
+                    "value": 0.3,
+                    "intro": "神里绫华天赋：开E后普攻与重击伤害提升30%"
+                }
+            ],
+            "damage_result_arr": [
+                {
+                    "title": "开E后重击总伤害",
+                    "value": 21164,
+                    "expect": "期望17756",
+                    "detail": [
+                        {
+                            "content": "((2464+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*3.039",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+0)",
+                            "intro": "基础伤害加成",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*(1+0.18+0.3+0.616)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.965)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=21164",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "E技能伤害",
+                    "value": 24263,
+                    "expect": "期望20356",
+                    "detail": [
+                        {
+                            "content": "((2464+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*4.066",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+0)",
+                            "intro": "基础伤害加成",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*(1+0.18+0.616)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.965)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=24263",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "Q切割每段伤害",
+                    "value": 12060,
+                    "expect": "期望10118",
+                    "detail": [
+                        {
+                            "content": "(2464+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*2.021",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.18+0.616)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.965)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.5",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=12060",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                }
+            ],
+            "damage_result_arr2": []
+        },
+        {
+            "uid": "113781666",
+            "gameid": "UID:11378***6",
+            "avatar": "https://shp.qpic.cn/cfwebcap/0/90f1adbc934a7e2c095924fc05968ae8/0",
+            "role_side_img": "https://shp.qpic.cn/cfwebcap/0/014ce804becc1a7c2ec6b57f71aa9ffe/0",
+            "user_level": "59级",
+            "server_name": "天空岛",
+            "zdl_result": "A",
+            "zdl_result2": "",
+            "show_zdl_result2": true,
+            "zdl_tips0": "经鉴定，你的纳西妲角色伤害评级为:",
+            "zdl_tips1": "",
+            "zdl_tips2": "",
+            "zdl_tips3": "",
+            "ability1": "4",
+            "ability2": "9",
+            "ability3": "8",
+            "role_level": 90,
+            "role_class": 0,
+            "role_avatar": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Nahida.png",
+            "role_star": 5,
+            "weapon": "盈满之实",
+            "weapon_level": "Lv90",
+            "weapon_class": "精炼4阶",
+            "weapon_class2": "4",
+            "weapon_avatar": "https://patchwiki.biligame.com/images/ys/thumb/c/cd/0sw6m7f5rc45ryknd89k5yw9wxvjg9v.png/150px-%E7%9B%88%E6%BB%A1%E4%B9%8B%E5%AE%9E.png",
+            "weapon_star": 0,
+            "hp": "生命值：16496",
+            "attack": "攻击力：1395",
+            "defend": "防御力：819",
+            "element": "元素精通：647",
+            "crit": "暴击率：21.7%",
+            "crit_dmg": "暴击伤害：144.1%",
+            "crit2": "21.7%",
+            "crit_dmg2": "144.1%",
+            "heal": "草伤加成：15%",
+            "recharge": "元素充能效率：166.7%",
+            "artifacts": "圣遗物套装：深林的记忆4",
+            "hp_important": "",
+            "attack_important": "important",
+            "defend_important": "",
+            "element_important": "important",
+            "crit_important": "important",
+            "crit_dmg_important": "important",
+            "heal_important": "important",
+            "recharge_important": "",
+            "artifacts_important": "",
+            "bonus": [
+                {
+                    "type": "resist_bonus",
+                    "apply": "all",
+                    "value": 0.3,
+                    "intro": "深林4效果：E或Q命中敌人后草抗降低30%"
+                },
+                {
+                    "type": "q_element_add",
+                    "apply": "all",
+                    "value": 162,
+                    "intro": "纳西妲天赋：开Q后领域内当前场上角色元素精通提升162点"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "E",
+                    "value": 0.447,
+                    "intro": "纳西妲天赋：灭净三业伤害基于元素精通提升44.7%，开Q后为60.9%(需纳西妲站场)"
+                },
+                {
+                    "type": "crit_rate_bonus",
+                    "apply": "E",
+                    "value": 0.1341,
+                    "intro": "纳西妲天赋：灭净三业暴击率基于元素精通提升13.4%，开Q后为18.3%(需纳西妲站场)"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "E2",
+                    "value": 0.23809999999999998,
+                    "intro": "纳西妲天赋：开Q后灭净三业伤害提升23.8%(按1位火元素角色计算)"
+                }
+            ],
+            "damage_result_arr": [
+                {
+                    "title": "灭净三业伤害",
+                    "value": 10222,
+                    "expect": "期望6307",
+                    "detail": [
+                        {
+                            "content": "((1395+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*1.7544",
+                            "intro": "攻击倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+647",
+                            "intro": "精通区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*3.5088",
+                            "intro": "精通倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.447+0.15)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.441)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*1+(-0.1+0.3)/2",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=10222",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "灭净三业蔓激化",
+                    "value": 20998,
+                    "expect": "期望12954",
+                    "detail": [
+                        {
+                            "content": "((1395+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*1.7544",
+                            "intro": "攻击倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+647",
+                            "intro": "精通区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*3.5088",
+                            "intro": "精通倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+4973)",
+                            "intro": "蔓激化加成",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*(1+0.447+0.15)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.441)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*1+(-0.1+0.3)/2",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=20998",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "Q站场E蔓激化",
+                    "value": 29084,
+                    "expect": "期望18777",
+                    "detail": [
+                        {
+                            "content": "((1395+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*1.7544",
+                            "intro": "攻击倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+809",
+                            "intro": "精通区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*3.5088",
+                            "intro": "精通倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+5447)",
+                            "intro": "蔓激化加成",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*(1+0.609+0.238+0.15)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.441)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*1+(-0.1+0.3)/2",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=29084",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                }
+            ],
+            "damage_result_arr2": []
+        },
+        {
+            "uid": "113781666",
+            "gameid": "UID:11378***6",
+            "avatar": "https://shp.qpic.cn/cfwebcap/0/90f1adbc934a7e2c095924fc05968ae8/0",
+            "role_side_img": "https://shp.qpic.cn/cfwebcap/0/887959a036ac4c811cfeef1fe45b0c78/0",
+            "user_level": "59级",
+            "server_name": "天空岛",
+            "zdl_result": "ACE",
+            "zdl_result2": "",
+            "show_zdl_result2": true,
+            "zdl_tips0": "经鉴定，你的八重神子角色伤害评级为:",
+            "zdl_tips1": "",
+            "zdl_tips2": "",
+            "zdl_tips3": "",
+            "ability1": "3",
+            "ability2": "9",
+            "ability3": "9",
+            "role_level": 90,
+            "role_class": 0,
+            "role_avatar": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Yae.png",
+            "role_star": 5,
+            "weapon": "流浪乐章",
+            "weapon_level": "Lv90",
+            "weapon_class": "精炼5阶",
+            "weapon_class2": "5",
+            "weapon_avatar": "https://patchwiki.biligame.com/images/ys/thumb/8/8b/1gfpyhq0horhcbho0eqs1c62nklx118.png/150px-%E6%B5%81%E6%B5%AA%E4%B9%90%E7%AB%A0.png",
+            "weapon_star": 0,
+            "hp": "生命值：16383",
+            "attack": "攻击力：1856",
+            "defend": "防御力：598",
+            "element": "元素精通：248",
+            "crit": "暴击率：75.1%",
+            "crit_dmg": "暴击伤害：172%",
+            "crit2": "75.1%",
+            "crit_dmg2": "172%",
+            "heal": "雷伤加成：46.6%",
+            "recharge": "元素充能效率：115.5%",
+            "artifacts": "圣遗物套装：饰金之梦4",
+            "hp_important": "",
+            "attack_important": "important",
+            "defend_important": "",
+            "element_important": "important",
+            "crit_important": "important",
+            "crit_dmg_important": "important",
+            "heal_important": "important",
+            "recharge_important": "",
+            "artifacts_important": "",
+            "bonus": [
+                {
+                    "type": "add_bonus",
+                    "apply": "all",
+                    "value": 0.96,
+                    "intro": "流浪乐章被动：获得96%全元素伤害加成"
+                },
+                {
+                    "type": "element_bonus",
+                    "apply": "all",
+                    "value": 150,
+                    "intro": "饰金4效果：触发反应后元素精通提升150"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "E",
+                    "value": 0.597,
+                    "intro": "天赋：E伤害基于元素精通提升59.7%"
+                },
+                {
+                    "type": "null",
+                    "apply": "mull",
+                    "value": "",
+                    "intro": "超激化反应：触发超激化后，造成伤害值提升3734"
+                }
+            ],
+            "damage_result_arr": [
+                {
+                    "title": "叁阶杀生樱伤害",
+                    "value": 11188,
+                    "expect": "期望9427",
+                    "detail": [
+                        {
+                            "content": "(1856+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*1.612",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.96+0.597+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.72)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=11188",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "叁阶杀生樱超激化",
+                    "value": 25152,
+                    "expect": "期望21191",
+                    "detail": [
+                        {
+                            "content": "((1856+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*1.612",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+3734)",
+                            "intro": "基础伤害加成",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*(1+0.96+0.597+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.72)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=25152",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "Q四段总伤害",
+                    "value": 119530,
+                    "expect": "期望100709",
+                    "detail": [
+                        {
+                            "content": "(1856+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*21.46",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.96+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.72)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=119530",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                }
+            ],
+            "damage_result_arr2": []
+        },
+        {
+            "uid": "113781666",
+            "gameid": "UID:11378***6",
+            "avatar": "https://shp.qpic.cn/cfwebcap/0/90f1adbc934a7e2c095924fc05968ae8/0",
+            "role_side_img": "https://shp.qpic.cn/cfwebcap/0/f9544e44435f875be57e40671e7071cc/0",
+            "user_level": "59级",
+            "server_name": "天空岛",
+            "zdl_result": "D",
+            "zdl_result2": "",
+            "show_zdl_result2": true,
+            "zdl_tips0": "经鉴定，你的可莉角色伤害评级为:",
+            "zdl_tips1": "",
+            "zdl_tips2": "",
+            "zdl_tips3": "",
+            "ability1": "7",
+            "ability2": "7",
+            "ability3": "7",
+            "role_level": 90,
+            "role_class": 0,
+            "role_avatar": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Klee.png",
+            "role_star": 5,
+            "weapon": "流浪乐章",
+            "weapon_level": "Lv80",
+            "weapon_class": "精炼5阶",
+            "weapon_class2": "5",
+            "weapon_avatar": "https://patchwiki.biligame.com/images/ys/thumb/8/8b/1gfpyhq0horhcbho0eqs1c62nklx118.png/150px-%E6%B5%81%E6%B5%AA%E4%B9%90%E7%AB%A0.png",
+            "weapon_star": 0,
+            "hp": "生命值：10287",
+            "attack": "攻击力：760",
+            "defend": "防御力：615",
+            "element": "元素精通：0",
+            "crit": "暴击率：5%",
+            "crit_dmg": "暴击伤害：100.3%",
+            "crit2": "5%",
+            "crit_dmg2": "100.3%",
+            "heal": "火伤加成：28.8%",
+            "recharge": "元素充能效率：100%",
+            "artifacts": "圣遗物套装：+",
+            "hp_important": "",
+            "attack_important": "important",
+            "defend_important": "",
+            "element_important": "important",
+            "crit_important": "important",
+            "crit_dmg_important": "important",
+            "heal_important": "important",
+            "recharge_important": "",
+            "artifacts_important": "",
+            "bonus": [
+                {
+                    "type": "add_bonus",
+                    "apply": "all",
+                    "value": 0.96,
+                    "intro": "流浪乐章被动：获得96%全元素伤害加成"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "A",
+                    "value": 0.5,
+                    "intro": "可莉天赋：带金花的重击伤害提升50%"
+                }
+            ],
+            "damage_result_arr": [
+                {
+                    "title": "双E后带金花重击",
+                    "value": 4490,
+                    "expect": "期望2354",
+                    "detail": [
+                        {
+                            "content": "(760+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*2.36",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.96+0.5+0.288)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.003)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=4490",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "双E后带金花重击蒸发",
+                    "value": 6735,
+                    "expect": "期望3531",
+                    "detail": [
+                        {
+                            "content": "(760+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*2.36",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.96+0.5+0.288)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.003)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*1.5*(1+0)",
+                            "intro": "反应区",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=6735",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                }
+            ],
+            "damage_result_arr2": []
+        },
+        {
+            "uid": "113781666",
+            "gameid": "UID:11378***6",
+            "avatar": "https://shp.qpic.cn/cfwebcap/0/90f1adbc934a7e2c095924fc05968ae8/0",
+            "role_side_img": "https://shp.qpic.cn/cfwebcap/0/18f7b9cbd4924b5d6c35b8b8f02832b2/0",
+            "user_level": "59级",
+            "server_name": "天空岛",
+            "zdl_result": "S-",
+            "zdl_result2": "",
+            "show_zdl_result2": true,
+            "zdl_tips0": "经鉴定，你的雷电将军角色伤害评级为:",
+            "zdl_tips1": "",
+            "zdl_tips2": "",
+            "zdl_tips3": "",
+            "ability1": "4",
+            "ability2": "9",
+            "ability3": "9",
+            "role_level": 90,
+            "role_class": 0,
+            "role_avatar": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Shougun.png",
+            "role_star": 5,
+            "weapon": "薙草之稻光",
+            "weapon_level": "Lv90",
+            "weapon_class": "精炼1阶",
+            "weapon_class2": "1",
+            "weapon_avatar": "https://patchwiki.biligame.com/images/ys/thumb/5/50/e6m859od1g4ucogx58ytwcvr9vom8em.png/150px-%E8%96%99%E8%8D%89%E4%B9%8B%E7%A8%BB%E5%85%89.png",
+            "weapon_star": 0,
+            "hp": "生命值：20322",
+            "attack": "攻击力：2035",
+            "defend": "防御力：906",
+            "element": "元素精通：82",
+            "crit": "暴击率：30.3%",
+            "crit_dmg": "暴击伤害：175.1%",
+            "crit2": "30.3%",
+            "crit_dmg2": "175.1%",
+            "heal": "雷伤加成：46.6%",
+            "recharge": "元素充能效率：269.3%",
+            "artifacts": "圣遗物套装：绝缘之旗印4",
+            "hp_important": "",
+            "attack_important": "important",
+            "defend_important": "",
+            "element_important": "",
+            "crit_important": "important",
+            "crit_dmg_important": "important",
+            "heal_important": "important",
+            "recharge_important": "important",
+            "artifacts_important": "",
+            "bonus": [
+                {
+                    "type": "null",
+                    "apply": "null",
+                    "value": 0.3,
+                    "intro": "薙草之稻光被动：开大后充能效率提升30%"
+                },
+                {
+                    "type": "attack_bonus",
+                    "apply": "all",
+                    "value": 527,
+                    "intro": "薙草之稻光被动：基于充能效率获得527(55.8%)攻击力"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "Q",
+                    "value": 0.74825,
+                    "intro": "绝缘4效果：获得74.8%元素爆发伤害加成"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "Q",
+                    "value": 0.27,
+                    "intro": "雷电将军E被动：元素爆发伤害提升27%"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "Q",
+                    "value": 0.7972,
+                    "intro": "雷电将军天赋：基于充能效率获得79.7%雷伤加成"
+                },
+                {
+                    "type": "null",
+                    "apply": "null",
+                    "value": 3.966,
+                    "intro": "雷电将军Q被动：满愿力获得396.6%大招倍率加成"
+                },
+                {
+                    "type": "attack_bonus",
+                    "apply": "all",
+                    "value": 1202,
+                    "intro": "班尼特Q：风鹰剑13级Q提供1202攻击力"
+                },
+                {
+                    "type": "attack_bonus",
+                    "apply": "all",
+                    "value": 236,
+                    "intro": "双火共鸣：攻击力提高236(25%)"
+                },
+                {
+                    "type": "attack_bonus",
+                    "apply": "all",
+                    "value": 189,
+                    "intro": "班尼特宗室4：开Q后队友攻击力提高189(20%)"
+                },
+                {
+                    "type": "attack_bonus",
+                    "apply": "all",
+                    "value": 748,
+                    "intro": "九条裟罗E：天空弓12级E提供748攻击力"
+                },
+                {
+                    "type": "crit_bonus",
+                    "apply": "all",
+                    "value": 0.6,
+                    "intro": "九条裟罗6命：提供60%雷元素暴击伤害加成"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "all",
+                    "value": 0.4,
+                    "intro": "万叶天赋：1000精通万叶提供40%元素伤害加成"
+                },
+                {
+                    "type": "null",
+                    "apply": "null",
+                    "value": "",
+                    "intro": "万叶风套4：敌人雷元素抗性降低40%"
+                },
+                {
+                    "type": "attack_bonus",
+                    "apply": "all",
+                    "value": 189,
+                    "intro": "万叶苍古：触发后攻击力提升(189)20%"
+                }
+            ],
+            "damage_result_arr": [
+                {
+                    "title": "满愿力Q拔刀伤害",
+                    "value": 93525,
+                    "expect": "期望52034",
+                    "detail": [
+                        {
+                            "content": "(1587+527)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*10.776",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.748+0.27+0.797+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.751)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=93525",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "雷国满愿力Q拔刀",
+                    "value": 165505,
+                    "expect": "期望92081",
+                    "detail": [
+                        {
+                            "content": "(1587+2154)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*10.776",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.748+0.27+0.797+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.751)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=165505",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "雷九万班满Q拔刀",
+                    "value": 343157,
+                    "expect": "期望175352",
+                    "detail": [
+                        {
+                            "content": "(1587+2855)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*10.776",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.748+0.27+0.797+0.4+0.466)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+2.351)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.505",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1+(0.4-0.1)/2)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=343157",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                }
+            ],
+            "damage_result_arr2": []
+        },
+        {
+            "uid": "113781666",
+            "gameid": "UID:11378***6",
+            "avatar": "https://shp.qpic.cn/cfwebcap/0/90f1adbc934a7e2c095924fc05968ae8/0",
+            "role_side_img": "https://shp.qpic.cn/cfwebcap/0/ae501f5b265667bcc19b445bb74af7a8/0",
+            "user_level": "59级",
+            "server_name": "天空岛",
+            "zdl_result": "S",
+            "zdl_result2": "",
+            "show_zdl_result2": true,
+            "zdl_tips0": "经鉴定，你的珊瑚宫心海角色伤害评级为:",
+            "zdl_tips1": "",
+            "zdl_tips2": "",
+            "zdl_tips3": "",
+            "ability1": "2",
+            "ability2": "9",
+            "ability3": "6",
+            "role_level": 81,
+            "role_class": 0,
+            "role_avatar": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Kokomi.png",
+            "role_star": 5,
+            "weapon": "讨龙英杰谭",
+            "weapon_level": "Lv90",
+            "weapon_class": "精炼5阶",
+            "weapon_class2": "5",
+            "weapon_avatar": "https://patchwiki.biligame.com/images/ys/thumb/e/e0/r009hx3olkmrtk1ykdlr5lvhc76j4iu.png/150px-%E8%AE%A8%E9%BE%99%E8%8B%B1%E6%9D%B0%E8%B0%AD.png",
+            "weapon_star": 0,
+            "hp": "生命值：38963",
+            "attack": "攻击力：1276",
+            "defend": "防御力：825",
+            "element": "元素精通：75",
+            "crit": "暴击率：-88.8%",
+            "crit_dmg": "暴击伤害：50%",
+            "crit2": "-88.8%",
+            "crit_dmg2": "50%",
+            "heal": "治疗加成：75.9%",
+            "recharge": "元素充能效率：122%",
+            "artifacts": "圣遗物套装：海染砗磲4",
+            "hp_important": "important",
+            "attack_important": "important",
+            "defend_important": "",
+            "element_important": "important",
+            "crit_important": "",
+            "crit_dmg_important": "",
+            "heal_important": "important",
+            "recharge_important": "important",
+            "artifacts_important": "",
+            "bonus": [
+                {
+                    "type": "null",
+                    "apply": "null",
+                    "value": 0.2,
+                    "intro": "固有天赋：治疗加成提升25%，暴击率-100%"
+                },
+                {
+                    "type": "rate_bonus",
+                    "apply": "all",
+                    "value": 4435.93755,
+                    "intro": "固有天赋：开Q后重击和重击伤害获得提升4436(治疗加成的15%)"
+                },
+                {
+                    "type": "rate_bonus",
+                    "apply": "A",
+                    "value": 2493.632,
+                    "intro": "Q效果：开Q后普攻伤害提升2494(6.4%生命值上限)"
+                },
+                {
+                    "type": "rate_bonus",
+                    "apply": "Q",
+                    "value": 3701.485,
+                    "intro": "Q效果：开Q后重击伤害提升3701(9.5%生命值上限)"
+                }
+            ],
+            "damage_result_arr": [
+                {
+                    "title": "E每跳治疗量",
+                    "value": 6643,
+                    "detail": [
+                        {
+                            "content": "((862+2914+0)",
+                            "intro": "基础区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*(1+0.759)",
+                            "intro": "治疗加成区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "=6643",
+                            "intro": "最终结果",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "开Q后普攻首段",
+                    "value": 4498,
+                    "expect": "期望4498",
+                    "detail": [
+                        {
+                            "content": "((1276+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*0.735",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+6930)",
+                            "intro": "基础伤害加成",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*(1+0.288)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*1",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.493",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=4498",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "开Q后重击伤害",
+                    "value": 5812,
+                    "expect": "期望5812",
+                    "detail": [
+                        {
+                            "content": "((1276+0)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*1.59",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+8137)",
+                            "intro": "基础伤害加成",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*(1+0.288)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*1",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.493",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=5812",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                }
+            ],
+            "damage_result_arr2": []
+        },
+        {
+            "uid": "113781666",
+            "gameid": "UID:11378***6",
+            "avatar": "https://shp.qpic.cn/cfwebcap/0/90f1adbc934a7e2c095924fc05968ae8/0",
+            "role_side_img": "https://shp.qpic.cn/cfwebcap/0/548faea9fe54f07834b2ab16af48c198/0",
+            "user_level": "59级",
+            "server_name": "天空岛",
+            "zdl_result": "D",
+            "zdl_result2": "",
+            "show_zdl_result2": true,
+            "zdl_tips0": "经鉴定，你的刻晴角色伤害评级为:",
+            "zdl_tips1": "",
+            "zdl_tips2": "",
+            "zdl_tips3": "",
+            "ability1": "7",
+            "ability2": "7",
+            "ability3": "11",
+            "role_level": 81,
+            "role_class": 4,
+            "role_avatar": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Keqing.png",
+            "role_star": 5,
+            "weapon": "匣里龙吟",
+            "weapon_level": "Lv80",
+            "weapon_class": "精炼2阶",
+            "weapon_class2": "2",
+            "weapon_avatar": "https://patchwiki.biligame.com/images/ys/thumb/b/b6/fnmxiyrh35272i8h9jydyqadyqkfw0e.png/150px-%E5%8C%A3%E9%87%8C%E9%BE%99%E5%90%9F.png",
+            "weapon_star": 0,
+            "hp": "生命值：17863",
+            "attack": "攻击力：1834",
+            "defend": "防御力：1060",
+            "element": "元素精通：21",
+            "crit": "暴击率：44.4%",
+            "crit_dmg": "暴击伤害：142%",
+            "crit2": "44.4%",
+            "crit_dmg2": "142%",
+            "heal": "雷伤加成：61.6%",
+            "recharge": "元素充能效率：122%",
+            "artifacts": "圣遗物套装：如雷的盛怒4",
+            "hp_important": "",
+            "attack_important": "important",
+            "defend_important": "",
+            "element_important": "important",
+            "crit_important": "important",
+            "crit_dmg_important": "important",
+            "heal_important": "important",
+            "recharge_important": "",
+            "artifacts_important": "",
+            "bonus": [
+                {
+                    "type": "add_bonus",
+                    "apply": "all",
+                    "value": 0.24,
+                    "intro": "匣里龙吟被动：对火/雷元素下的敌人伤害提升24%"
+                },
+                {
+                    "type": "reaction_bonus",
+                    "apply": "all",
+                    "value": 0.2,
+                    "intro": "如雷4效果：超激化反应带来的伤害提升提高20%"
+                },
+                {
+                    "type": "crit_rate_bonus",
+                    "apply": "Q",
+                    "value": 0.15,
+                    "intro": "刻晴天赋：开Q后暴击率提升15%"
+                },
+                {
+                    "type": "add_bonus",
+                    "apply": "null",
+                    "value": 188,
+                    "intro": "刻晴4命：触发雷元素反应后获得188(25%)攻击力加成(*此增益仅作用于伤害3)"
+                }
+            ],
+            "damage_result_arr": [
+                {
+                    "title": "E后重击总伤害",
+                    "value": 9397,
+                    "expect": "期望6331",
+                    "detail": [
+                        {
+                            "content": "((1834+188)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*2.57",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "+)",
+                            "intro": "基础伤害加成",
+                            "color": "#7d14ff"
+                        },
+                        {
+                            "content": "*(1+0.24+0.616)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.42)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.493",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=9397",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "Q大招总伤害",
+                    "value": 32571,
+                    "expect": "期望24811",
+                    "detail": [
+                        {
+                            "content": "(1834+188)",
+                            "intro": "攻击区",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "*8.908",
+                            "intro": "倍率区",
+                            "color": "#008954"
+                        },
+                        {
+                            "content": "*(1+0.24+0.616)",
+                            "intro": "增伤区",
+                            "color": "#0054d3"
+                        },
+                        {
+                            "content": "*(1+1.42)",
+                            "intro": "暴伤区",
+                            "color": "#a600a0"
+                        },
+                        {
+                            "content": "*0.493",
+                            "intro": "防御区",
+                            "color": "#b6600d"
+                        },
+                        {
+                            "content": "*(1-0.1)",
+                            "intro": "抗性区",
+                            "color": "#c8b300"
+                        },
+                        {
+                            "content": "=32571",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                },
+                {
+                    "title": "Q大招超激化",
+                    "value": 49001,
+                    "expect": "期望37327",
+                    "detail": [
+                        {
+                            "content": 10014,
+                            "intro": "大招首段超激化",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "+1838*6+5112*2+",
+                            "intro": "大招8段连斩",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "+17734",
+                            "intro": "尾段超激化",
+                            "color": "#d40000"
+                        },
+                        {
+                            "content": "=49001",
+                            "intro": "最终伤害",
+                            "color": "#7b6d70"
+                        }
+                    ]
+                }
+            ],
+            "damage_result_arr2": []
+        }
+    ]
+}

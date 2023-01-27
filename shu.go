@@ -45,6 +45,17 @@ type Role struct {
 	} `json:"talentCons"`
 }
 
+// 角色伤害解析
+type Dam struct {
+	Result []struct {
+		DamageResultArr []struct {
+			Title  string `json:"title"`
+			Value  int    `json:"value"`
+			Expect string `json:"expect"`
+		} `json:"damage_result_arr"`
+	} `json:"result"`
+}
+
 // Data 从网站获取的数据
 type Data struct {
 	PlayerInfo struct {
