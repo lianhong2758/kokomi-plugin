@@ -105,6 +105,11 @@ func min[T int | int32 | int64 | float64](x, y T) T {
 	return x
 }
 
+var (
+	k_error_sys    = errors.New("程序错误")
+	k_error_promap = errors.New("获取角色失败")
+)
+
 // 获取指定 UID 所属服务器
 func getServer(uid string) string {
 	switch uid[0] {
@@ -122,14 +127,10 @@ func getServer(uid string) string {
 	return "天空岛" // cn_gf01
 }
 
-var (
-	k_error_sys    = errors.New("程序错误")
-	k_error_promap = errors.New("获取角色失败")
-)
-
 func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error) {
 	if wife == nil {
-		if wife = GetWifeOrWq("wife"); wife == nil {
+		wife = GetWifeOrWq("wife")
+		if wife == nil {
 			return nil, k_error_sys
 		}
 	}
@@ -157,7 +158,7 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 		for m := range equip_last.Weapon.AffixMap {
 			n = m
 		}
-		equip_affix := equip_last.Weapon.AffixMap[n] + 1
+		affix := equip_last.Weapon.AffixMap[n] + 1
 
 		// 武器名
 		wqname := reliquary.WQ[equip_last.Flat.NameTextHash]
@@ -165,7 +166,7 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			return nil, k_error_sys
 		}
 
-		roleData := TeyvatHelperData{
+		teyvat_data := TeyvatHelperData{
 			Uid:         uid,
 			Server:      server,
 			UserLevel:   ndata.PlayerInfo.Level,
@@ -173,13 +174,13 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			Cons:        cons,
 			Weapon:      wqname,
 			WeaponLevel: equip_last.Weapon.Level,
-			WeaponClass: fmt.Sprintf("精炼%d阶", equip_affix),
+			WeaponClass: fmt.Sprintf("精炼%d阶", affix),
 			Fetter:      v.FetterInfo.ExpLevel,
 		}
 
 		for _, item := range ndata.PlayerInfo.ShowAvatarInfoList {
 			if item.AvatarID == v.AvatarID {
-				roleData.Level = item.Level
+				teyvat_data.Level = item.Level
 				break
 			}
 		}
@@ -209,7 +210,7 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 		}
 		for _, item := range []string{"息灾", "波乱月白经津", "雾切之回光", "猎人之径"} {
 			if item == wqname {
-				z := 12 + 12*(float64(equip_affix)-1)/4
+				z := 12 + 12*(float64(affix)-1)/4
 				fire_dmg = max(0, fire_dmg-z)       // 火元素加伤
 				thunder_dmg = max(0, thunder_dmg-z) // 雷元素加伤
 				water_dmg = max(0, water_dmg-z)     // 水元素加伤
@@ -229,30 +230,29 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			return nil, k_error_promap
 		}
 		talentid := role.GetTalentId()
-		roleData.Ability1 = v.SkillLevelMap[talentid[0]]
-		roleData.Ability2 = v.SkillLevelMap[talentid[1]]
-		roleData.Ability3 = v.SkillLevelMap[talentid[2]]
+		teyvat_data.Ability1 = v.SkillLevelMap[talentid[0]]
+		teyvat_data.Ability2 = v.SkillLevelMap[talentid[1]]
+		teyvat_data.Ability3 = v.SkillLevelMap[talentid[2]]
 		ming := len(v.TalentIDList) // 命之座
-
 		if ming >= role.TalentCons.E {
-			roleData.Ability2 += 3
+			teyvat_data.Ability2 += 3
 		}
 		if ming >= role.TalentCons.Q {
-			roleData.Ability3 += 3
+			teyvat_data.Ability3 += 3
 		}
 
 		// 圣遗物数据
 		for i, equip := range v.EquipList {
 			if equip.Flat.SetNameTextHash == "" {
-				return nil, k_error_sys
+				continue
 			}
-			roleData.Artifacts = reliquary.WQ[equip.Flat.SetNameTextHash]
-			if roleData.Artifacts == "" {
+			teyvat_data.Artifacts = reliquary.WQ[equip.Flat.SetNameTextHash]
+			if teyvat_data.Artifacts == "" {
 				return nil, k_error_sys
 			}
 
-			sywallname := syw.Names(roleData.Artifacts)[i] // 圣遗物name
-			// fmt.Println(roleData.Artifacts, sywallname)
+			sywallname := syw.Names(teyvat_data.Artifacts)[i] // 圣遗物name
+			// fmt.Println(teyvat_data.Artifacts, sywallname)
 
 			var main_value any
 			if s := Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
@@ -281,38 +281,38 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 					detail.Tips4 = s
 				}
 			}
-			roleData.Detail = append(roleData.Detail, detail)
+			teyvat_data.Detail = append(teyvat_data.Detail, detail)
 		}
 
-		if roleData.Artifacts == "" {
-			roleData.Artifacts = "+"
+		if teyvat_data.Artifacts == "" {
+			teyvat_data.Artifacts = "+"
 		} else {
-			roleData.Artifacts += "4"
+			teyvat_data.Artifacts += "4"
 		}
 
-		roleData.HP = int(0.5 + hp)
-		roleData.BaseHP = int(0.5 + v.FightPropMap.Num1)     // 基础生命值
-		roleData.Attack = int(0.5 + v.FightPropMap.Num2001)  // 攻击
-		roleData.BaseAttack = int(0.5 + v.FightPropMap.Num4) // 基础攻击力
-		roleData.Defend = int(0.5 + v.FightPropMap.Num2002)  // 防御
-		roleData.BaseDefend = int(0.5 + v.FightPropMap.Num7) // 基础防御力
-		roleData.Element = int(0.5 + v.FightPropMap.Num28)   // 精通
-		roleData.Heal = Ftoone(v.FightPropMap.Num26) + "%"
-		roleData.Crit = Ftoone(crit) + "%"
-		roleData.CritDmg = Ftoone(crit_dmg) + "%"
-		roleData.Recharge = Ftoone(recharge) + "%"
-		roleData.FireDmg = Ftoone(fire_dmg) + "%"
-		roleData.WaterDmg = Ftoone(water_dmg) + "%"
-		roleData.ThunderDmg = Ftoone(thunder_dmg) + "%"
-		roleData.WindDmg = Ftoone(wind_dmg) + "%"
-		roleData.IceDmg = Ftoone(ice_dmg) + "%"
-		roleData.RockDmg = Ftoone(rock_dmg) + "%"
-		roleData.GrassDmg = Ftoone(grass_dmg) + "%"
-		roleData.PhysicalDmg = Ftoone(physical_dmg) + "%"
+		teyvat_data.HP = int(0.5 + hp)
+		teyvat_data.BaseHP = int(0.5 + v.FightPropMap.Num1)     // 基础生命值
+		teyvat_data.Attack = int(0.5 + v.FightPropMap.Num2001)  // 攻击
+		teyvat_data.BaseAttack = int(0.5 + v.FightPropMap.Num4) // 基础攻击力
+		teyvat_data.Defend = int(0.5 + v.FightPropMap.Num2002)  // 防御
+		teyvat_data.BaseDefend = int(0.5 + v.FightPropMap.Num7) // 基础防御力
+		teyvat_data.Element = int(0.5 + v.FightPropMap.Num28)   // 精通
+		teyvat_data.Heal = Ftoone(v.FightPropMap.Num26) + "%"
+		teyvat_data.Crit = Ftoone(crit) + "%"
+		teyvat_data.CritDmg = Ftoone(crit_dmg) + "%"
+		teyvat_data.Recharge = Ftoone(recharge) + "%"
+		teyvat_data.FireDmg = Ftoone(fire_dmg) + "%"
+		teyvat_data.WaterDmg = Ftoone(water_dmg) + "%"
+		teyvat_data.ThunderDmg = Ftoone(thunder_dmg) + "%"
+		teyvat_data.WindDmg = Ftoone(wind_dmg) + "%"
+		teyvat_data.IceDmg = Ftoone(ice_dmg) + "%"
+		teyvat_data.RockDmg = Ftoone(rock_dmg) + "%"
+		teyvat_data.GrassDmg = Ftoone(grass_dmg) + "%"
+		teyvat_data.PhysicalDmg = Ftoone(physical_dmg) + "%"
 
-		// fmt.Println(roleData)
+		// fmt.Println(teyvat_data)
 
-		res.Role = append(res.Role, roleData) // 单个角色最终结果
+		res.Role = append(res.Role, teyvat_data) // 单个角色最终结果
 	}
 	return res, nil
 }
