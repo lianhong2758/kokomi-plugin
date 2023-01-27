@@ -232,7 +232,6 @@ func init() { // 主函数
 		//武器名
 		//纠正圣遗物空缺报错的无返回情况
 		l := len(alldata.AvatarInfoList[t].EquipList)
-
 		reliquary := GetReliquary()
 		if reliquary == nil {
 			ctx.SendChain(message.Text("缺少loc.son资源"))
@@ -470,7 +469,7 @@ func init() { // 主函数
 		}
 		six.DrawString("伤害计算[结果仅供参考,以实际为准]", 50, 40)
 		six.DrawStringAnchored("伤害类型", 290, 105, 1, 0)
-		six.DrawStringAnchored("暴击伤害/治疗", 520, 105, 0.5, 0)
+		six.DrawStringAnchored("暴击伤害/治疗/护盾", 520, 105, 0.5, 0)
 		six.DrawStringAnchored("期望伤害(EX)", 867, 105, 0.5, 0)
 		switch ok {
 		case -1:
@@ -493,7 +492,7 @@ func init() { // 主函数
 			}
 		case 0:
 			six.DrawStringAnchored("暂无数据", 290, 170, 1, 0)
-			six.DrawString("请\"更新面板\"", 360, 180)
+			six.DrawString("请\"更新面板\"", 360, 170)
 		case 1:
 			six.DrawStringAnchored("数据错误", 290, 170, 1, 0)
 			six.DrawString("请联系维护人员", 360, 170)
