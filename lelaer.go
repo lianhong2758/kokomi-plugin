@@ -3,8 +3,8 @@ package kokomi
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"errors"
+	"fmt"
 	"strconv"
 
 	"github.com/FloatTech/floatbox/web"
@@ -17,10 +17,10 @@ const (
 )
 
 type LelaerApi struct {
-	ndata      Data
-	wife       FindMap
+	ndata     Data
+	wife      FindMap
 	reliquary *Fff
-	syw        Syws
+	syw       Syws
 }
 
 func (api *LelaerApi) GetSumComment(uid string) ([]byte, error) {
@@ -56,45 +56,45 @@ type (
 	}
 
 	TeyvatHelperData struct {
-		Server      string        `json:"server"`
-		UserLevel   int           `json:"user_level"`
-		Uid         string        `json:"uid"`
-		Role        string        `json:"role"`
-		Cons        int           `json:"role_class"`
-		Level       int           `json:"level"`
-		Weapon      string        `json:"weapon"`
-		WeaponLevel int           `json:"weapon_level"`
-		WeaponClass string        `json:"weapon_class"`
-		HP          int           `json:"hp"`
-		BaseHP      int           `json:"base_hp"`
-		Attack      int           `json:"attack"`
-		BaseAttack  int           `json:"base_attack"`
-		Defend      int           `json:"defend"`
-		BaseDefend  int           `json:"base_defend"`
-		Element     int           `json:"element"`
-		Crit        string        `json:"crit"`
-		CritDmg     string        `json:"crit_dmg"`
-		Heal        string        `json:"heal"`
-		Recharge    string        `json:"recharge"`
-		FireDmg     string        `json:"fire_dmg"`
-		WaterDmg    string        `json:"water_dmg"`
-		ThunderDmg  string        `json:"thunder_dmg"`
-		WindDmg     string        `json:"wind_dmg"`
-		IceDmg      string        `json:"ice_dmg"`
-		RockDmg     string        `json:"rock_dmg"`
-		GrassDmg    string        `json:"grass_dmg"`
-		PhysicalDmg string        `json:"physical_dmg"`
-		Artifacts   string        `json:"artifacts"`
-		Fetter      int           `json:"fetter"`
-		Ability1    int           `json:"ability1"`
-		Ability2    int           `json:"ability2"`
-		Ability3    int           `json:"ability3"`
-		Detail []TeyvatHelperDetail `json:"artifacts_detail"`
+		Server      string               `json:"server"`
+		UserLevel   int                  `json:"user_level"`
+		Uid         string               `json:"uid"`
+		Role        string               `json:"role"`
+		Cons        int                  `json:"role_class"`
+		Level       int                  `json:"level"`
+		Weapon      string               `json:"weapon"`
+		WeaponLevel int                  `json:"weapon_level"`
+		WeaponClass string               `json:"weapon_class"`
+		HP          int                  `json:"hp"`
+		BaseHP      int                  `json:"base_hp"`
+		Attack      int                  `json:"attack"`
+		BaseAttack  int                  `json:"base_attack"`
+		Defend      int                  `json:"defend"`
+		BaseDefend  int                  `json:"base_defend"`
+		Element     int                  `json:"element"`
+		Crit        string               `json:"crit"`
+		CritDmg     string               `json:"crit_dmg"`
+		Heal        string               `json:"heal"`
+		Recharge    string               `json:"recharge"`
+		FireDmg     string               `json:"fire_dmg"`
+		WaterDmg    string               `json:"water_dmg"`
+		ThunderDmg  string               `json:"thunder_dmg"`
+		WindDmg     string               `json:"wind_dmg"`
+		IceDmg      string               `json:"ice_dmg"`
+		RockDmg     string               `json:"rock_dmg"`
+		GrassDmg    string               `json:"grass_dmg"`
+		PhysicalDmg string               `json:"physical_dmg"`
+		Artifacts   string               `json:"artifacts"`
+		Fetter      int                  `json:"fetter"`
+		Ability1    int                  `json:"ability1"`
+		Ability2    int                  `json:"ability2"`
+		Ability3    int                  `json:"ability3"`
+		Detail      []TeyvatHelperDetail `json:"artifacts_detail"`
 	}
 
 	TeyvatHelper struct {
 		Role []TeyvatHelperData `json:"role_data"`
-		Time   int64            `json:"timestamp"`
+		Time int64              `json:"timestamp"`
 	}
 )
 
@@ -115,39 +115,44 @@ func min[T int | int32 | int64 | float64](x, y T) T {
 // 获取指定 UID 所属服务器
 func getServer(uid string) string {
 	switch uid[0] {
-		case '5': return "cn_qd01"
-		case '6': return "os_usa"
-		case '7': return "os_euro"
-		case '8': return "os_asia"
-		case '9': return "世界树" // os_cht
+	case '5':
+		return "cn_qd01"
+	case '6':
+		return "os_usa"
+	case '7':
+		return "os_euro"
+	case '8':
+		return "os_asia"
+	case '9':
+		return "世界树" // os_cht
 	}
 	return "天空岛" // cn_gf01
 }
 
 var (
-	k_error_sys = errors.New("程序错误")
+	k_error_sys    = errors.New("程序错误")
 	k_error_promap = errors.New("获取角色失败")
 )
 
 func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
 	if api.wife == nil {
-	if api.wife = GetWifeOrWq("wife"); api.wife == nil {
-		return nil, k_error_sys
-	}
+		if api.wife = GetWifeOrWq("wife"); api.wife == nil {
+			return nil, k_error_sys
+		}
 	}
 	if api.reliquary == nil {
-	if api.reliquary = GetReliquary(); api.reliquary == nil {
-		return nil, k_error_sys
-	}
+		if api.reliquary = GetReliquary(); api.reliquary == nil {
+			return nil, k_error_sys
+		}
 	}
 	if api.syw == nil {
-	if api.syw = GetSywName(); api.syw == nil {
-		return nil, k_error_sys
-	}
+		if api.syw = GetSywName(); api.syw == nil {
+			return nil, k_error_sys
+		}
 	}
 
 	server := getServer(uid)
-	res    := &TeyvatHelper{Time: 0}
+	res := &TeyvatHelper{Time: 0}
 
 	for _, v := range api.ndata.AvatarInfoList {
 		name := api.wife.Idmap(strconv.Itoa(v.AvatarID))
@@ -275,10 +280,14 @@ func (api *LelaerApi) transToTeyvat(uid string) (*TeyvatHelper, error) {
 			for i, stats := range equip.Flat.ReliquarySubStats {
 				s := fmt.Sprintf("%s+%v%s", GetAppendProp(stats.SubPropID), stats.Value, Stofen(stats.SubPropID))
 				switch i {
-					case 0: detail.Tips1 = s
-					case 1: detail.Tips2 = s
-					case 2: detail.Tips3 = s
-					case 3: detail.Tips4 = s
+				case 0:
+					detail.Tips1 = s
+				case 1:
+					detail.Tips2 = s
+				case 2:
+					detail.Tips3 = s
+				case 3:
+					detail.Tips4 = s
 				}
 			}
 			roleData.Detail = append(roleData.Detail, detail)

@@ -114,7 +114,7 @@ func init() { // 主函数
 			//存储伤害计算返回值
 			dam_a, err := (&LelaerApi{
 				ndata: ndata,
-				wife : wife,
+				wife:  wife,
 			}).GetSumComment(suid)
 			if err != nil {
 				ctx.SendChain(message.Text("-获取伤害数据失败"+Postfix, err))
@@ -822,7 +822,7 @@ func init() { // 主函数
 		//存储伤害计算返回值
 		dam_a, err := (&LelaerApi{
 			ndata: ndata,
-			wife : wife,
+			wife:  wife,
 		}).GetSumComment(suid)
 		if err != nil {
 			ctx.SendChain(message.Text("-获取伤害数据失败"+Postfix, err))
