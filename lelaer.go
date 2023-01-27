@@ -3,9 +3,8 @@ package kokomi
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"errors"
-	"os"
+	"fmt"
 	"strconv"
 
 	"github.com/FloatTech/floatbox/web"
@@ -17,21 +16,8 @@ const (
 	k_lelaer_sum = "https://api.lelaer.com/ys/getSumComment.php"
 )
 
-func GetSumComment(uid string) ([]byte, error) {
-	// 获取本地缓存数据
-	txt, err := os.ReadFile("plugin/kokomi/data/js/" + uid + ".kokomi")
-	if err != nil {
-		return nil, errors.New("-本地未找到账号信息, 请更新面板" + Postfix)
-	}
-
-	// 解析
-	var ndata Data
-	if err = json.Unmarshal(txt, &ndata); err != nil {
-		return nil, fmt.Errorf("出现错误捏：%v", err)
-	}
-	if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 {
-		return nil, errors.New("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Postfix)
-	}
+func (ndata Data) GetSumComment(uid string) ([]byte, error) {
+	var err error
 	p, e := transToTeyvat(uid, &ndata)
 	if e != nil {
 		return nil, e
@@ -64,45 +50,45 @@ type (
 	}
 
 	TeyvatHelperData struct {
-		Server      string        `json:"server"`
-		UserLevel   int           `json:"user_level"`
-		Uid         string        `json:"uid"`
-		Role        string        `json:"role"`
-		Cons        int           `json:"role_class"`
-		Level       int           `json:"level"`
-		Weapon      string        `json:"weapon"`
-		WeaponLevel int           `json:"weapon_level"`
-		WeaponClass string        `json:"weapon_class"`
-		HP          int           `json:"hp"`
-		BaseHP      int           `json:"base_hp"`
-		Attack      int           `json:"attack"`
-		BaseAttack  int           `json:"base_attack"`
-		Defend      int           `json:"defend"`
-		BaseDefend  int           `json:"base_defend"`
-		Element     int           `json:"element"`
-		Crit        string        `json:"crit"`
-		CritDmg     string        `json:"crit_dmg"`
-		Heal        string        `json:"heal"`
-		Recharge    string        `json:"recharge"`
-		FireDmg     string        `json:"fire_dmg"`
-		WaterDmg    string        `json:"water_dmg"`
-		ThunderDmg  string        `json:"thunder_dmg"`
-		WindDmg     string        `json:"wind_dmg"`
-		IceDmg      string        `json:"ice_dmg"`
-		RockDmg     string        `json:"rock_dmg"`
-		GrassDmg    string        `json:"grass_dmg"`
-		PhysicalDmg string        `json:"physical_dmg"`
-		Artifacts   string        `json:"artifacts"`
-		Fetter      int           `json:"fetter"`
-		Ability1    int           `json:"ability1"`
-		Ability2    int           `json:"ability2"`
-		Ability3    int           `json:"ability3"`
-		Detail []TeyvatHelperDetail `json:"artifacts_detail"`
+		Server      string               `json:"server"`
+		UserLevel   int                  `json:"user_level"`
+		Uid         string               `json:"uid"`
+		Role        string               `json:"role"`
+		Cons        int                  `json:"role_class"`
+		Level       int                  `json:"level"`
+		Weapon      string               `json:"weapon"`
+		WeaponLevel int                  `json:"weapon_level"`
+		WeaponClass string               `json:"weapon_class"`
+		HP          int                  `json:"hp"`
+		BaseHP      int                  `json:"base_hp"`
+		Attack      int                  `json:"attack"`
+		BaseAttack  int                  `json:"base_attack"`
+		Defend      int                  `json:"defend"`
+		BaseDefend  int                  `json:"base_defend"`
+		Element     int                  `json:"element"`
+		Crit        string               `json:"crit"`
+		CritDmg     string               `json:"crit_dmg"`
+		Heal        string               `json:"heal"`
+		Recharge    string               `json:"recharge"`
+		FireDmg     string               `json:"fire_dmg"`
+		WaterDmg    string               `json:"water_dmg"`
+		ThunderDmg  string               `json:"thunder_dmg"`
+		WindDmg     string               `json:"wind_dmg"`
+		IceDmg      string               `json:"ice_dmg"`
+		RockDmg     string               `json:"rock_dmg"`
+		GrassDmg    string               `json:"grass_dmg"`
+		PhysicalDmg string               `json:"physical_dmg"`
+		Artifacts   string               `json:"artifacts"`
+		Fetter      int                  `json:"fetter"`
+		Ability1    int                  `json:"ability1"`
+		Ability2    int                  `json:"ability2"`
+		Ability3    int                  `json:"ability3"`
+		Detail      []TeyvatHelperDetail `json:"artifacts_detail"`
 	}
 
 	TeyvatHelper struct {
 		Role []TeyvatHelperData `json:"role_data"`
-		Time   int64            `json:"timestamp"`
+		Time int64              `json:"timestamp"`
 	}
 )
 
@@ -123,17 +109,22 @@ func min[T int | int32 | int64 | float64](x, y T) T {
 // 获取指定 UID 所属服务器
 func getServer(uid string) string {
 	switch uid[0] {
-		case '5': return "cn_qd01"
-		case '6': return "os_usa"
-		case '7': return "os_euro"
-		case '8': return "os_asia"
-		case '9': return "世界树" // os_cht
+	case '5':
+		return "cn_qd01"
+	case '6':
+		return "os_usa"
+	case '7':
+		return "os_euro"
+	case '8':
+		return "os_asia"
+	case '9':
+		return "世界树" // os_cht
 	}
 	return "天空岛" // cn_gf01
 }
 
 var (
-	k_error_sys = errors.New("程序错误")
+	k_error_sys    = errors.New("程序错误")
 	k_error_promap = errors.New("获取角色失败")
 )
 
@@ -152,7 +143,7 @@ func transToTeyvat(uid string, ndata *Data) (*TeyvatHelper, error) {
 	}
 
 	server := getServer(uid)
-	res    := &TeyvatHelper{Time: 0}
+	res := &TeyvatHelper{Time: 0}
 
 	for _, v := range ndata.AvatarInfoList {
 		name := wife.Idmap(strconv.Itoa(v.AvatarID))

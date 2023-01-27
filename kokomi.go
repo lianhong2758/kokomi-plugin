@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
 	//"unicode/utf8"
 
 	"github.com/Coloured-glaze/gg"
@@ -18,9 +19,9 @@ import (
 	"github.com/FloatTech/floatbox/web"
 	ctrl "github.com/FloatTech/zbpctrl"
 	"github.com/FloatTech/zbputils/control"
+
 	//"github.com/golang/freetype"
 	"golang.org/x/image/webp"
-
 	//"github.com/FloatTech/zbputils/img"
 	"github.com/nfnt/resize"
 	zero "github.com/wdvxdr1123/ZeroBot"
@@ -110,6 +111,14 @@ func init() { // 主函数
 					msg.WriteByte('\n')
 				}
 			}
+			//存储伤害计算返回值
+			dam_a, err := ndata.GetSumComment(suid)
+			if err != nil {
+				ctx.SendChain(message.Text("-获取伤害数据失败"+Postfix, err))
+			}
+			file2, _ := os.OpenFile("plugin/kokomi/data/damage/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
+			_, _ = file2.Write(dam_a)
+			file2.Close()
 			// 创建存储文件,路径plugin/kokomi/data/js
 			file, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 			_, _ = file.Write(es)
@@ -456,11 +465,10 @@ func init() { // 主函数
 		for c := 1; c <= 4; c++ {
 			six.DrawLine(0, 65*float64(c), 1040, 65*float64(c)) //横线条分割
 		}
-		for c := 1; c <= 3; c++ {
+		for c := 1; c < 3; c++ {
 			six.DrawLine(346*float64(c), 65, 346*float64(c), 325) //竖线条分割
 		}
-		six.Stroke()
-		six.DrawString("伤害计算", 50, 40)
+		six.DrawString("伤害计算[结果仅供参考,以实际为准]", 50, 40)
 		six.DrawStringAnchored("伤害类型", 290, 105, 1, 0)
 		six.DrawStringAnchored("暴击伤害/治疗", 520, 105, 0.5, 0)
 		six.DrawStringAnchored("期望伤害(EX)", 867, 105, 0.5, 0)
@@ -490,6 +498,7 @@ func init() { // 主函数
 			six.DrawStringAnchored("数据错误", 290, 170, 1, 0)
 			six.DrawString("请联系维护人员", 360, 170)
 		}
+		six.Stroke()
 		dc.DrawImage(damying, 20, 1660)
 		dc.DrawImage(six.Image(), 20, 1660)
 
@@ -808,6 +817,14 @@ func init() { // 主函数
 				msg.WriteByte('\n')
 			}
 		}
+		//存储伤害计算返回值
+		dam_a, err := ndata.GetSumComment(suid)
+		if err != nil {
+			ctx.SendChain(message.Text("-获取伤害数据失败"+Postfix, err))
+		}
+		file2, _ := os.OpenFile("plugin/kokomi/data/damage/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
+		_, _ = file2.Write(dam_a)
+		file2.Close()
 		// 创建存储文件,路径plugin/kokomi/data/js
 		file1, _ := os.OpenFile("plugin/kokomi/data/js/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file1.Write(es)
