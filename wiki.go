@@ -27,7 +27,7 @@ const ( //~标记已实现
 )
 
 func init() { // 主函数
-	fconfig, err := os.ReadFile("plugin/kokomi/data/json/loc.json")
+	fconfig, err := os.ReadFile("plugin/kokomi/config.json")
 	if err != nil {
 		fmt.Println("获取kokomi配置文件错误")
 		return
