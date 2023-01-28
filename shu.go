@@ -49,9 +49,9 @@ type Role struct {
 type Dam struct {
 	Result []struct {
 		DamageResultArr []struct {
-			Title  string `json:"title"`
-			Value  int    `json:"value"`
-			Expect string `json:"expect"`
+			Title  string      `json:"title"`
+			Value  interface{} `json:"value"`
+			Expect string      `json:"expect"`
 		} `json:"damage_result_arr"`
 	} `json:"result"`
 }
