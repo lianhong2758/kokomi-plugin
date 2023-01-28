@@ -29,9 +29,6 @@ import (
 )
 
 const (
-	url     = "https://enka.microgg.cn/u/%v"
-	Postfix = "~" //语句后缀
-	edition = "Created By ZeroBot-Plugin v1.6.1 & kokomi v2.2"
 	//tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
 	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
 	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf"    // 汉字字体
@@ -40,6 +37,23 @@ const (
 )
 
 func init() { // 主函数
+	fconfig, err := os.ReadFile("plugin/kokomi/config.json")
+	if err != nil {
+		fmt.Println("获取kokomi配置文件错误")
+		return
+	}
+	var conf config
+	err = json.Unmarshal(fconfig, &conf)
+	if err != nil {
+		fmt.Println("解析kokomi配置文件错误")
+		return
+	}
+	var (
+		url      = conf.Apis[conf.Apiid]
+		Postfix  = conf.Postfix
+		datafrom = conf.Datafrom
+		edition  = conf.Edition
+	)
 	en := control.Register("kokomi", &ctrl.Options[*zero.Ctx]{
 		DisableOnDefault: false,
 		Brief:            "原神面板查询",
@@ -286,7 +300,11 @@ func init() { // 主函数
 			}
 			//字号30,间距50
 			three.SetRGB(1, 1, 1) //白色
-
+			//画线
+			for c := 0; c < 4; c++ {
+				three.DrawLine(0, 160+float64(c)*45, 350, 160+float64(c)*45) //横线条分割
+			}
+			three.Stroke()
 			sywname := reliquary.WQ[alldata.AvatarInfoList[t].EquipList[i].Flat.SetNameTextHash]
 			if sywname == "" {
 				ctx.SendChain(message.Text("缺少loc.son资源"))
@@ -315,7 +333,7 @@ func init() { // 主函数
 			yy = 145
 			pingfeng = 0
 			//主词条
-			three.DrawString("主:"+zhuci, xx, yy)
+			three.DrawString(zhuci, xx, yy) //"主:"
 			if err := three.LoadFontFace(FiFile, 30); err != nil {
 				panic(err)
 			}
@@ -327,6 +345,7 @@ func init() { // 主函数
 				pingfeng += Countcitiao(str, zhuci, alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value/4)
 			}
 			//副词条
+			three.SetHexColor("#98F5FF") //蓝色
 			p := len(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats)
 			for k := 0; k < p; k++ {
 				switch k {
@@ -339,15 +358,6 @@ func init() { // 主函数
 				case 3:
 					yy = 325
 				}
-				if err := three.LoadFontFace(FontFile, 30); err != nil {
-					panic(err)
-				}
-				three.DrawString(StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), xx, yy)
-				if err := three.LoadFontFace(FiFile, 30); err != nil {
-					panic(err)
-				}
-				//+对齐three.DrawString("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 200, yy)
-				three.DrawStringAnchored("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 325, yy, 1, 0)
 				var fuciname = StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID)
 				var fufigure = alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value
 				switch fuciname {
@@ -361,7 +371,19 @@ func init() { // 主函数
 					fufigure = fufigure / (alldata.AvatarInfoList[t].FightPropMap.Num1 - fufigure)
 					fuciname = "大生命"
 				}
-				pingfeng += Countcitiao(str, fuciname, fufigure)
+				pingfeng += Countcitiao(str, fuciname, fufigure) //单个圣遗物分数合计
+				if Countcitiao(str, fuciname, fufigure) == 0.0 {
+					three.SetHexColor("#BEBEBE") //灰色#BEBEBE,浅灰色#D3D3D3
+				}
+				if err := three.LoadFontFace(FontFile, 30); err != nil {
+					panic(err)
+				}
+				three.DrawString(StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), xx, yy)
+				if err := three.LoadFontFace(FiFile, 30); err != nil {
+					panic(err)
+				}
+				three.DrawStringAnchored("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 325, yy, 1, 0)
+				three.SetHexColor("#98F5FF") //蓝色
 			}
 			//评分处理,对齐
 			if i == 2 {
@@ -371,6 +393,7 @@ func init() { // 主函数
 			}
 			allfen += pingfeng
 
+			three.SetRGB(1, 1, 1)
 			//圣遗物单个评分
 			if err := three.LoadFontFace(FiFile, 30); err != nil {
 				panic(err)
@@ -558,8 +581,9 @@ func init() { // 主函数
 		if err := dc.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
 		}
-		//好感度位置
+		//好感度位置,数据来源
 		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 20, 910)
+		dc.DrawStringAnchored("Data From "+datafrom, 1045, 910, 1, 0)
 		//昵称图框
 		newying := Yinying(540, 200, 16, 0.5)
 		five := gg.NewContext(540, 200)
@@ -651,8 +675,8 @@ func init() { // 主函数
 		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 470, 400, 1, 0) //充能
 		one.DrawStringAnchored(Ftoone(addf)+"%", 470, 460, 1, 0)
 
-		dc.DrawImage(bg, 505, 420)
-		dc.DrawImage(one.Image(), 505, 420)
+		dc.DrawImage(bg, 505, 410)
+		dc.DrawImage(one.Image(), 505, 410)
 
 		// 天赋等级
 		if err := dc.LoadFontFace(FiFile, 30); err != nil { // 字体大小
@@ -991,5 +1015,28 @@ func init() { // 主函数
 				return
 			}
 		}
+	})
+	//切换api
+	en.OnRegex(`切换api(\d)?`, zero.SuperUserPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
+		if z == "" {
+			if conf.Apiid+1 < len(conf.Apis) {
+				url = conf.Apis[conf.Apiid+1]
+				conf.Apiid++
+			} else {
+				url = conf.Apis[0]
+				conf.Apiid = 0
+			}
+			ctx.SendChain(message.Text("-切换api成功" + Postfix))
+			return
+		}
+		zz, _ := strconv.Atoi(z)
+		if zz < len(conf.Apis) {
+			url = conf.Apis[zz]
+		} else {
+			ctx.SendChain(message.Text("-api不存在" + Postfix))
+		}
+		ctx.SendChain(message.Text("-切换api成功" + Postfix))
+		return
 	})
 }

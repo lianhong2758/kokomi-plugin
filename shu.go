@@ -26,6 +26,15 @@ type wifequan struct {
 	Heal     int //治疗加成
 }
 
+// config内容
+type config struct {
+	Apis     []string `json:"apis"`
+	Apiid    int      `json:"api_id"`
+	Postfix  string   `json:"postfix"`
+	Datafrom string   `json:"from"`
+	Edition  string   `json:"edition"`
+}
+
 // wiki查询地址结构解析
 type Wikimap struct {
 	Card      map[string]string `json:"card"`
