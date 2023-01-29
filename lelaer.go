@@ -284,8 +284,8 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			teyvat_data.Detail = append(teyvat_data.Detail, detail)
 		}
 		ssuit := make([]string, 5)
-		for _, equip := range v.EquipList {
-			teyvat_data.Artifacts = reliquary.WQ[equip.Flat.SetNameTextHash]
+		for k, equip := range v.EquipList {
+			ssuit[k] = reliquary.WQ[equip.Flat.SetNameTextHash]
 		}
 		teyvat_data.Artifacts = Sywsuit(ssuit)
 		/*if teyvat_data.Artifacts == "" {
