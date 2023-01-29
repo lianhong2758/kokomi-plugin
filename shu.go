@@ -589,47 +589,30 @@ func (m Syws) Names(syw string) []string {
 
 // 圣遗物套装判断
 func Sywsuit(syws []string) string {
-	a := make([]string, 1)
-	b := make([]int, 1)
-	c := make([]int, 2)
-	a[0] = ""
-	b[0] = 1
+	syw_map := make(map[string]int)
+	var c0, c1 string
 	for _, v := range syws {
-		t := 0
-		for kk, vv := range a {
-			if vv == v {
-				b[kk]++
-				t = 1
-			}
-		}
-		if t == 1 {
-			continue
-		} else {
-			a = append(a, v)
-			b = append(b, 1)
-		}
+		i := syw_map[v]
+		syw_map[v] = i + 1
 	}
-	//两个索引
-	if len(a) == 1 {
-		return "+"
-	}
-	for i := 1; i < len(a); i++ {
-		if b[i] >= 4 {
-			return a[i] + "4"
+	syw_map[""] = 0
+	for k, v := range syw_map {
+		if v >= 4 {
+			return k + "4"
 		}
-		if b[i] >= 2 {
-			if c[0] == 0 {
-				c[0] = i
+		if v >= 2 {
+			if c0 == "" {
+				c0 = k
 			} else {
-				c[1] = i
+				c1 = k
 			}
 		}
 	}
-	if c[0] != 0 && c[1] != 0 {
-		return a[c[0]] + "2+" + a[c[1]] + "2"
-	} else if c[0] != 0 {
-		return a[c[0]] + "2"
-	} else {
-		return "+"
+	if c0 != "" {
+		if c1 != "" {
+			return c0 + "2+" + c1 + "2"
+		}
+		return c0 + "2"
 	}
+	return "+"
 }
