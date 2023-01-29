@@ -283,12 +283,16 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			}
 			teyvat_data.Detail = append(teyvat_data.Detail, detail)
 		}
-
-		if teyvat_data.Artifacts == "" {
+		ssuit := make([]string, 5)
+		for _, equip := range v.EquipList {
+			teyvat_data.Artifacts = reliquary.WQ[equip.Flat.SetNameTextHash]
+		}
+		teyvat_data.Artifacts = Sywsuit(ssuit)
+		/*if teyvat_data.Artifacts == "" {
 			teyvat_data.Artifacts = "+"
 		} else {
 			teyvat_data.Artifacts += "4"
-		}
+		}*/
 
 		teyvat_data.HP = int(0.5 + hp)
 		teyvat_data.BaseHP = int(0.5 + v.FightPropMap.Num1)     // 基础生命值

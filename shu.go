@@ -571,6 +571,7 @@ func GetSywName() Syws {
 	return nil
 }
 
+// 圣遗物名列表
 func (m Syws) Names(syw string) []string {
 	for _, v := range m {
 		if v.Name == syw {
@@ -584,4 +585,51 @@ func (m Syws) Names(syw string) []string {
 		}
 	}
 	return nil
+}
+
+// 圣遗物套装判断
+func Sywsuit(syws []string) string {
+	a := make([]string, 1)
+	b := make([]int, 1)
+	c := make([]int, 2)
+	a[0] = ""
+	b[0] = 1
+	for _, v := range syws {
+		t := 0
+		for kk, vv := range a {
+			if vv == v {
+				b[kk]++
+				t = 1
+			}
+		}
+		if t == 1 {
+			continue
+		} else {
+			a = append(a, v)
+			b = append(b, 1)
+		}
+	}
+	//两个索引
+	if len(a) == 1 {
+		return "+"
+	}
+	for i := 1; i < len(a); i++ {
+		if b[i] >= 4 {
+			return a[i] + "4"
+		}
+		if b[i] >= 2 {
+			if c[0] == 0 {
+				c[0] = i
+			} else {
+				c[1] = i
+			}
+		}
+	}
+	if c[0] != 0 && c[1] != 0 {
+		return a[c[0]] + "2+" + a[c[1]] + "2"
+	} else if c[0] != 0 {
+		return a[c[0]] + "2"
+	} else {
+		return "+"
+	}
 }
