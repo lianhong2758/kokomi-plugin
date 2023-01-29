@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
+	"image/color"
 	"os"
 	"regexp"
 	"strconv"
@@ -234,8 +235,6 @@ func init() { // 主函数
 		dc.SetRGB(1, 1, 1) // 换白色
 
 		//武器图层
-		//新建图层,实现阴影
-		yinwq := Yinying(340, 180, 16, 0.6)
 		// 字图层
 		two := gg.NewContext(340, 180)
 		if err := two.LoadFontFace(FontFile, 30); err != nil {
@@ -285,12 +284,16 @@ func init() { // 主函数
 			return
 		}
 		tuwq = resize.Resize(130, 0, tuwq, resize.Bilinear)
+
+		// int(213*0.6)
+		yinyin_black127 := color.NRGBA{R: 0, G: 0, B: 0, A: 127}
+
 		two.DrawImage(tuwq, 10, 10)
-		dc.DrawImage(yinwq, 20, 920)
+		dc.DrawImage(Yinying(340, 180, 16, yinyin_black127), 20, 920) // 背景
 		dc.DrawImage(two.Image(), 20, 920)
 
 		//圣遗物
-		yinsyw := Yinying(340, 350, 16, 0.6)
+		yinsyw := Yinying(340, 350, 16, yinyin_black127)
 		syw := GetSywName()
 		for i := 0; i < l-1; i++ {
 			// 字图层
@@ -422,7 +425,6 @@ func init() { // 主函数
 		}
 
 		//总评分框
-		yinping := Yinying(340, 160, 16, 0.6)
 		// 字图层
 		four := gg.NewContext(340, 160)
 		if err := four.LoadFontFace(FontFile, 25); err != nil {
@@ -441,7 +443,7 @@ func init() { // 主函数
 		}
 		four.DrawString("圣遗物总分", 50, 150)
 		four.DrawString("评级", 230, 150)
-		dc.DrawImage(yinping, 20, 1110)
+		dc.DrawImage(Yinying(340, 160, 16, yinyin_black127), 20, 1110) // 背景
 		dc.DrawImage(four.Image(), 20, 1110)
 
 		//伤害显示区,暂时展示图片
@@ -478,7 +480,6 @@ func init() { // 主函数
 			}
 		}
 		//绘图区
-		damying := Yinying(1040, 325, 16, 0.6)
 		six := gg.NewContext(1040, 325)
 		six.SetRGB(1, 1, 1) //白色
 		//汉字描述
@@ -522,7 +523,7 @@ func init() { // 主函数
 			six.DrawString("请联系维护人员", 360, 170)
 		}
 		six.Stroke()
-		dc.DrawImage(damying, 20, 1660)
+		dc.DrawImage(Yinying(1040, 325, 16, yinyin_black127), 20, 1660) // 背景
 		dc.DrawImage(six.Image(), 20, 1660)
 
 		//************************************************************************************
@@ -585,7 +586,6 @@ func init() { // 主函数
 		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 20, 910)
 		dc.DrawStringAnchored("Data From "+datafrom, 1045, 910, 1, 0)
 		//昵称图框
-		newying := Yinying(540, 200, 16, 0.5)
 		five := gg.NewContext(540, 200)
 		five.SetRGB(1, 1, 1) //白色
 		//角色名字
@@ -605,11 +605,11 @@ func init() { // 主函数
 		// 角色等级,命之座(合并上程序)
 		//dc.DrawString("LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level), 630, 130) // 角色等级
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
+		// 透明度 int(213*0.5)
+		newying := Yinying(540, 200, 16, color.NRGBA{R: 0, G: 0, B: 0, A: 106})
 		dc.DrawImage(newying, 505, 20)
 		dc.DrawImage(five.Image(), 505, 20)
 
-		//新建图层,实现阴影
-		bg := Yinying(540, 470, 16, 0.6)
 		//字图层
 		one := gg.NewContext(540, 470)
 		if err := one.LoadFontFace(FontFile, 30); err != nil {
@@ -675,7 +675,7 @@ func init() { // 主函数
 		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 470, 400, 1, 0) //充能
 		one.DrawStringAnchored(Ftoone(addf)+"%", 470, 460, 1, 0)
 
-		dc.DrawImage(bg, 505, 410)
+		dc.DrawImage(Yinying(540, 470, 16, yinyin_black127), 505, 410) // 背景
 		dc.DrawImage(one.Image(), 505, 410)
 
 		// 天赋等级
@@ -718,12 +718,8 @@ func init() { // 主函数
 		dc.DrawImage(tulin2, 733, bb)
 		dc.DrawImage(tulin3, 910, 260)
 
-		//Lv背景
-		talentying := gg.NewContext(40, 35)
-		talentying.SetRGB(1, 1, 1) //白色
-		talentying.DrawRoundedRectangle(0, 0, 40, 35, 5)
-		talentying.Fill()
-		talenty := AdjustOpacity(talentying.Image(), 0.9)
+		// Lv背景 透明度 int(255*0.9)
+		talenty := Yinying(40, 35, 5, color.NRGBA{R: 255, G: 255, B: 255, A: 226})
 		dc.DrawImage(talenty, 570, 350)
 		dc.DrawImage(talenty, 750, 350)
 		dc.DrawImage(talenty, 930, 350)
