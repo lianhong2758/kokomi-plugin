@@ -242,17 +242,17 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 		}
 
 		// 圣遗物数据
+		var syws []string
 		for i, equip := range v.EquipList {
 			if equip.Flat.SetNameTextHash == "" {
 				continue
 			}
-			teyvat_data.Artifacts = reliquary.WQ[equip.Flat.SetNameTextHash]
-			if teyvat_data.Artifacts == "" {
+			if wqname = reliquary.WQ[equip.Flat.SetNameTextHash]; wqname == "" {
 				return nil, k_error_sys
 			}
-
-			sywallname := syw.Names(teyvat_data.Artifacts)[i] // 圣遗物name
-			// fmt.Println(teyvat_data.Artifacts, sywallname)
+			syws = append(syws, wqname)
+			sywallname := syw.Names(wqname)[i] // 圣遗物name
+			// fmt.Println(wqname, sywallname)
 
 			var main_value any
 			if s := Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
@@ -283,16 +283,8 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			}
 			teyvat_data.Detail = append(teyvat_data.Detail, detail)
 		}
-		ssuit := make([]string, 5)
-		for k, equip := range v.EquipList {
-			ssuit[k] = reliquary.WQ[equip.Flat.SetNameTextHash]
-		}
-		teyvat_data.Artifacts = Sywsuit(ssuit)
-		/*if teyvat_data.Artifacts == "" {
-			teyvat_data.Artifacts = "+"
-		} else {
-			teyvat_data.Artifacts += "4"
-		}*/
+
+		teyvat_data.Artifacts = Sywsuit(syws)
 
 		teyvat_data.HP = int(0.5 + hp)
 		teyvat_data.BaseHP = int(0.5 + v.FightPropMap.Num1)     // 基础生命值
