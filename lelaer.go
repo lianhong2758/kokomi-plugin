@@ -222,18 +222,18 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			}
 		}
 
-		// fmt.Println(name)
-
-		// 天赋等级修复
+		// 获取角色
 		role := GetRole(name)
 		if role == nil {
 			return nil, k_error_promap
 		}
+		// 天赋等级
 		talentid := role.GetTalentId()
 		teyvat_data.Ability1 = v.SkillLevelMap[talentid[0]]
 		teyvat_data.Ability2 = v.SkillLevelMap[talentid[1]]
 		teyvat_data.Ability3 = v.SkillLevelMap[talentid[2]]
 		ming := len(v.TalentIDList) // 命之座
+		// 天赋等级修复
 		if ming >= role.TalentCons.E {
 			teyvat_data.Ability2 += 3
 		}
