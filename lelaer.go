@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/FloatTech/floatbox/web"
 )
@@ -36,7 +37,7 @@ func (ndata Data) GetSumComment(uid string, wife FindMap) ([]byte, error) {
 
 // 角色数据转换为 Teyvat Helper 请求格式
 type (
-	TeyvatHelperDetail struct {
+	TeyvatDetail struct {
 		Name      string `json:"artifacts_name"`
 		Type      string `json:"artifacts_type"`
 		Level     int    `json:"level"`
@@ -48,89 +49,57 @@ type (
 		Tips4     string `json:"tips4"`
 	}
 
-	TeyvatHelperData struct {
-		Server      string               `json:"server"`
-		UserLevel   int                  `json:"user_level"`
-		Uid         string               `json:"uid"`
-		Role        string               `json:"role"`
-		Cons        int                  `json:"role_class"`
-		Level       int                  `json:"level"`
-		Weapon      string               `json:"weapon"`
-		WeaponLevel int                  `json:"weapon_level"`
-		WeaponClass string               `json:"weapon_class"`
-		HP          int                  `json:"hp"`
-		BaseHP      int                  `json:"base_hp"`
-		Attack      int                  `json:"attack"`
-		BaseAttack  int                  `json:"base_attack"`
-		Defend      int                  `json:"defend"`
-		BaseDefend  int                  `json:"base_defend"`
-		Element     int                  `json:"element"`
-		Crit        string               `json:"crit"`
-		CritDmg     string               `json:"crit_dmg"`
-		Heal        string               `json:"heal"`
-		Recharge    string               `json:"recharge"`
-		FireDmg     string               `json:"fire_dmg"`
-		WaterDmg    string               `json:"water_dmg"`
-		ThunderDmg  string               `json:"thunder_dmg"`
-		WindDmg     string               `json:"wind_dmg"`
-		IceDmg      string               `json:"ice_dmg"`
-		RockDmg     string               `json:"rock_dmg"`
-		GrassDmg    string               `json:"grass_dmg"`
-		PhysicalDmg string               `json:"physical_dmg"`
-		Artifacts   string               `json:"artifacts"`
-		Fetter      int                  `json:"fetter"`
-		Ability1    int                  `json:"ability1"`
-		Ability2    int                  `json:"ability2"`
-		Ability3    int                  `json:"ability3"`
-		Detail      []TeyvatHelperDetail `json:"artifacts_detail"`
+	TeyvatData struct {
+		Server      string         `json:"server"`
+		UserLevel   int            `json:"user_level"`
+		Uid         string         `json:"uid"`
+		Role        string         `json:"role"`
+		Cons        int            `json:"role_class"`
+		Level       int            `json:"level"`
+		Weapon      string         `json:"weapon"`
+		WeaponLevel int            `json:"weapon_level"`
+		WeaponClass string         `json:"weapon_class"`
+		HP          int            `json:"hp"`
+		BaseHP      int            `json:"base_hp"`
+		Attack      int            `json:"attack"`
+		BaseAttack  int            `json:"base_attack"`
+		Defend      int            `json:"defend"`
+		BaseDefend  int            `json:"base_defend"`
+		Element     int            `json:"element"`
+		Crit        string         `json:"crit"`
+		CritDmg     string         `json:"crit_dmg"`
+		Heal        string         `json:"heal"`
+		Recharge    string         `json:"recharge"`
+		FireDmg     string         `json:"fire_dmg"`
+		WaterDmg    string         `json:"water_dmg"`
+		ThunderDmg  string         `json:"thunder_dmg"`
+		WindDmg     string         `json:"wind_dmg"`
+		IceDmg      string         `json:"ice_dmg"`
+		RockDmg     string         `json:"rock_dmg"`
+		GrassDmg    string         `json:"grass_dmg"`
+		PhysicalDmg string         `json:"physical_dmg"`
+		Artifacts   string         `json:"artifacts"`
+		Fetter      int            `json:"fetter"`
+		Ability1    int            `json:"ability1"`
+		Ability2    int            `json:"ability2"`
+		Ability3    int            `json:"ability3"`
+		Detail      []TeyvatDetail `json:"artifacts_detail"`
 	}
 
-	TeyvatHelper struct {
-		Role []TeyvatHelperData `json:"role_data"`
-		Time int64              `json:"timestamp"`
+	Teyvat struct {
+		Role []TeyvatData `json:"role_data"`
+		Time int64        `json:"timestamp"`
 	}
 )
-
-func max[T int | int32 | int64 | float64](x, y T) T {
-	if x > y {
-		return x
-	}
-	return y
-}
-
-func min[T int | int32 | int64 | float64](x, y T) T {
-	if x > y {
-		return y
-	}
-	return x
-}
 
 var (
 	k_error_sys    = errors.New("程序错误")
 	k_error_promap = errors.New("获取角色失败")
 )
 
-// 获取指定 UID 所属服务器
-func getServer(uid string) string {
-	switch uid[0] {
-	case '5':
-		return "cn_qd01"
-	case '6':
-		return "os_usa"
-	case '7':
-		return "os_euro"
-	case '8':
-		return "os_asia"
-	case '9':
-		return "世界树" // os_cht
-	}
-	return "天空岛" // cn_gf01
-}
-
-func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error) {
+func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 	if wife == nil {
-		wife = GetWifeOrWq("wife")
-		if wife == nil {
+		if wife = GetWifeOrWq("wife"); wife == nil {
 			return nil, k_error_sys
 		}
 	}
@@ -143,8 +112,8 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 		return nil, k_error_sys
 	}
 
-	server := getServer(uid)
-	res := &TeyvatHelper{Time: 0}
+	s := getServer(uid)
+	res := &Teyvat{Time: time.Now().Unix()}
 
 	for _, v := range ndata.AvatarInfoList {
 		name := wife.Idmap(strconv.Itoa(v.AvatarID))
@@ -166,9 +135,9 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			return nil, k_error_sys
 		}
 
-		teyvat_data := TeyvatHelperData{
+		teyvat_data := TeyvatData{
 			Uid:         uid,
-			Server:      server,
+			Server:      s,
 			UserLevel:   ndata.PlayerInfo.Level,
 			Role:        name,
 			Cons:        cons,
@@ -222,10 +191,12 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			}
 		}
 
+		// fmt.Println(name)
+
 		// 获取角色
 		role := GetRole(name)
 		if role == nil {
-			return nil, k_error_promap
+			return nil, k_error_sys
 		}
 		// 天赋等级
 		talentid := role.GetTalentId()
@@ -255,13 +226,13 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 			// fmt.Println(wqname, sywallname)
 
 			var main_value any
-			if s := Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
+			if s = Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
 				main_value = int(0.5 + equip.Flat.ReliquaryMainStat.Value)
 			} else {
 				main_value = Ftoone(equip.Flat.ReliquaryMainStat.Value) + s
 			}
 
-			detail := TeyvatHelperDetail{
+			detail := TeyvatDetail{
 				Name:      sywallname,
 				Type:      GetEquipType(equip.Flat.EquipType),
 				Level:     equip.Reliquary.Level - 1,
@@ -269,7 +240,7 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 				MainValue: main_value,
 			}
 			for i, stats := range equip.Flat.ReliquarySubStats {
-				s := fmt.Sprintf("%s+%v%s", GetAppendProp(stats.SubPropID), stats.Value, Stofen(stats.SubPropID))
+				s = fmt.Sprintf("%s+%v%s", GetAppendProp(stats.SubPropID), stats.Value, Stofen(stats.SubPropID))
 				switch i {
 				case 0:
 					detail.Tips1 = s
@@ -287,13 +258,13 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 		teyvat_data.Artifacts = Sywsuit(syws)
 
 		teyvat_data.HP = int(0.5 + hp)
-		teyvat_data.BaseHP = int(0.5 + v.FightPropMap.Num1)     // 基础生命值
-		teyvat_data.Attack = int(0.5 + v.FightPropMap.Num2001)  // 攻击
-		teyvat_data.BaseAttack = int(0.5 + v.FightPropMap.Num4) // 基础攻击力
-		teyvat_data.Defend = int(0.5 + v.FightPropMap.Num2002)  // 防御
-		teyvat_data.BaseDefend = int(0.5 + v.FightPropMap.Num7) // 基础防御力
-		teyvat_data.Element = int(0.5 + v.FightPropMap.Num28)   // 精通
-		teyvat_data.Heal = Ftoone(v.FightPropMap.Num26) + "%"
+		teyvat_data.BaseHP = int(0.5 + v.FightPropMap.Num1)       // 基础生命值
+		teyvat_data.Attack = int(0.5 + v.FightPropMap.Num2001)    // 攻击
+		teyvat_data.BaseAttack = int(0.5 + v.FightPropMap.Num4)   // 基础攻击力
+		teyvat_data.Defend = int(0.5 + v.FightPropMap.Num2002)    // 防御
+		teyvat_data.BaseDefend = int(0.5 + v.FightPropMap.Num7)   // 基础防御力
+		teyvat_data.Element = int(0.5 + v.FightPropMap.Num28)     // 元素精通
+		teyvat_data.Heal = Ftoone(v.FightPropMap.Num26*100) + "%" // 治疗加成
 		teyvat_data.Crit = Ftoone(crit) + "%"
 		teyvat_data.CritDmg = Ftoone(crit_dmg) + "%"
 		teyvat_data.Recharge = Ftoone(recharge) + "%"
@@ -311,4 +282,35 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*TeyvatHelper, error)
 		res.Role = append(res.Role, teyvat_data) // 单个角色最终结果
 	}
 	return res, nil
+}
+
+// 获取指定 UID 所属服务器
+func getServer(uid string) string {
+	switch uid[0] {
+	case '5':
+		return "cn_qd01"
+	case '6':
+		return "os_usa"
+	case '7':
+		return "os_euro"
+	case '8':
+		return "os_asia"
+	case '9':
+		return "世界树" // os_cht
+	}
+	return "天空岛" // cn_gf01
+}
+
+func max(x, y float64) float64 {
+	if x > y {
+		return x
+	}
+	return y
+}
+
+func min(x, y float64) float64 {
+	if x < y {
+		return x
+	}
+	return y
 }
