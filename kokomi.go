@@ -679,7 +679,8 @@ func init() { // 主函数
 		dc.DrawImage(one.Image(), 505, 410)
 
 		// 天赋等级
-		if err := dc.LoadFontFace(FiFile, 30); err != nil { // 字体大小
+		seven := gg.NewContext(540, 190)
+		if err := seven.LoadFontFace(FiFile, 30); err != nil { // 字体大小
 			panic(err)
 		}
 		//贴图
@@ -707,22 +708,19 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("获取天赋边框失败", err))
 			return
 		}
-		dc.DrawImage(kuang, 520, 220)
-		dc.DrawImage(kuang, 700, 220)
-		dc.DrawImage(kuang, 880, 220)
-
-		//贴图间隔214
-		dc.DrawImage(tulin1, 550, 260)
-		//纠正素材问题
-		bb := Tianfujiuzhen(str)
-		dc.DrawImage(tulin2, 733, bb)
-		dc.DrawImage(tulin3, 910, 260)
+		seven.DrawImage(kuang, 15, 10)
+		seven.DrawImage(kuang, 195, 10)
+		seven.DrawImage(kuang, 375, 10)
+		//贴图
+		seven.DrawImageAnchored(tulin1, 85, 92, 0.5, 0.5)
+		seven.DrawImageAnchored(tulin2, 268, 90, 0.5, 0.5)
+		seven.DrawImageAnchored(tulin3, 445, 92, 0.5, 0.5)
 
 		// Lv背景 透明度 int(255*0.9)
 		talenty := Yinying(40, 35, 5, color.NRGBA{R: 255, G: 255, B: 255, A: 226})
-		dc.DrawImage(talenty, 570, 350)
-		dc.DrawImage(talenty, 750, 350)
-		dc.DrawImage(talenty, 930, 350)
+		seven.DrawImageAnchored(talenty, 85, 145, 0.5, 0.5)
+		seven.DrawImageAnchored(talenty, 265, 145, 0.5, 0.5)
+		seven.DrawImageAnchored(talenty, 445, 145, 0.5, 0.5)
 
 		//皇冠
 		tuguan, err := gg.LoadImage("plugin/kokomi/data/zawu/crown.png")
@@ -732,13 +730,13 @@ func init() { // 主函数
 		}
 		tuguan = resize.Resize(0, 55, tuguan, resize.Bilinear)
 		if lin1 == 10 {
-			dc.DrawImage(tuguan, 568, 215)
+			seven.DrawImageAnchored(tuguan, 90, 30, 0.5, 0.5)
 		}
 		if lin2 == 10 {
-			dc.DrawImage(tuguan, 748, 215)
+			seven.DrawImageAnchored(tuguan, 270, 30, 0.5, 0.5)
 		}
 		if lin3 == 10 {
-			dc.DrawImage(tuguan, 928, 215)
+			seven.DrawImageAnchored(tuguan, 450, 30, 0.5, 0.5)
 		}
 
 		//Lv-天赋等级修复
@@ -749,11 +747,11 @@ func init() { // 主函数
 			lin3 += 3
 		}
 		//Lv间隔180
-		dc.SetRGB(0, 0, 0) // 换黑色
-		dc.DrawString(strconv.Itoa(lin1), float64(580-lin1/10*8), 380)
-		dc.DrawString(strconv.Itoa(lin2), float64(760-lin2/10*8), 380)
-		dc.DrawString(strconv.Itoa(lin3), float64(940-lin3/10*8), 380)
-		dc.SetRGB(1, 1, 1) // 换白色
+		seven.SetRGB(0, 0, 0) // 换黑色
+		seven.DrawStringAnchored(strconv.Itoa(lin1), 85, 145, 0.5, 0.5)
+		seven.DrawStringAnchored(strconv.Itoa(lin2), 265, 145, 0.5, 0.5)
+		seven.DrawStringAnchored(strconv.Itoa(lin3), 445, 145, 0.5, 0.5)
+		dc.DrawImage(seven.Image(), 505, 220)
 
 		// 命之座
 		kuang = resize.Resize(80, 0, kuang, resize.Bilinear)
