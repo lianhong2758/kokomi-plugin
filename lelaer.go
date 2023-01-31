@@ -173,9 +173,6 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		case "莫娜":
 			waterDmg = max(0, waterDmg-recharge*0.2) // 水元素伤害加成
 		case "妮露":
-			crit = max(5, crit-min(30, hp*0.6))        // 暴击率
-			critDmg = max(50, critDmg-min(60, hp*1.2)) // 暴击伤害
-		default:
 			if cons == 6 {
 				crit = max(5, crit-min(30, hp*0.6))        // 暴击率
 				critDmg = max(50, critDmg-min(60, hp*1.2)) // 暴击伤害
