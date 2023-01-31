@@ -755,21 +755,21 @@ func init() { // 主函数
 
 		// 命之座
 		kuang = resize.Resize(80, 0, kuang, resize.Bilinear)
+		kuangblakc := AdjustOpacity(kuang, 0.5)
 		for m, mm := 1, 1; m < 7; m++ {
 			tuming, err := gg.LoadImage("plugin/kokomi/data/character/" + str + "/icons/cons-" + strconv.Itoa(m) + ".webp")
 			if err != nil {
 				ctx.SendChain(message.Text("获取命之座图标失败", err))
 				return
 			}
-			tuming = resize.Resize(40, 40, tuming, resize.Bilinear)
+			tuming = resize.Resize(40, 0, tuming, resize.Bilinear)
 			if mm > ming {
-				kuangblakc := AdjustOpacity(kuang, 0.5)
 				dc.DrawImage(kuangblakc, -50+m*70, 800)
 				tuming = AdjustOpacity(tuming, 0.5)
 			} else {
 				dc.DrawImage(kuang, -50+m*70, 800)
 			}
-			dc.DrawImage(tuming, -30+m*70, 825)
+			dc.DrawImageAnchored(tuming, -30+m*70, 845, 0, 0.5)
 			mm++
 		}
 		//**************************************************************************************************
