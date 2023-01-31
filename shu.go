@@ -214,7 +214,7 @@ type Flat struct {
 	// weapon
 	WeaponStat []Stat `json:"weaponStats,omitempty"`
 
-	RankLevel uint8  `json:"rankLevel"` // 3, 4 or 5
+	RankLevel int    `json:"rankLevel"` // 3, 4 or 5
 	ItemType  string `json:"itemType"`  // ITEM_WEAPON or ITEM_RELIQUARY
 	Icon      string `json:"icon"`      // You can get the icon from https://enka.network/ui/{Icon}.png
 }
@@ -361,15 +361,6 @@ func Stofen(val string) string {
 		*/
 	}
 	return "%"
-}
-
-// Tianfujiuzhen 修复部分贴图大小错误
-func Tianfujiuzhen(val string) int {
-	switch val {
-	case "芭芭拉", "北斗", "多莉", "甘雨", "胡桃", "科莱", "雷电将军", "罗莎莉亚", "凝光", "赛诺", "魈", "行秋", "烟绯", "夜兰", "早柚":
-		return 280
-	}
-	return 257
 }
 
 // Countcitiao 计算圣遗物单词条分

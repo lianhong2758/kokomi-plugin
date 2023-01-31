@@ -254,21 +254,22 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("获取圣遗物武器失败"))
 		}
 		two.DrawString(wq, 150, 50)
-
+		//星级
+		two.DrawImage(resize.Resize(0, 30, Drawstars("#FFCC00", "#FFE43A", alldata.AvatarInfoList[t].EquipList[l-1].Flat.RankLevel), resize.Bilinear), 150, 60)
 		//详细
-		two.DrawString("攻击力:", 150, 130)
-		two.DrawString("精炼:", 245, 90)
+		two.DrawString("攻击力:", 150, 160)
+		two.DrawString("精炼:", 245, 120)
 		if err := two.LoadFontFace(FiFile, 30); err != nil { // 字体大小
 			panic(err)
 		}
-		two.DrawString(strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[l-1].Flat.WeaponStat[0].Value, 'f', 1, 32), 250, 130)
+		two.DrawString(strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[l-1].Flat.WeaponStat[0].Value, 'f', 1, 32), 250, 160)
 		//Lv,精炼
 		var wqjl int
 		for m := range alldata.AvatarInfoList[t].EquipList[l-1].Weapon.AffixMap {
 			wqjl = m
 		}
-		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[l-1].Weapon.Level), 150, 90)
-		two.DrawString(strconv.Itoa(alldata.AvatarInfoList[t].EquipList[l-1].Weapon.AffixMap[wqjl]+1), 316, 90)
+		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[l-1].Weapon.Level), 150, 120)
+		two.DrawString(strconv.Itoa(alldata.AvatarInfoList[t].EquipList[l-1].Weapon.AffixMap[wqjl]+1), 316, 120)
 		/*副词条,放不下
 		fucitiao, _ := IdforNamemap[alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[1].SubPropId] //名称
 		var baifen = "%"
@@ -305,7 +306,7 @@ func init() { // 主函数
 			three.SetRGB(1, 1, 1) //白色
 			//画线
 			for c := 0; c < 4; c++ {
-				three.DrawLine(0, 160+float64(c)*45, 350, 160+float64(c)*45) //横线条分割
+				three.DrawLine(0, 157+float64(c)*45, 350, 157+float64(c)*45) //横线条分割
 			}
 			three.Stroke()
 			sywname := reliquary.WQ[alldata.AvatarInfoList[t].EquipList[i].Flat.SetNameTextHash]

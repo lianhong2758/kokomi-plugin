@@ -3,12 +3,55 @@ package kokomi
 import (
 	"image"
 	"image/color"
+	m "math"
 
 	"github.com/Coloured-glaze/gg"
 	"github.com/FloatTech/floatbox/img/writer"
 	"github.com/FloatTech/floatbox/math"
 	"github.com/FloatTech/zbputils/img"
 )
+
+// 坐标对
+type Point struct {
+	X, Y float64
+}
+
+// Polygon 画多边形
+func Polygon(n int) []Point {
+	result := make([]Point, n)
+	for i := 0; i < n; i++ {
+		a := float64(i)*2*m.Pi/float64(n) - m.Pi/2
+		result[i] = Point{m.Cos(a), m.Sin(a)}
+	}
+	return result
+}
+
+// Drawstars 画星星
+func Drawstars(side, all string, num int) image.Image {
+	dc := gg.NewContext(500, 80)
+	n := 5
+	points := Polygon(n)
+	for x, i := 40, 0; i < num; x += 80 {
+		dc.Push()
+		//s := rand.Float64()*S/4 + S/4
+		dc.Translate(float64(x), 45)
+		//	dc.Rotate(rand.Float64() * 1.5 * math.Pi) //旋转
+		dc.Scale(30, 30) //大小
+		for i := 0; i < n+1; i++ {
+			index := (i * 2) % n
+			p := points[index]
+			dc.LineTo(p.X, p.Y)
+		}
+		dc.SetLineWidth(10)
+		dc.SetHexColor(side) //线
+		dc.StrokePreserve()
+		dc.SetHexColor(all)
+		dc.Fill()
+		dc.Pop()
+		i++
+	}
+	return dc.Image()
+}
 
 // AdjustOpacity 更改透明度
 func AdjustOpacity(m image.Image, percentage float64) image.Image {
