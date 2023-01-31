@@ -36,7 +36,7 @@ func Yinying(x int, y int, r float64, c color.Color) image.Image {
 }
 
 // SetMark 绘制马赛克
-func SetMark(pic image.Image) (pictrue []byte) {
+func SetMark(pic image.Image) (picture []byte) {
 	dst := img.Size(pic, 256*5, 256*5)
 	b := dst.Im.Bounds()
 	markSize := 32
@@ -54,7 +54,7 @@ func SetMark(pic image.Image) (pictrue []byte) {
 			}
 		}
 	}
-	pictrue, cl := writer.ToBytes(dst.Im)
+	picture, cl := writer.ToBytes(dst.Im)
 	defer cl()
 	return
 }
