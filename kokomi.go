@@ -209,6 +209,9 @@ func init() { // 主函数
 		if t == -1 { // 在返回数据中未找到想要的角色
 			ctx.SendChain(message.Text("-该角色未展示" + Postfix))
 			return
+		} else if str == "空" || str == "荧" || str == "旅行者" {
+			ctx.SendChain(message.Text("-暂不支持查看该角色" + Postfix))
+			return
 		}
 
 		// 画图
@@ -746,6 +749,9 @@ func init() { // 主函数
 		}
 		if ming >= role.TalentCons.Q {
 			lin3 += 3
+		}
+		if str == "达达利亚" {
+			lin1++
 		}
 		//Lv间隔180
 		seven.SetRGB(0, 0, 0) // 换黑色
