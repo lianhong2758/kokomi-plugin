@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"image"
 	"image/color"
 	"os"
@@ -40,13 +41,13 @@ const (
 func init() { // 主函数
 	fconfig, err := os.ReadFile("plugin/kokomi/config.json")
 	if err != nil {
-		fmt.Println("获取kokomi配置文件错误")
+		logrus.Errorln("获取kokomi配置文件错误")
 		return
 	}
 	var conf config
 	err = json.Unmarshal(fconfig, &conf)
 	if err != nil {
-		fmt.Println("解析kokomi配置文件错误")
+		logrus.Errorln("解析kokomi配置文件错误")
 		return
 	}
 	var (
@@ -466,14 +467,14 @@ func init() { // 主函数
 		dc.Scale(sx, sx)                                     // 使画笔按倍率缩放
 		dc.DrawImage(dst, 0, int(1700*(1/sx)))               // 贴图（会受上述缩放倍率影响）
 		dc.Scale(1/sx, 1/sx)*/
-		var ok int = -1
+		var ok = -1
 		damfile, err := os.ReadFile("plugin/kokomi/data/damage/" + suid + ".kokomi")
 		if err != nil {
 			ok = 0
 		}
-		var role_dam Dam
+		var roleDam Dam
 		if ok != 0 {
-			err = json.Unmarshal(damfile, &role_dam)
+			err = json.Unmarshal(damfile, &roleDam)
 			if err != nil {
 				ok = 1
 				ctx.SendChain(message.Text("ERROR:", err))
@@ -498,19 +499,19 @@ func init() { // 主函数
 		six.DrawStringAnchored("期望伤害(EX)", 867, 105, 0.5, 0)
 		switch ok {
 		case -1:
-			for c := 1; c <= 3 && c <= len(role_dam.Result[t].DamageResultArr); c++ {
-				six.DrawStringAnchored(role_dam.Result[t].DamageResultArr[c-1].Title, 290, 105+65*float64(c), 1, 0)
+			for c := 1; c <= 3 && c <= len(roleDam.Result[t].DamageResultArr); c++ {
+				six.DrawStringAnchored(roleDam.Result[t].DamageResultArr[c-1].Title, 290, 105+65*float64(c), 1, 0)
 			}
-			if len(role_dam.Result[t].DamageResultArr) < 3 {
+			if len(roleDam.Result[t].DamageResultArr) < 3 {
 				six.DrawStringAnchored("暂无数据", 290, 300, 1, 0)
 			}
 			if err := six.LoadFontFace(FiFile, 30); err != nil {
 				panic(err)
 			}
-			for c := 1; c <= 3 && c <= len(role_dam.Result[t].DamageResultArr); c++ {
-				six.DrawStringAnchored(fmt.Sprint(role_dam.Result[t].DamageResultArr[c-1].Value), 520, 105+65*float64(c), 0.5, 0)
-				if role_dam.Result[t].DamageResultArr[c-1].Expect != "" {
-					six.DrawStringAnchored(role_dam.Result[t].DamageResultArr[c-1].Expect[6:], 867, 105+65*float64(c), 0.5, 0)
+			for c := 1; c <= 3 && c <= len(roleDam.Result[t].DamageResultArr); c++ {
+				six.DrawStringAnchored(fmt.Sprint(roleDam.Result[t].DamageResultArr[c-1].Value), 520, 105+65*float64(c), 0.5, 0)
+				if roleDam.Result[t].DamageResultArr[c-1].Expect != "" {
+					six.DrawStringAnchored(roleDam.Result[t].DamageResultArr[c-1].Expect[6:], 867, 105+65*float64(c), 0.5, 0)
 				} else {
 					six.DrawLine(692, 65*float64(c+1), 1040, 65*float64(c+2))
 				}
@@ -531,10 +532,10 @@ func init() { // 主函数
 		//命之座
 		ming := len(alldata.AvatarInfoList[t].TalentIDList)
 		//天赋等级
-		talentid := role.GetTalentId()
-		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[0]]
-		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[1]]
-		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentid[2]]
+		talentId := role.GetTalentId()
+		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentId[0]]
+		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentId[1]]
+		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentId[2]]
 		// 角色立绘
 		var lihuifile *os.File
 		var lihui image.Image
