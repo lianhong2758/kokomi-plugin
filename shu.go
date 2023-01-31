@@ -1,4 +1,4 @@
-package kokomi // 导入yuan-shen模块
+package kokomi // Package kokomi 导入yuan-shen模块
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-// 圣遗物武器名匹配
+// Fff 圣遗物武器名匹配
 type Fff struct {
 	WQ map[string]string `json:"zh-CN"`
 }
@@ -35,7 +35,7 @@ type config struct {
 	Edition  string   `json:"edition"`
 }
 
-// wiki查询地址结构解析
+// Wikimap wiki查询地址结构解析
 type Wikimap struct {
 	Card      map[string]string `json:"card"`
 	Matera    map[string]string `json:"material for role"`
@@ -43,7 +43,7 @@ type Wikimap struct {
 	Weapon    map[string]string `json:"weapon"`
 }
 
-// 角色信息json解析
+// Role 角色信息json解析
 type Role struct {
 	TalentID   map[int]int    `json:"talentId"`
 	TalentKey  map[int]string `json:"talentKey"`
@@ -54,7 +54,7 @@ type Role struct {
 	} `json:"talentCons"`
 }
 
-// 角色伤害解析
+// Dam 角色伤害解析
 type Dam struct {
 	Result []struct {
 		DamageResultArr []struct {
@@ -430,7 +430,7 @@ func Ftoone(f float64) string {
 	return strconv.FormatFloat(f, 'f', 1, 64)
 }
 
-// 各种简称map查询
+// FindMap 各种简称map查询
 type FindMap map[string][]string
 
 func GetWifeOrWq(val string) FindMap {
@@ -492,7 +492,7 @@ func GetReliquary() *Fff {
 	return nil
 }
 
-// Findwq圣遗物,武器名匹配
+// Findwq Findwq圣遗物,武器名匹配
 func (m *Fff) Findwq(a string) string {
 	return m.WQ[a]
 }
@@ -537,7 +537,7 @@ func (m *Role) GetTalentId() []int {
 	return f
 }
 
-// 圣遗物列表名解析
+// Syws 圣遗物列表名解析
 type Syws map[string]struct {
 	Name string `json:"name"`
 	Sets struct {
@@ -571,7 +571,7 @@ func GetSywName() Syws {
 	return nil
 }
 
-// 圣遗物名列表
+// Names 圣遗物名列表
 func (m Syws) Names(syw string) []string {
 	for _, v := range m {
 		if v.Name == syw {
@@ -587,16 +587,16 @@ func (m Syws) Names(syw string) []string {
 	return nil
 }
 
-// 圣遗物套装判断
+// Sywsuit 圣遗物套装判断
 func Sywsuit(syws []string) string {
-	syw_map := make(map[string]int)
+	sywMap := make(map[string]int)
 	var c0, c1 string
 	for _, v := range syws {
-		i := syw_map[v]
-		syw_map[v] = i + 1
+		i := sywMap[v]
+		sywMap[v] = i + 1
 	}
-	syw_map[""] = 0
-	for k, v := range syw_map {
+	sywMap[""] = 0
+	for k, v := range sywMap {
 		if v >= 4 {
 			return k + "4"
 		}
