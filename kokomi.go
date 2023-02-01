@@ -1004,7 +1004,6 @@ func init() { // 主函数
 			zz, _ := strconv.Atoi(z)
 			if zz >= len(Config.Apis) {
 				ctx.SendChain(message.Text("-api不存在" + Config.Postfix))
-				return
 			}
 			url = Config.Apis[zz]
 			goto success
