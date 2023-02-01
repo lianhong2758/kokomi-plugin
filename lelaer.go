@@ -218,20 +218,19 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 			syws = append(syws, wqname)
 			sywallname := syw.Names(wqname)[i] // 圣遗物name
 
-			var mainValue any
-			if s = Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
-				mainValue = int(0.5 + equip.Flat.ReliquaryMainStat.Value)
-			} else {
-				mainValue = Ftoone(equip.Flat.ReliquaryMainStat.Value) + s
+			detail := TeyvatDetail{
+				Name:     sywallname,
+				Type:     GetEquipType(equip.Flat.EquipType),
+				Level:    equip.Reliquary.Level - 1,
+				MainTips: GetAppendProp(equip.Flat.ReliquaryMainStat.MainPropID),
 			}
 
-			detail := TeyvatDetail{
-				Name:      sywallname,
-				Type:      GetEquipType(equip.Flat.EquipType),
-				Level:     equip.Reliquary.Level - 1,
-				MainTips:  GetAppendProp(equip.Flat.ReliquaryMainStat.MainPropID),
-				MainValue: mainValue,
+			if s = Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
+				detail.MainValue = int(0.5 + equip.Flat.ReliquaryMainStat.Value)
+			} else {
+				detail.MainValue = Ftoone(equip.Flat.ReliquaryMainStat.Value) + s
 			}
+
 			for i, stats := range equip.Flat.ReliquarySubStats {
 				s = fmt.Sprintf("%s+%v%s", GetAppendProp(stats.SubPropID), stats.Value, Stofen(stats.SubPropID))
 				switch i {
