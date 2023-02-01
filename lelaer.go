@@ -177,6 +177,11 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 				crit = max(5, crit-min(30, hp*0.6))        // 暴击率
 				critDmg = max(50, critDmg-min(60, hp*1.2)) // 暴击伤害
 			}
+		case "达达利亚":
+			teyvatData.Ability1 += 1
+
+		default:
+
 		}
 		for _, item := range []string{"息灾", "波乱月白经津", "雾切之回光", "猎人之径"} {
 			if item == wqname {
@@ -201,9 +206,9 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		}
 		// 天赋等级
 		talentid := role.GetTalentId()
-		teyvatData.Ability1 = v.SkillLevelMap[talentid[0]]
-		teyvatData.Ability2 = v.SkillLevelMap[talentid[1]]
-		teyvatData.Ability3 = v.SkillLevelMap[talentid[2]]
+		teyvatData.Ability1 += v.SkillLevelMap[talentid[0]]
+		teyvatData.Ability2 += v.SkillLevelMap[talentid[1]]
+		teyvatData.Ability3 += v.SkillLevelMap[talentid[2]]
 		ming := len(v.TalentIDList) // 命之座
 		// 天赋等级修复
 		if ming >= role.TalentCons.E {
@@ -296,8 +301,10 @@ func getServer(uid string) string {
 		return "os_asia"
 	case '9':
 		return "世界树" // os_cht
+	default:
+		return "天空岛" // cn_gf01
 	}
-	return "天空岛" // cn_gf01
+
 }
 
 func max(x, y float64) float64 {
