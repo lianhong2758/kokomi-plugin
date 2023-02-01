@@ -197,7 +197,7 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("-该角色未展示" + Config.Postfix))
 			return
 		} else if str == "空" || str == "荧" || str == "旅行者" {
-			ctx.SendChain(message.Text("-暂不支持查看该角色" + Postfix))
+			ctx.SendChain(message.Text("-暂不支持查看该角色" + Config.Postfix))
 			return
 		}
 
