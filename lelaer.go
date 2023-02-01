@@ -291,5 +291,4 @@ func getServer(uid string) string {
 	default:
 		return "天空岛" // cn_gf01
 	}
-
 }
