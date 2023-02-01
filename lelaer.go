@@ -11,25 +11,18 @@ import (
 	"github.com/FloatTech/floatbox/web"
 )
 
-const (
-	// k_lelaer_damage = "https://api.lelaer.com/ys/getDamageResult.php"
-	// k_lelaer_team   = "https://api.lelaer.com/ys/getTeamResult.php"
-	kLelaerSum = "https://api.lelaer.com/ys/getSumComment.php"
-)
-
-func (ndata Data) GetSumComment(uid string, wife FindMap) (d []byte, err error) {
-	p, err := ndata.transToTeyvat(uid, wife)
-	if err != nil {
-		return nil, err
+func (ndata Data) GetSumComment(uid string, wife FindMap) (data []byte, err error) {
+	var teyvat *Teyvat
+	if teyvat, err = ndata.transToTeyvat(uid, wife); err == nil {
+		data, _ = json.Marshal(teyvat)
+		data, err = web.RequestDataWith(web.NewTLS12Client(),
+			"https://api.lelaer.com/ys/getSumComment.php",
+			"POST",
+			"https://servicewechat.com/wx2ac9dce11213c3a8/192/page-frame.html",
+			"Mozilla/5.0 (Linux; Android 12; SM-G977N Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.99 XWEB/4375 MMWEBSDK/20221011 Mobile Safari/537.36 MMWEBID/4357 MicroMessenger/8.0.30.2244(0x28001E44) WeChat/arm64 Weixin GPVersion/1 NetType/WIFI Language/zh_CN ABI/arm64 MiniProgramEnv/android",
+			bytes.NewReader(data),
+		)
 	}
-	d, _ = json.Marshal(p)
-	d, err = web.RequestDataWith(web.NewTLS12Client(),
-		kLelaerSum,
-		"POST",
-		"https://servicewechat.com/wx2ac9dce11213c3a8/192/page-frame.html",
-		"Mozilla/5.0 (Linux; Android 12; SM-G977N Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.99 XWEB/4375 MMWEBSDK/20221011 Mobile Safari/537.36 MMWEBID/4357 MicroMessenger/8.0.30.2244(0x28001E44) WeChat/arm64 Weixin GPVersion/1 NetType/WIFI Language/zh_CN ABI/arm64 MiniProgramEnv/android",
-		bytes.NewReader(d),
-	)
 	return
 }
 
