@@ -83,24 +83,21 @@ type (
 	}
 )
 
-var (
-	k_error_sys    = errors.New("程序错误")
-	k_error_promap = errors.New("获取角色失败")
-)
+var lelaerErrorSYS = errors.New("程序错误")
 
 func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 	if wife == nil {
 		if wife = GetWifeOrWq("wife"); wife == nil {
-			return nil, k_error_sys
+			return nil, lelaerErrorSYS
 		}
 	}
 	reliquary := GetReliquary()
 	if reliquary == nil {
-		return nil, k_error_sys
+		return nil, lelaerErrorSYS
 	}
 	syw := GetSywName()
 	if syw == nil {
-		return nil, k_error_sys
+		return nil, lelaerErrorSYS
 	}
 
 	s := getServer(uid)
@@ -110,12 +107,12 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		name := wife.Idmap(strconv.Itoa(v.AvatarID))
 		role := GetRole(name) // 获取角色
 		if role == nil {
-			return nil, k_error_sys
+			return nil, lelaerErrorSYS
 		}
 
 		n := len(v.EquipList) // 纠正圣遗物空缺报错的无返回情况
 		if n == 0 {
-			return nil, k_error_sys
+			return nil, lelaerErrorSYS
 		}
 		equipLast := v.EquipList[n-1]
 		for m := range equipLast.Weapon.AffixMap {
@@ -126,7 +123,7 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		// 武器名
 		wqname := reliquary.WQ[equipLast.Flat.NameTextHash]
 		if wqname == "" {
-			return nil, k_error_sys
+			return nil, lelaerErrorSYS
 		}
 
 		cons := len(v.TalentIDList) // 命之座
@@ -215,7 +212,7 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 				continue
 			}
 			if wqname = reliquary.WQ[equip.Flat.SetNameTextHash]; wqname == "" {
-				return nil, k_error_sys
+				return nil, lelaerErrorSYS
 			}
 			syws = append(syws, wqname)
 			sywallname := syw.Names(wqname)[i] // 圣遗物name
