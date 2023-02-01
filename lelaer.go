@@ -190,8 +190,6 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 			}
 		}
 
-		// fmt.Println(name)
-
 		// 获取角色
 		role := GetRole(name)
 		if role == nil {
@@ -222,7 +220,6 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 			}
 			syws = append(syws, wqname)
 			sywallname := syw.Names(wqname)[i] // 圣遗物name
-			// fmt.Println(wqname, sywallname)
 
 			var mainValue any
 			if s = Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
