@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"strconv"
 	"time"
 
@@ -177,13 +178,13 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		// dataFix from https://github.com/yoimiya-kokomi/miao-plugin/blob/ac27075276154ef5a87a458697f6e5492bd323bd/components/profile-data/enka-data.js#L186  # noqa: E501
 		switch name {
 		case "雷电将军":
-			thunderDmg = max(0, thunderDmg-(recharge-100)*0.4) // 雷元素伤害加成
+			thunderDmg = math.Max(0, thunderDmg-(recharge-100)*0.4) // 雷元素伤害加成
 		case "莫娜":
-			waterDmg = max(0, waterDmg-recharge*0.2) // 水元素伤害加成
+			waterDmg = math.Max(0, waterDmg-recharge*0.2) // 水元素伤害加成
 		case "妮露":
 			if cons == 6 {
-				crit = max(5, crit-min(30, hp*0.6))        // 暴击率
-				critDmg = max(50, critDmg-min(60, hp*1.2)) // 暴击伤害
+				crit = math.Max(5, crit-math.Min(30, hp*0.6))        // 暴击率
+				critDmg = math.Max(50, critDmg-math.Min(60, hp*1.2)) // 暴击伤害
 			}
 		case "达达利亚":
 			teyvatData.Ability1 += 1
@@ -194,13 +195,13 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		for _, item := range []string{"息灾", "波乱月白经津", "雾切之回光", "猎人之径"} {
 			if item == wqname {
 				z := 12 + 12*(float64(affix)-1)/4
-				fireDmg = max(0, fireDmg-z)       // 火元素加伤
-				thunderDmg = max(0, thunderDmg-z) // 雷元素加伤
-				waterDmg = max(0, waterDmg-z)     // 水元素加伤
-				windDmg = max(0, windDmg-z)       // 风元素加伤
-				rockDmg = max(0, rockDmg-z)       // 岩元素加伤
-				iceDmg = max(0, iceDmg-z)         // 冰元素加伤
-				grassDmg = max(0, grassDmg-z)     // 草元素加伤
+				fireDmg = math.Max(0, fireDmg-z)       // 火元素加伤
+				thunderDmg = math.Max(0, thunderDmg-z) // 雷元素加伤
+				waterDmg = math.Max(0, waterDmg-z)     // 水元素加伤
+				windDmg = math.Max(0, windDmg-z)       // 风元素加伤
+				rockDmg = math.Max(0, rockDmg-z)       // 岩元素加伤
+				iceDmg = math.Max(0, iceDmg-z)         // 冰元素加伤
+				grassDmg = math.Max(0, grassDmg-z)     // 草元素加伤
 				break
 			}
 		}
@@ -291,18 +292,4 @@ func getServer(uid string) string {
 		return "天空岛" // cn_gf01
 	}
 
-}
-
-func max(x, y float64) float64 {
-	if x > y {
-		return x
-	}
-	return y
-}
-
-func min(x, y float64) float64 {
-	if x < y {
-		return x
-	}
-	return y
 }
