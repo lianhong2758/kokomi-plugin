@@ -108,7 +108,10 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 
 	for _, v := range ndata.AvatarInfoList {
 		name := wife.Idmap(strconv.Itoa(v.AvatarID))
-		cons := len(v.TalentIDList)
+		role := GetRole(name) // 获取角色
+		if role == nil {
+			return nil, k_error_sys
+		}
 
 		n := len(v.EquipList) // 纠正圣遗物空缺报错的无返回情况
 		if n == 0 {
@@ -126,6 +129,10 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 			return nil, k_error_sys
 		}
 
+		cons := len(v.TalentIDList) // 命之座
+
+		talentid := role.GetTalentId() // 天赋等级
+
 		teyvatData := TeyvatData{
 			Uid:         uid,
 			Server:      s,
@@ -136,6 +143,9 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 			WeaponLevel: equipLast.Weapon.Level,
 			WeaponClass: fmt.Sprintf("精炼%d阶", affix),
 			Fetter:      v.FetterInfo.ExpLevel,
+			Ability1:    v.SkillLevelMap[talentid[0]],
+			Ability2:    v.SkillLevelMap[talentid[1]],
+			Ability3:    v.SkillLevelMap[talentid[2]],
 		}
 
 		for _, item := range ndata.PlayerInfo.ShowAvatarInfoList {
@@ -158,6 +168,14 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		rockDmg := v.FightPropMap.Num45 * 100     // 岩元素加伤
 		iceDmg := v.FightPropMap.Num46 * 100      // 冰元素加伤
 		grassDmg := v.FightPropMap.Num43 * 100    // 草元素加伤
+
+		// 天赋等级修复
+		if cons >= role.TalentCons.E {
+			teyvatData.Ability2 += 3
+		}
+		if cons >= role.TalentCons.Q {
+			teyvatData.Ability3 += 3
+		}
 
 		// dataFix from https://github.com/yoimiya-kokomi/miao-plugin/blob/ac27075276154ef5a87a458697f6e5492bd323bd/components/profile-data/enka-data.js#L186  # noqa: E501
 		switch name {
@@ -188,25 +206,6 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 				grassDmg = max(0, grassDmg-z)     // 草元素加伤
 				break
 			}
-		}
-
-		// 获取角色
-		role := GetRole(name)
-		if role == nil {
-			return nil, k_error_sys
-		}
-		// 天赋等级
-		talentid := role.GetTalentId()
-		teyvatData.Ability1 += v.SkillLevelMap[talentid[0]]
-		teyvatData.Ability2 += v.SkillLevelMap[talentid[1]]
-		teyvatData.Ability3 += v.SkillLevelMap[talentid[2]]
-		ming := len(v.TalentIDList) // 命之座
-		// 天赋等级修复
-		if ming >= role.TalentCons.E {
-			teyvatData.Ability2 += 3
-		}
-		if ming >= role.TalentCons.Q {
-			teyvatData.Ability3 += 3
 		}
 
 		// 圣遗物数据
