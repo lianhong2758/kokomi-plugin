@@ -79,7 +79,7 @@ type (
 	}
 
 	Teyvat struct {
-		Role []TeyvatData `json:"role_data"`
+		Data []TeyvatData `json:"role_data"`
 		Time int64        `json:"timestamp"`
 	}
 )
@@ -269,7 +269,7 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		teyvatData.GrassDmg = Ftoone(grassDmg) + "%"
 		teyvatData.PhysicalDmg = Ftoone(physicalDmg) + "%"
 
-		res.Role = append(res.Role, teyvatData) // 单个角色最终结果
+		res.Data = append(res.Data, teyvatData) // 单个角色最终结果
 	}
 	return res, nil
 }
