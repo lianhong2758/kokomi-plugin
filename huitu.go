@@ -11,17 +11,12 @@ import (
 	"github.com/FloatTech/zbputils/img"
 )
 
-// 坐标对
-type Point struct {
-	X, Y float64
-}
-
 // Polygon 画多边形
-func Polygon(n int) []Point {
-	result := make([]Point, n)
+func Polygon(n int) []gg.Point {
+	result := make([]gg.Point, n)
 	for i := 0; i < n; i++ {
 		a := float64(i)*2*m.Pi/float64(n) - m.Pi/2
-		result[i] = Point{m.Cos(a), m.Sin(a)}
+		result[i] = gg.Point{m.Cos(a), m.Sin(a)}
 	}
 	return result
 }
