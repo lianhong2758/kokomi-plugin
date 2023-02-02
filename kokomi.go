@@ -202,7 +202,7 @@ func init() { // 主函数
 		}
 
 		// 画图
-		var height int = 2400 - 360
+		const height = 2400 - 360
 		dc := gg.NewContext(1080, height) // 画布大小
 		dc.SetHexColor("#98F5FF")
 		dc.Clear() // 背景
