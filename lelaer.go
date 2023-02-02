@@ -5,31 +5,25 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"strconv"
 	"time"
 
 	"github.com/FloatTech/floatbox/web"
 )
 
-const (
-	// k_lelaer_damage = "https://api.lelaer.com/ys/getDamageResult.php"
-	// k_lelaer_team   = "https://api.lelaer.com/ys/getTeamResult.php"
-	kLelaerSum = "https://api.lelaer.com/ys/getSumComment.php"
-)
-
-func (ndata Data) GetSumComment(uid string, wife FindMap) (d []byte, err error) {
-	p, err := ndata.transToTeyvat(uid, wife)
-	if err != nil {
-		return nil, err
+func (ndata Data) GetSumComment(uid string, wife FindMap) (data []byte, err error) {
+	var teyvat *Teyvat
+	if teyvat, err = ndata.transToTeyvat(uid, wife); err == nil {
+		data, _ = json.Marshal(teyvat)
+		data, err = web.RequestDataWith(web.NewTLS12Client(),
+			"https://api.lelaer.com/ys/getSumComment.php",
+			"POST",
+			"https://servicewechat.com/wx2ac9dce11213c3a8/192/page-frame.html",
+			"Mozilla/5.0 (Linux; Android 12; SM-G977N Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.99 XWEB/4375 MMWEBSDK/20221011 Mobile Safari/537.36 MMWEBID/4357 MicroMessenger/8.0.30.2244(0x28001E44) WeChat/arm64 Weixin GPVersion/1 NetType/WIFI Language/zh_CN ABI/arm64 MiniProgramEnv/android",
+			bytes.NewReader(data),
+		)
 	}
-	d, _ = json.Marshal(p)
-	d, err = web.RequestDataWith(web.NewTLS12Client(),
-		kLelaerSum,
-		"POST",
-		"https://servicewechat.com/wx2ac9dce11213c3a8/192/page-frame.html",
-		"Mozilla/5.0 (Linux; Android 12; SM-G977N Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/86.0.4240.99 XWEB/4375 MMWEBSDK/20221011 Mobile Safari/537.36 MMWEBID/4357 MicroMessenger/8.0.30.2244(0x28001E44) WeChat/arm64 Weixin GPVersion/1 NetType/WIFI Language/zh_CN ABI/arm64 MiniProgramEnv/android",
-		bytes.NewReader(d),
-	)
 	return
 }
 
@@ -90,24 +84,21 @@ type (
 	}
 )
 
-var (
-	k_error_sys    = errors.New("程序错误")
-	k_error_promap = errors.New("获取角色失败")
-)
+var lelaerErrorSYS = errors.New("程序错误")
 
 func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 	if wife == nil {
 		if wife = GetWifeOrWq("wife"); wife == nil {
-			return nil, k_error_sys
+			return nil, lelaerErrorSYS
 		}
 	}
 	reliquary := GetReliquary()
 	if reliquary == nil {
-		return nil, k_error_sys
+		return nil, lelaerErrorSYS
 	}
 	syw := GetSywName()
 	if syw == nil {
-		return nil, k_error_sys
+		return nil, lelaerErrorSYS
 	}
 
 	s := getServer(uid)
@@ -115,11 +106,14 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 
 	for _, v := range ndata.AvatarInfoList {
 		name := wife.Idmap(strconv.Itoa(v.AvatarID))
-		cons := len(v.TalentIDList)
+		role := GetRole(name) // 获取角色
+		if role == nil {
+			return nil, lelaerErrorSYS
+		}
 
 		n := len(v.EquipList) // 纠正圣遗物空缺报错的无返回情况
 		if n == 0 {
-			return nil, k_error_sys
+			return nil, lelaerErrorSYS
 		}
 		equipLast := v.EquipList[n-1]
 		for m := range equipLast.Weapon.AffixMap {
@@ -130,8 +124,12 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		// 武器名
 		wqname := reliquary.WQ[equipLast.Flat.NameTextHash]
 		if wqname == "" {
-			return nil, k_error_sys
+			return nil, lelaerErrorSYS
 		}
+
+		cons := len(v.TalentIDList) // 命之座
+
+		talentid := role.GetTalentId() // 天赋等级
 
 		teyvatData := TeyvatData{
 			Uid:         uid,
@@ -143,6 +141,9 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 			WeaponLevel: equipLast.Weapon.Level,
 			WeaponClass: fmt.Sprintf("精炼%d阶", affix),
 			Fetter:      v.FetterInfo.ExpLevel,
+			Ability1:    v.SkillLevelMap[talentid[0]],
+			Ability2:    v.SkillLevelMap[talentid[1]],
+			Ability3:    v.SkillLevelMap[talentid[2]],
 		}
 
 		for _, item := range ndata.PlayerInfo.ShowAvatarInfoList {
@@ -166,16 +167,24 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		iceDmg := v.FightPropMap.Num46 * 100      // 冰元素加伤
 		grassDmg := v.FightPropMap.Num43 * 100    // 草元素加伤
 
+		// 天赋等级修复
+		if cons >= role.TalentCons.E {
+			teyvatData.Ability2 += 3
+		}
+		if cons >= role.TalentCons.Q {
+			teyvatData.Ability3 += 3
+		}
+
 		// dataFix from https://github.com/yoimiya-kokomi/miao-plugin/blob/ac27075276154ef5a87a458697f6e5492bd323bd/components/profile-data/enka-data.js#L186  # noqa: E501
 		switch name {
 		case "雷电将军":
-			thunderDmg = max(0, thunderDmg-(recharge-100)*0.4) // 雷元素伤害加成
+			thunderDmg = math.Max(0, thunderDmg-(recharge-100)*0.4) // 雷元素伤害加成
 		case "莫娜":
-			waterDmg = max(0, waterDmg-recharge*0.2) // 水元素伤害加成
+			waterDmg = math.Max(0, waterDmg-recharge*0.2) // 水元素伤害加成
 		case "妮露":
 			if cons == 6 {
-				crit = max(5, crit-min(30, hp*0.6))        // 暴击率
-				critDmg = max(50, critDmg-min(60, hp*1.2)) // 暴击伤害
+				crit = math.Max(5, crit-math.Min(30, hp*0.6))        // 暴击率
+				critDmg = math.Max(50, critDmg-math.Min(60, hp*1.2)) // 暴击伤害
 			}
 		case "达达利亚":
 			teyvatData.Ability1 += 1
@@ -186,36 +195,15 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		for _, item := range []string{"息灾", "波乱月白经津", "雾切之回光", "猎人之径"} {
 			if item == wqname {
 				z := 12 + 12*(float64(affix)-1)/4
-				fireDmg = max(0, fireDmg-z)       // 火元素加伤
-				thunderDmg = max(0, thunderDmg-z) // 雷元素加伤
-				waterDmg = max(0, waterDmg-z)     // 水元素加伤
-				windDmg = max(0, windDmg-z)       // 风元素加伤
-				rockDmg = max(0, rockDmg-z)       // 岩元素加伤
-				iceDmg = max(0, iceDmg-z)         // 冰元素加伤
-				grassDmg = max(0, grassDmg-z)     // 草元素加伤
+				fireDmg = math.Max(0, fireDmg-z)       // 火元素加伤
+				thunderDmg = math.Max(0, thunderDmg-z) // 雷元素加伤
+				waterDmg = math.Max(0, waterDmg-z)     // 水元素加伤
+				windDmg = math.Max(0, windDmg-z)       // 风元素加伤
+				rockDmg = math.Max(0, rockDmg-z)       // 岩元素加伤
+				iceDmg = math.Max(0, iceDmg-z)         // 冰元素加伤
+				grassDmg = math.Max(0, grassDmg-z)     // 草元素加伤
 				break
 			}
-		}
-
-		// fmt.Println(name)
-
-		// 获取角色
-		role := GetRole(name)
-		if role == nil {
-			return nil, k_error_sys
-		}
-		// 天赋等级
-		talentid := role.GetTalentId()
-		teyvatData.Ability1 += v.SkillLevelMap[talentid[0]]
-		teyvatData.Ability2 += v.SkillLevelMap[talentid[1]]
-		teyvatData.Ability3 += v.SkillLevelMap[talentid[2]]
-		ming := len(v.TalentIDList) // 命之座
-		// 天赋等级修复
-		if ming >= role.TalentCons.E {
-			teyvatData.Ability2 += 3
-		}
-		if ming >= role.TalentCons.Q {
-			teyvatData.Ability3 += 3
 		}
 
 		// 圣遗物数据
@@ -225,26 +213,24 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 				continue
 			}
 			if wqname = reliquary.WQ[equip.Flat.SetNameTextHash]; wqname == "" {
-				return nil, k_error_sys
+				return nil, lelaerErrorSYS
 			}
 			syws = append(syws, wqname)
 			sywallname := syw.Names(wqname)[i] // 圣遗物name
-			// fmt.Println(wqname, sywallname)
-
-			var mainValue any
-			if s = Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
-				mainValue = int(0.5 + equip.Flat.ReliquaryMainStat.Value)
-			} else {
-				mainValue = Ftoone(equip.Flat.ReliquaryMainStat.Value) + s
-			}
 
 			detail := TeyvatDetail{
-				Name:      sywallname,
-				Type:      GetEquipType(equip.Flat.EquipType),
-				Level:     equip.Reliquary.Level - 1,
-				MainTips:  GetAppendProp(equip.Flat.ReliquaryMainStat.MainPropID),
-				MainValue: mainValue,
+				Name:     sywallname,
+				Type:     GetEquipType(equip.Flat.EquipType),
+				Level:    equip.Reliquary.Level - 1,
+				MainTips: GetAppendProp(equip.Flat.ReliquaryMainStat.MainPropID),
 			}
+
+			if s = Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
+				detail.MainValue = int(0.5 + equip.Flat.ReliquaryMainStat.Value)
+			} else {
+				detail.MainValue = Ftoone(equip.Flat.ReliquaryMainStat.Value) + s
+			}
+
 			for i, stats := range equip.Flat.ReliquarySubStats {
 				s = fmt.Sprintf("%s+%v%s", GetAppendProp(stats.SubPropID), stats.Value, Stofen(stats.SubPropID))
 				switch i {
@@ -304,19 +290,4 @@ func getServer(uid string) string {
 	default:
 		return "天空岛" // cn_gf01
 	}
-
-}
-
-func max(x, y float64) float64 {
-	if x > y {
-		return x
-	}
-	return y
-}
-
-func min(x, y float64) float64 {
-	if x < y {
-		return x
-	}
-	return y
 }
