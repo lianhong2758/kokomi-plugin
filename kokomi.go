@@ -16,6 +16,7 @@ import (
 	//"unicode/utf8"
 
 	"github.com/Coloured-glaze/gg"
+	"github.com/FloatTech/ZeroBot-Plugin/kanban"
 	"github.com/FloatTech/floatbox/img/writer"
 	"github.com/FloatTech/floatbox/web"
 	ctrl "github.com/FloatTech/zbpctrl"
@@ -771,7 +772,7 @@ func init() { // 主函数
 		if err := dc.LoadFontFace(BaFile, 30); err != nil {
 			panic(err)
 		}
-		dc.DrawStringAnchored(edition, 540, float64(height)-30, 0.5, 0.5)
+		dc.DrawStringAnchored("Created By ZeroBot-Plugin "+kanban.Version+edition, 540, float64(height)-30, 0.5, 0.5)
 		// 输出图片
 		ff, cl := writer.ToBytes(dc.Image())  // 图片放入缓存
 		ctx.SendChain(message.ImageBytes(ff)) // 输出
