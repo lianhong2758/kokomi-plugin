@@ -844,7 +844,7 @@ func init() { // 主函数
 		file1.Close()
 	})
 	//菜单命令
-	en.OnFullMatchGroup([]string{"原神菜单", "kokomi菜单"}).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnFullMatchGroup([]string{"原神菜单", "kokomi菜单", "菜单"}).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		menu, err := gg.LoadPNG("plugin/kokomi/data/zawu/menu.png")
 		if err != nil {
 			ctx.SendChain(message.Text("-获取菜单图片失败"+Config.Postfix, err))
