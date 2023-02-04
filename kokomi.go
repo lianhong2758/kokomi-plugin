@@ -591,7 +591,7 @@ func init() { // 主函数
 		if err := five.LoadFontFace(FiFile, 30); err != nil {
 			panic(err)
 		}
-		five.DrawStringAnchored("UID:"+suid+"--LV"+strconv.Itoa(alldata.Level)+"--"+strconv.Itoa(ming), 470, 180, 1, 0)
+		five.DrawStringAnchored("UID:"+suid+"--LV"+alldata.Chars[t].Level+"--"+strconv.Itoa(ming), 470, 180, 1, 0)
 		// 角色等级,命之座(合并上程序)
 		//dc.DrawString("LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level), 630, 130) // 角色等级
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
