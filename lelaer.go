@@ -16,7 +16,6 @@ func (ndata Thisdata) GetSumComment(uid string, wife FindMap) (data []byte, err 
 	var teyvat *Teyvat
 	if teyvat, err = ndata.transToTeyvat(uid, wife); err == nil {
 		data, _ = json.Marshal(teyvat)
-		fmt.Println(string(data))
 		data, err = web.RequestDataWith(web.NewTLS12Client(),
 			"https://api.lelaer.com/ys/getSumComment.php",
 			"POST",

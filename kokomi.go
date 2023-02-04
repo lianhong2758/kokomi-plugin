@@ -107,7 +107,7 @@ func init() { // 主函数
 					ctx.SendChain(message.Text("数据映射错误捏：", err))
 				}
 				//合并映射
-				err = thisdata.MergeFile(suid)
+				thisdata.MergeFile(suid)
 				es, err = json.Marshal(&thisdata)
 				if err != nil {
 					ctx.SendChain(message.Text("数据反解析错误捏：", err))
@@ -169,17 +169,15 @@ func init() { // 主函数
 		case "全部", "全部角色":
 			var msg strings.Builder
 			msg.WriteString("-您的展示角色为:\n")
-			for i := 0; i < len(alldata.Chars); i++ {
-				mmm := alldata.Chars[i].Name
-				if mmm == "" {
-					ctx.SendChain(message.Text("Idmap数据缺失"))
-					return
-				}
+			//	for i := 0; i < len(alldata.Chars); i++ {
+			i := 0
+			for _, v := range alldata.Chars {
 				msg.WriteString(" ")
-				msg.WriteString(mmm)
+				msg.WriteString(v.Name)
 				if i < len(alldata.Chars)-1 {
 					msg.WriteByte('\n')
 				}
+				i++
 			}
 			ctx.SendChain(message.Text(msg.String()))
 			return
@@ -197,8 +195,8 @@ func init() { // 主函数
 		}
 		var t = -1
 		// 匹配角色
-		for i := 0; i < len(alldata.Chars); i++ {
-			if str == alldata.Chars[i].Name {
+		for i, v := range alldata.Chars {
+			if str == v.Name {
 				t = i
 			}
 		}
@@ -251,7 +249,9 @@ func init() { // 主函数
 		//星级
 		two.DrawImage(resize.Resize(0, 30, Drawstars("#FFCC00", "#FFE43A", alldata.Chars[t].Weapon.Star), resize.Bilinear), 150, 60)
 		//详细
-		two.DrawString("攻击力:", 150, 160)
+		if alldata.Chars[t].Weapon.Atk != 0.0 {
+			two.DrawString("攻击力:", 150, 160)
+		}
 		two.DrawString("精炼:", 245, 120)
 		if err := two.LoadFontFace(FiFile, 30); err != nil { // 字体大小
 			panic(err)
@@ -616,6 +616,9 @@ func init() { // 主函数
 		one.DrawString("元素充能:", 70, 400)
 		// 元素加伤判断
 		adds, addf := alldata.Chars[t].Attr.DmgName, alldata.Chars[t].Attr.Dmg
+		if adds == "" {
+			adds = "元素加伤"
+		}
 		one.DrawString(adds, 70, 460)
 
 		//值,一一对应

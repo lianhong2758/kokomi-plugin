@@ -1,0 +1,4372 @@
+{
+	"uid": "100000000",
+	"nickname":"大伟哥",
+	"chars": {
+		"10000046": {
+			"id": 10000046,
+			"name": "胡桃",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1108.3,
+				"atkBase": 714.4,
+				"def": 876.1,
+				"defBase": 876.1,
+				"hp": 37408.1,
+				"hpBase": 15552,
+				"mastery": 116.5,
+				"recharge": 100,
+				"heal": 0,
+				"cpct": 98.3,
+				"cdmg": 294.5,
+				"dmg": 61.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "护摩之杖",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "魔女的炎之花",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "魔女常燃之羽",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "魔女破灭之时",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "大生命",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "魔女的心之火",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "火元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 19.5
+					}, {
+						"title": "暴击伤害",
+						"value": 15.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "焦灼的魔女帽",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000075": {
+			"id": 10000075,
+			"name": "流浪者",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2523.8,
+				"atkBase": 1001.7,
+				"def": 607.2,
+				"defBase": 607.2,
+				"hp": 14944,
+				"hpBase": 10164,
+				"mastery": 46.6,
+				"recharge": 132.5,
+				"heal": 0,
+				"cpct": 78.7,
+				"cdmg": 267.5,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "天空之卷",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "魂香之花",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "垂玉之叶",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "祝祀之凭",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "涌泉之盏",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "风元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 19.5
+					}, {
+						"title": "暴击伤害",
+						"value": 15.5
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "浮溯之珏",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000038": {
+			"id": 10000038,
+			"name": "阿贝多",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1220.6,
+				"atkBase": 705.1,
+				"def": 2510.0,
+				"defBase": 876.1,
+				"hp": 18006,
+				"hpBase": 13226,
+				"mastery": 46.6,
+				"recharge": 100,
+				"heal": 0,
+				"cpct": 98.3,
+				"cdmg": 189.9,
+				"dmg": 75.4,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "辰砂之纺锤",
+				"star": 4,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "荣花之期",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				},
+				"2": {
+					"name": "华馆之羽",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				},
+				"3": {
+					"name": "众生之谣",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "大防御",
+						"value": 58.3
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				},
+				"4": {
+					"name": "梦醒之瓢",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "岩元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 19.5
+					}, {
+						"title": "暴击伤害",
+						"value": 15.5
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				},
+				"5": {
+					"name": "形骸之笠",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000035": {
+			"id": 10000035,
+			"name": "七七",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 3111.4,
+				"atkBase": 961,
+				"def": 1124.3,
+				"defBase": 922.3,
+				"hp": 17148,
+				"hpBase": 12368,
+				"mastery": 0,
+				"recharge": 132.5,
+				"heal": 37.2,
+				"cpct": 82.7,
+				"cdmg": 166.6,
+				"dmg": 0,
+				"phy": 41.3
+			},
+			"weapon": {
+				"name": "风鹰剑",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "海染之花",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "渊宫之羽",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "离别之贝",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "真珠之笼",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "海祇之冠",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000071": {
+			"id": 10000071,
+			"name": "赛诺",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1420.5,
+				"atkBase": 860.1,
+				"def": 859.2,
+				"defBase": 859.2,
+				"hp": 17271,
+				"hpBase": 12491,
+				"mastery": 360.2,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 95.8,
+				"cdmg": 321.4,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "赤沙之杖",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "梦中的铁花",
+					"set": "饰金之梦",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "裁断的翎羽",
+					"set": "饰金之梦",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "沉金的岁月",
+					"set": "饰金之梦",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "如蜜的终宴",
+					"set": "饰金之梦",
+					"level": 20,
+					"main": {
+						"title": "雷元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "沙王的投影",
+					"set": "饰金之梦",
+					"level": 20,
+					"main": {
+						"title": "暴击率",
+						"value": 31.1
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000060": {
+			"id": 10000060,
+			"name": "夜兰",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1097,
+				"atkBase": 786,
+				"def": 548,
+				"defBase": 548,
+				"hp": 33940.1,
+				"hpBase": 14450,
+				"mastery": 196.5,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 101.9,
+				"cdmg": 309.2,
+				"dmg": 61.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "若水",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "梦中的铁花",
+					"set": "饰金之梦",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "裁断的翎羽",
+					"set": "饰金之梦",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "坚铜罗盘",
+					"set": "沉沦之心",
+					"level": 20,
+					"main": {
+						"title": "大生命",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "沉波之盏",
+					"set": "沉沦之心",
+					"level": 20,
+					"main": {
+						"title": "水元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "酒渍船帽",
+					"set": "沉沦之心",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000058": {
+			"id": 10000058,
+			"name": "八重神子",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2477.2,
+				"atkBase": 947.6,
+				"def": 568.7,
+				"defBase": 568.7,
+				"hp": 15152,
+				"hpBase": 10372,
+				"mastery": 116.5,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 98.1,
+				"cdmg": 240.5,
+				"dmg": 61.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "神乐之真意",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "雷鸟的怜悯",
+					"set": "如雷的盛怒",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "雷灾的孑遗",
+					"set": "如雷的盛怒",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "朝露之时",
+					"set": "追忆之注连",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "祈望之心",
+					"set": "追忆之注连",
+					"level": 20,
+					"main": {
+						"title": "雷元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 19.5
+					}, {
+						"title": "暴击伤害",
+						"value": 15.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "无常之面",
+					"set": "追忆之注连",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000033": {
+			"id": 10000033,
+			"name": "达达利亚",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1855.2,
+				"atkBase": 909.4,
+				"def": 814.7,
+				"defBase": 814.7,
+				"hp": 17883,
+				"hpBase": 13103,
+				"mastery": 116.5,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 96.4,
+				"cdmg": 259.8,
+				"dmg": 90.4,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "冬极白星",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "饰金胸花",
+					"set": "沉沦之心",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "追忆之风",
+					"set": "沉沦之心",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "坚铜罗盘",
+					"set": "沉沦之心",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "沉波之盏",
+					"set": "沉沦之心",
+					"level": 20,
+					"main": {
+						"title": "水元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "酒渍船帽",
+					"set": "沉沦之心",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000016": {
+			"id": 10000016,
+			"name": "迪卢克",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2372.2,
+				"atkBase": 942.9,
+				"def": 783.9,
+				"defBase": 783.9,
+				"hp": 17761,
+				"hpBase": 12981,
+				"mastery": 280.2,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 98.1,
+				"cdmg": 228.7,
+				"dmg": 61.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "狼的末路",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "魔女的炎之花",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "魔女常燃之羽",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "魔女破灭之时",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "魔女的心之火",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "火元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 19.5
+					}, {
+						"title": "暴击伤害",
+						"value": 15.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "焦灼的魔女帽",
+					"set": "炽烈的炎之魔女",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 201601,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000047": {
+			"id": 10000047,
+			"name": "枫原万叶",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1477.9,
+				"atkBase": 904.6,
+				"def": 807,
+				"defBase": 807,
+				"hp": 18128,
+				"hpBase": 13348,
+				"mastery": 920.8,
+				"recharge": 119.5,
+				"heal": 0,
+				"cpct": 82.7,
+				"cdmg": 166.6,
+				"dmg": 15,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "苍古自由之誓",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "野花记忆的绿野",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "猎人青翠的箭羽",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "翠绿猎人的笃定",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "翠绿猎人的容器",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "翠绿的猎人之冠",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000037": {
+			"id": 10000037,
+			"name": "甘雨",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2379.7,
+				"atkBase": 942.9,
+				"def": 630.2,
+				"defBase": 630.2,
+				"hp": 14577,
+				"hpBase": 9797,
+				"mastery": 196.5,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 82.7,
+				"cdmg": 259.4,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "阿莫斯之弓",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "乐团的晨光",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "琴师的箭羽",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "终幕的时计",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "吟游者之壶",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "冰元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "指挥的礼帽",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000057": {
+			"id": 10000057,
+			"name": "荒泷一斗",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1303.3,
+				"atkBase": 769.2,
+				"def": 2623.4,
+				"defBase": 959.2,
+				"hp": 17638,
+				"hpBase": 12858,
+				"mastery": 0,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 101.9,
+				"cdmg": 309.2,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "赤角石溃杵",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "荣花之期",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				},
+				"2": {
+					"name": "华馆之羽",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				},
+				"3": {
+					"name": "众生之谣",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "大防御",
+						"value": 58.3
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				},
+				"4": {
+					"name": "梦醒之瓢",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "岩元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				},
+				"5": {
+					"name": "形骸之笠",
+					"set": "华馆梦醒形骸记",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大防御",
+						"value": 7.3
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000029": {
+			"id": 10000029,
+			"name": "可莉",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1907.5,
+				"atkBase": 984.9,
+				"def": 614.8,
+				"defBase": 614.8,
+				"hp": 15067,
+				"hpBase": 10287,
+				"mastery": 360.2,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 102.1,
+				"cdmg": 182.2,
+				"dmg": 90.4,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "天空之卷",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "乐团的晨光",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "琴师的箭羽",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "终幕的时计",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value":  5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "吟游者之壶",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "火元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "指挥的礼帽",
+					"set": "流浪大地的乐团",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000042": {
+			"id": 10000042,
+			"name": "刻晴",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2003.7,
+				"atkBase": 996.9,
+				"def": 799.3,
+				"defBase": 799.3,
+				"hp": 17883,
+				"hpBase": 13103,
+				"mastery": 116.5,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 82.7,
+				"cdmg": 303.5,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "雾切之回光",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "平雷之心",
+					"set": "平息鸣雷的尊者",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "平雷之羽",
+					"set": "平息鸣雷的尊者",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "平雷之刻",
+					"set": "平息鸣雷的尊者",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "平雷之器",
+					"set": "平息鸣雷的尊者",
+					"level": 20,
+					"main": {
+						"title": "雷元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "平雷之冠",
+					"set": "平息鸣雷的尊者",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 204201,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000052": {
+			"id": 10000052,
+			"name": "雷电将军",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1915.9,
+				"atkBase": 945.2,
+				"def": 789.3,
+				"defBase": 789.3,
+				"hp": 17687,
+				"hpBase": 12907,
+				"mastery": 46.6,
+				"recharge": 239.6,
+				"heal": 0,
+				"cpct": 98.3,
+				"cdmg": 189.9,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "薙草之稻光",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "明威之镡",
+					"set": "绝缘之旗印",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "切落之羽",
+					"set": "绝缘之旗印",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "雷云之笼",
+					"set": "绝缘之旗印",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "绯花之壶",
+					"set": "绝缘之旗印",
+					"level": 20,
+					"main": {
+						"title": "雷元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 19.5
+					}, {
+						"title": "暴击伤害",
+						"value": 15.5
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "华饰之兜",
+					"set": "绝缘之旗印",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000041": {
+			"id": 10000041,
+			"name": "莫娜",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1664.3,
+				"atkBase": 797,
+				"def": 653.3,
+				"defBase": 653.3,
+				"hp": 15189,
+				"hpBase": 10409,
+				"mastery":  46.6,
+				"recharge": 164.5,
+				"heal": 0,
+				"cpct": 82.7,
+				"cdmg": 276.1,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "流浪乐章",
+				"star": 4,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "宗室之花",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "宗室之翎",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "宗室时计",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "宗室银瓮",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "水元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "宗室面具",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000073": {
+			"id": 10000073,
+			"name": "纳西妲",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1395.9,
+				"atkBase": 841,
+				"def": 630.2,
+				"defBase": 630.2,
+				"hp": 15140,
+				"hpBase": 10360,
+				"mastery": 660.4,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 71.1,
+				"cdmg": 244.2,
+				"dmg": 61.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "千夜浮梦",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "迷宫的游人",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "翠蔓的智者",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "贤智的定期",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value":  5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "迷误者之灯",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "草元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "月桂的宝冠",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "暴击率",
+						"value": 31.1
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000070": {
+			"id": 10000070,
+			"name": "妮露",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1082.6,
+				"atkBase": 771.6,
+				"def": 728.6,
+				"defBase": 728.6,
+				"hp": 72322.9,
+				"hpBase": 15185,
+				"mastery": 546,
+				"recharge": 132.5,
+				"heal": 0,
+				"cpct": 24.5,
+				"cdmg": 73.4,
+				"dmg": 0,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "圣显之钥",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "月女的华彩",
+					"set": "乐园遗落之花",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 35.0
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "谢落的筵席",
+					"set": "乐园遗落之花",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 35.0
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "凝结的时刻",
+					"set": "乐园遗落之花",
+					"level": 20,
+					"main": {
+						"title": "大生命",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 139.8
+					}]
+				},
+				"4": {
+					"name": "守秘的魔瓶",
+					"set": "乐园遗落之花",
+					"level": 20,
+					"main": {
+						"title": "大生命",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 139.8
+					}]
+				},
+				"5": {
+					"name": "紫晶的花冠",
+					"set": "乐园遗落之花",
+					"level": 20,
+					"main": {
+						"title": "大生命",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 139.8
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000027": {
+			"id": 10000027,
+			"name": "凝光",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1851.7,
+				"atkBase": 820.4,
+				"def": 573.3,
+				"defBase": 573.3,
+				"hp": 14567,
+				"hpBase": 9787,
+				"mastery": 46.6,
+				"recharge": 132.5,
+				"heal": 0,
+				"cpct": 96.4,
+				"cdmg": 259.8,
+				"dmg": 85.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "四风原典",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "磐陀裂生之花",
+					"set": "悠古的磐岩",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "嵯峨群峰之翼",
+					"set": "悠古的磐岩",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "角斗士的希冀",
+					"set": "角斗士的终幕礼",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "角斗士的酣醉",
+					"set": "角斗士的终幕礼",
+					"level": 20,
+					"main": {
+						"title": "岩元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "角斗士的凯旋",
+					"set": "角斗士的终幕礼",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 202701,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000003": {
+			"id": 10000003,
+			"name": "琴",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2226.9,
+				"atkBase": 913.2,
+				"def": 768.5,
+				"defBase": 768.5,
+				"hp": 19475,
+				"hpBase": 14695,
+				"mastery": 46.6,
+				"recharge": 132.5,
+				"heal": 22.15,
+				"cpct": 98.3,
+				"cdmg": 189.9,
+				"dmg": 61.6,
+				"phy": 41.3
+			},
+			"weapon": {
+				"name": "风鹰剑",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "野花记忆的绿野",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "猎人青翠的箭羽",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "翠绿猎人的笃定",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.89
+					}, {
+						"title": "暴击伤害",
+						"value": 46.62
+					}, {
+						"title": "元素精通",
+						"value": 23.31
+					}, {
+						"title": "充能效率",
+						"value": 6.48
+					}]
+				},
+				"4": {
+					"name": "翠绿猎人的容器",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "风元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.83
+					}, {
+						"title": "暴击率",
+						"value": 19.45
+					}, {
+						"title": "暴击伤害",
+						"value": 15.54
+					}, {
+						"title": "充能效率",
+						"value": 6.48
+					}]
+				},
+				"5": {
+					"name": "翠绿的猎人之冠",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 200301,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000054": {
+			"id": 10000054,
+			"name": "珊瑚宫心海",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1397.7,
+				"atkBase": 842.4,
+				"def": 657.1,
+				"defBase": 657.1,
+				"hp": 55217.1,
+				"hpBase": 13471,
+				"mastery": 116.5,
+				"recharge": 132.5,
+				"heal": 50.9,
+				"cpct": -95,
+				"cdmg": 50,
+				"dmg": 28.8,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "不灭月华",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "海染之花",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 35.0
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "渊宫之羽",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 35.0
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "离别之贝",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "大生命",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "小生命",
+						"value": 1792.5
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "真珠之笼",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "大生命",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "小生命",
+						"value": 1792.5
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "海祇之冠",
+					"set": "海染砗磲",
+					"level": 20,
+					"main": {
+						"title": "治疗加成",
+						"value": 35.9
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 35.0
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000063": {
+			"id": 10000063,
+			"name": "申鹤",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 3410.9,
+				"atkBase": 1044.8,
+				"def": 830,
+				"defBase": 830,
+				"hp": 17773,
+				"hpBase": 12993,
+				"mastery": 69.9,
+				"recharge": 132.5,
+				"heal": 0,
+				"cpct": 82.7,
+				"cdmg": 166.6,
+				"dmg": 0,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "息灾",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "宗室之花",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "宗室之翎",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "宗室时计",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "宗室银瓮",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "宗室面具",
+					"set": "昔日宗室之仪",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000002": {
+			"id": 10000002,
+			"name": "神里绫华",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2036.2,
+				"atkBase": 1016,
+				"def": 783.9,
+				"defBase": 783.9,
+				"hp": 17638,
+				"hpBase": 12858,
+				"mastery": 46.6,
+				"recharge": 132.5,
+				"heal": 0,
+				"cpct": 43.9,
+				"cdmg": 381.1,
+				"dmg": 61.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "雾切之回光",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "历经风雪的思念",
+					"set": "冰风迷途的勇士",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "摧冰而行的执望",
+					"set": "冰风迷途的勇士",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "冰雪故园的终期",
+					"set": "冰风迷途的勇士",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "遍结寒霜的傲骨",
+					"set": "冰风迷途的勇士",
+					"level": 20,
+					"main": {
+						"title": "冰元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "破冰踏雪的回音",
+					"set": "冰风迷途的勇士",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000066": {
+			"id": 10000066,
+			"name": "神里绫人",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1644.3,
+				"atkBase": 907,
+				"def": 768.5,
+				"defBase": 768.5,
+				"hp": 20085.9,
+				"hpBase": 13715,
+				"mastery": 280.2,
+				"recharge": 100,
+				"heal": 0,
+				"cpct": 96.4,
+				"cdmg": 298.2,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "波乱月白经津",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "魂香之花",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "垂玉之叶",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "祝祀之凭",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "大生命",
+						"value": 5.8
+					}]
+				},
+				"4": {
+					"name": "涌泉之盏",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "水元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "浮溯之珏",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "大生命",
+						"value": 5.8
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000069": {
+			"id": 10000069,
+			"name": "提纳里",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1686.2,
+				"atkBase": 809.9,
+				"def": 630.2,
+				"defBase": 630.2,
+				"hp": 15630,
+				"hpBase": 10850,
+				"mastery": 116.5,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 95.8,
+				"cdmg": 283,
+				"dmg": 90.4,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "猎人之径",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "迷宫的游人",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "翠蔓的智者",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "贤智的定期",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "迷误者之灯",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "草元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "月桂的宝冠",
+					"set": "深林的记忆",
+					"level": 20,
+					"main": {
+						"title": "暴击率",
+						"value": 31.1
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000049": {
+			"id": 10000049,
+			"name": "宵宫",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2431.6,
+				"atkBase": 930.9,
+				"def": 614.8,
+				"defBase": 614.8,
+				"hp": 14944,
+				"hpBase": 10164,
+				"mastery": 116.5,
+				"recharge": 113,
+				"heal": 0,
+				"cpct": 101.9,
+				"cdmg": 287.2,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "飞雷之弦振",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "魂香之花",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "垂玉之叶",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "祝祀之凭",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"4": {
+					"name": "涌泉之盏",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "火元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "浮溯之珏",
+					"set": "来歆余响",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000026": {
+			"id": 10000026,
+			"name": "魈",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2232.6,
+				"atkBase": 1023.2,
+				"def": 799.3,
+				"defBase": 799.3,
+				"hp": 17516,
+				"hpBase": 12736,
+				"mastery": 46.6,
+				"recharge": 132.5,
+				"heal": 0,
+				"cpct": 100.8,
+				"cdmg": 267.5,
+				"dmg": 46.6,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "和璞鸢",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "生灵之华",
+					"set": "辰砂往生录",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "潜光片羽",
+					"set": "辰砂往生录",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "阳辔之遗",
+					"set": "辰砂往生录",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "结契之刻",
+					"set": "辰砂往生录",
+					"level": 20,
+					"main": {
+						"title": "风元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 19.5
+					}, {
+						"title": "暴击伤害",
+						"value": 15.5
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "虺雷之姿",
+					"set": "辰砂往生录",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000030": {
+			"id": 10000030,
+			"name": "钟离",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 1269.8,
+				"atkBase": 859.1,
+				"def": 737.8,
+				"defBase": 737.8,
+				"hp": 38549.1,
+				"hpBase": 14695,
+				"mastery": 0,
+				"recharge": 132.5,
+				"heal": 0,
+				"cpct": 98.3,
+				"cdmg": 256.1,
+				"dmg": 90.4,
+				"phy": 0
+			},
+			"weapon": {
+				"name": "护摩之杖",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "勋绩之花",
+					"set": "千岩牢固",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "昭武翎羽",
+					"set": "千岩牢固",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "星罗圭璧之晷",
+					"set": "悠古的磐岩",
+					"level": 20,
+					"main": {
+						"title": "大生命",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "巉岩琢塑之樽",
+					"set": "悠古的磐岩",
+					"level": 20,
+					"main": {
+						"title": "岩元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 19.5
+					}, {
+						"title": "暴击伤害",
+						"value": 15.5
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"5": {
+					"name": "不动玄石之相",
+					"set": "悠古的磐岩",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大生命",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000051": {
+			"id": 10000051,
+			"name": "优菈",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {
+				"atk": 2496.5,
+				"atkBase": 1083,
+				"def": 750.9,
+				"defBase": 750.9,
+				"hp": 18006,
+				"hpBase": 13226,
+				"mastery": 46.6,
+				"recharge": 132.5,
+				"heal": 0,
+				"cpct": 98.3,
+				"cdmg": 228.3,
+				"dmg": 0,
+				"phy": 104
+			},
+			"weapon": {
+				"name": "松籁响起之时",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "无垢之花",
+					"set": "苍白之火",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"2": {
+					"name": "贤医之羽",
+					"set": "苍白之火",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"3": {
+					"name": "停摆之刻",
+					"set": "苍白之火",
+					"level": 20,
+					"main": {
+						"title": "大攻击",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "暴击率",
+						"value": 3.89
+					}, {
+						"title": "暴击伤害",
+						"value": 46.62
+					}, {
+						"title": "小攻击",
+						"value": 19.45
+					}, {
+						"title": "充能效率",
+						"value": 6.48
+					}]
+				},
+				"4": {
+					"name": "超越之盏",
+					"set": "苍白之火",
+					"level": 20,
+					"main": {
+						"title": "物理伤害加成",
+						"value": 58.3
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.83
+					}, {
+						"title": "暴击率",
+						"value": 19.45
+					}, {
+						"title": "暴击伤害",
+						"value": 15.54
+					}, {
+						"title": "充能效率",
+						"value": 6.48
+					}]
+				},
+				"5": {
+					"name": "嗤笑之面",
+					"set": "苍白之火",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "小攻击",
+						"value": 19.5
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		},
+		"10000022": {
+			"id": 10000022,
+			"name": "温迪",
+			"level": "90",
+			"cons": 6,
+			"fetter": 10,
+			"attr": {},
+			"weapon": {
+				"name": "终末嗟叹之诗",
+				"star": 5,
+				"level": 90,
+				"promote": 5,
+				"affix": 5
+			},
+			"talent":{"a":10,"e":10,"q":10},
+			"artis": {
+				"1": {
+					"name": "野花记忆的绿野",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "小生命",
+						"value": 4780
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"2": {
+					"name": "猎人青翠的箭羽",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "小攻击",
+						"value": 311
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"3": {
+					"name": "翠绿猎人的笃定",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "元素精通",
+						"value": 187
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "暴击伤害",
+						"value": 7.8
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				},
+				"4": {
+					"name": "翠绿猎人的容器",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "风元素伤害加成",
+						"value": 46.6
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 3.9
+					}, {
+						"title": "暴击伤害",
+						"value": 46.6
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}]
+				},
+				"5": {
+					"name": "翠绿的猎人之冠",
+					"set": "翠绿之影",
+					"level": 20,
+					"main": {
+						"title": "暴击伤害",
+						"value": 62.2
+					},
+					"attrs": [{
+						"title": "大攻击",
+						"value": 5.8
+					}, {
+						"title": "暴击率",
+						"value": 23.3
+					}, {
+						"title": "元素精通",
+						"value": 23.3
+					}, {
+						"title": "充能效率",
+						"value": 6.5
+					}]
+				}
+			},
+			"dataSource": "enka",
+			"costume": 0,
+			"elem": "",
+			"_time": 1668400555
+		}
+	}
+}
