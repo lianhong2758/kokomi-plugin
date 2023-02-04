@@ -591,7 +591,7 @@ func init() { // 主函数
 		if err := five.LoadFontFace(FiFile, 30); err != nil {
 			panic(err)
 		}
-		five.DrawStringAnchored("UID:"+suid+"--LV"+alldata.Chars[t].Level+"--"+strconv.Itoa(ming), 470, 180, 1, 0)
+		five.DrawStringAnchored("UID:"+suid+"--LV"+strconv.Itoa(alldata.Level)+"--"+strconv.Itoa(ming), 470, 180, 1, 0)
 		// 角色等级,命之座(合并上程序)
 		//dc.DrawString("LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level), 630, 130) // 角色等级
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
@@ -607,34 +607,36 @@ func init() { // 主函数
 		}
 		// 属性540*460,字30,间距15,60
 		one.SetRGB(1, 1, 1) //白色
-		one.DrawString("生命值:", 70, 40)
-		one.DrawString("攻击力:", 70, 100)
-		one.DrawString("防御力:", 70, 160)
-		one.DrawString("元素精通:", 70, 220)
-		one.DrawString("暴击率:", 70, 280)
-		one.DrawString("暴击伤害:", 70, 340)
-		one.DrawString("元素充能:", 70, 400)
+		one.DrawString("角色等级:", 70, 45)
+		one.DrawString("生命值:", 70, 96.25)
+		one.DrawString("攻击力:", 70, 147.5)
+		one.DrawString("防御力:", 70, 198.75)
+		one.DrawString("元素精通:", 70, 250)
+		one.DrawString("暴击率:", 70, 301.25)
+		one.DrawString("暴击伤害:", 70, 352.5)
+		one.DrawString("元素充能:", 70, 403.75)
 		// 元素加伤判断
 		adds, addf := alldata.Chars[t].Attr.DmgName, alldata.Chars[t].Attr.Dmg
 		if adds == "" {
 			adds = "元素加伤"
 		}
-		one.DrawString(adds, 70, 460)
+		one.DrawString(adds, 70, 455)
 
 		//值,一一对应
 		if err := one.LoadFontFace(FiFile, 30); err != nil {
 			panic(err)
 		}
 		// 属性540*460,字30,间距15,60
-		one.SetRGB(1, 1, 1)                                                                //白色
-		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Hp), 470, 40, 1, 0)            //生命
-		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Atk), 470, 100, 1, 0)          //攻击
-		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Def), 470, 160, 1, 0)          //防御
-		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Mastery), 470, 220, 1, 0)      //精通
-		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Cpct)+"%", 470, 280, 1, 0)     //暴击
-		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Cdmg)+"%", 470, 340, 1, 0)     //爆伤
-		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Recharge)+"%", 470, 400, 1, 0) //充能
-		one.DrawStringAnchored(Ftoone(addf)+"%", 470, 460, 1, 0)                           //元素加伤
+		one.SetRGB(1, 1, 1)                                                                   //白色
+		one.DrawStringAnchored("Lv"+alldata.Chars[t].Level, 470, 45, 1, 0)                    //Lv
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Hp), 470, 96.25, 1, 0)            //生命
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Atk), 470, 147.5, 1, 0)           //攻击
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Def), 470, 198.75, 1, 0)          //防御
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Mastery), 470, 250, 1, 0)         //精通
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Cpct)+"%", 470, 301.25, 1, 0)     //暴击
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Cdmg)+"%", 470, 352.5, 1, 0)      //爆伤
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Recharge)+"%", 470, 403.75, 1, 0) //充能
+		one.DrawStringAnchored(Ftoone(addf)+"%", 470, 455, 1, 0)                              //元素加伤
 
 		dc.DrawImage(Yinying(540, 470, 16, yinyinBlack127), 505, 410) // 背景
 		dc.DrawImage(one.Image(), 505, 410)
