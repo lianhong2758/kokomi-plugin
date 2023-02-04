@@ -12,10 +12,11 @@ import (
 	"github.com/FloatTech/floatbox/web"
 )
 
-func (ndata Data) GetSumComment(uid string, wife FindMap) (data []byte, err error) {
+func (ndata Thisdata) GetSumComment(uid string, wife FindMap) (data []byte, err error) {
 	var teyvat *Teyvat
 	if teyvat, err = ndata.transToTeyvat(uid, wife); err == nil {
 		data, _ = json.Marshal(teyvat)
+		fmt.Println(string(data))
 		data, err = web.RequestDataWith(web.NewTLS12Client(),
 			"https://api.lelaer.com/ys/getSumComment.php",
 			"POST",
@@ -86,7 +87,7 @@ type (
 
 var lelaerErrorSYS = errors.New("程序错误")
 
-func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
+func (ndata Thisdata) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 	if wife == nil {
 		if wife = GetWifeOrWq("wife"); wife == nil {
 			return nil, lelaerErrorSYS
@@ -104,69 +105,61 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 	s := getServer(uid)
 	res := &Teyvat{Time: time.Now().Unix()}
 
-	for _, v := range ndata.AvatarInfoList {
-		name := wife.Idmap(strconv.Itoa(v.AvatarID))
+	for l := 0; l < len(ndata.Chars); l++ {
+		v := ndata.Chars[l]
+		name := v.Name
 		role := GetRole(name) // 获取角色
 		if role == nil {
 			return nil, lelaerErrorSYS
 		}
-
-		n := len(v.EquipList) // 纠正圣遗物空缺报错的无返回情况
-		if n == 0 {
-			return nil, lelaerErrorSYS
-		}
-		equipLast := v.EquipList[n-1]
-		for m := range equipLast.Weapon.AffixMap {
-			n = m
-		}
-		affix := equipLast.Weapon.AffixMap[n] + 1
-
+		affix := v.Weapon.Affix
 		// 武器名
-		wqname := reliquary.WQ[equipLast.Flat.NameTextHash]
+		wqname := v.Weapon.Name
 		if wqname == "" {
 			return nil, lelaerErrorSYS
 		}
 
-		cons := len(v.TalentIDList) // 命之座
-
-		talentid := role.GetTalentId() // 天赋等级
-
+		cons := v.Cons // 命之座
+		rolelv, _ := strconv.Atoi(v.Level)
 		teyvatData := TeyvatData{
 			Uid:         uid,
 			Server:      s,
-			UserLevel:   ndata.PlayerInfo.Level,
+			UserLevel:   ndata.Level,
 			Role:        name,
 			Cons:        cons,
 			Weapon:      wqname,
-			WeaponLevel: equipLast.Weapon.Level,
+			WeaponLevel: v.Weapon.Level,
 			WeaponClass: fmt.Sprintf("精炼%d阶", affix),
-			Fetter:      v.FetterInfo.ExpLevel,
-			Ability1:    v.SkillLevelMap[talentid[0]],
-			Ability2:    v.SkillLevelMap[talentid[1]],
-			Ability3:    v.SkillLevelMap[talentid[2]],
+			Fetter:      v.Fetter,
+			Ability1:    v.Talent.A,
+			Ability2:    v.Talent.E,
+			Ability3:    v.Talent.Q,
+			Level:       rolelv,
 		}
 
-		for _, item := range ndata.PlayerInfo.ShowAvatarInfoList {
-			if item.AvatarID == v.AvatarID {
-				teyvatData.Level = item.Level
-				break
-			}
+		hp := v.Attr.Hp             //生命
+		crit := v.Attr.Cpct         //暴击
+		critDmg := v.Attr.Cdmg      //爆伤
+		recharge := v.Attr.Recharge //充能
+
+		physicalDmg := v.Attr.Phy // 物理加伤
+		var fireDmg, thunderDmg, waterDmg, windDmg, rockDmg, iceDmg, grassDmg float64
+		switch v.Attr.DmgName {
+		case "火元素加伤:":
+			fireDmg = v.Attr.Dmg
+		case "雷元素加伤:":
+			thunderDmg = v.Attr.Dmg
+		case "水元素加伤:":
+			waterDmg = v.Attr.Dmg
+		case "风元素加伤:":
+			windDmg = v.Attr.Dmg
+		case "岩元素加伤:":
+			rockDmg = v.Attr.Dmg
+		case "冰元素加伤:":
+			iceDmg = v.Attr.Dmg
+		case "草元素加伤:":
+			grassDmg = v.Attr.Dmg
 		}
-
-		hp := v.FightPropMap.Num2000           //生命
-		crit := v.FightPropMap.Num20 * 100     //暴击
-		critDmg := v.FightPropMap.Num22 * 100  //爆伤
-		recharge := v.FightPropMap.Num23 * 100 //充能
-
-		physicalDmg := v.FightPropMap.Num30 * 100 // 物理加伤
-		fireDmg := v.FightPropMap.Num40 * 100     // 火元素加伤
-		thunderDmg := v.FightPropMap.Num41 * 100  // 雷元素加伤
-		waterDmg := v.FightPropMap.Num42 * 100    // 水元素加伤
-		windDmg := v.FightPropMap.Num44 * 100     // 风元素加伤
-		rockDmg := v.FightPropMap.Num45 * 100     // 岩元素加伤
-		iceDmg := v.FightPropMap.Num46 * 100      // 冰元素加伤
-		grassDmg := v.FightPropMap.Num43 * 100    // 草元素加伤
-
 		// 天赋等级修复
 		if cons >= role.TalentCons.E {
 			teyvatData.Ability2 += 3
@@ -207,32 +200,40 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		}
 
 		// 圣遗物数据
-		var syws []string
-		for i, equip := range v.EquipList {
-			if equip.Flat.SetNameTextHash == "" {
+		var syws []string = []string{v.Artis.Hua.Set, v.Artis.Yu.Set, v.Artis.Sha.Set, v.Artis.Bei.Set, v.Artis.Guan.Set}
+		for i := 0; i < 5; i++ {
+			var equip sywm
+			switch i {
+			case 0:
+				equip = v.Artis.Hua
+			case 1:
+				equip = v.Artis.Yu
+			case 2:
+				equip = v.Artis.Sha
+			case 3:
+				equip = v.Artis.Bei
+			case 4:
+				equip = v.Artis.Guan
+			}
+			if equip.Name == "" {
 				continue
 			}
-			if wqname = reliquary.WQ[equip.Flat.SetNameTextHash]; wqname == "" {
-				return nil, lelaerErrorSYS
-			}
-			syws = append(syws, wqname)
-			sywallname := syw.Names(wqname)[i] // 圣遗物name
-
+			// 圣遗物name
 			detail := TeyvatDetail{
-				Name:     sywallname,
-				Type:     GetEquipType(equip.Flat.EquipType),
-				Level:    equip.Reliquary.Level - 1,
-				MainTips: GetAppendProp(equip.Flat.ReliquaryMainStat.MainPropID),
+				Name:     equip.Name,
+				Type:     GetEquipType(strconv.Itoa(i)),
+				Level:    equip.Level - 1,
+				MainTips: GetAppendProp(equip.Main.Title),
 			}
 
-			if s = Stofen(equip.Flat.ReliquaryMainStat.MainPropID); s == "" {
-				detail.MainValue = int(0.5 + equip.Flat.ReliquaryMainStat.Value)
+			if s = Stofen(equip.Main.Title); s == "" {
+				detail.MainValue = int(0.5 + equip.Main.Value)
 			} else {
-				detail.MainValue = Ftoone(equip.Flat.ReliquaryMainStat.Value) + s
+				detail.MainValue = Ftoone(equip.Main.Value) + s
 			}
 
-			for i, stats := range equip.Flat.ReliquarySubStats {
-				s = fmt.Sprintf("%s+%v%s", GetAppendProp(stats.SubPropID), stats.Value, Stofen(stats.SubPropID))
+			for i, stats := range equip.Attrs {
+				s = fmt.Sprintf("%s+%v%s", GetAppendProp(stats.Title), stats.Value, Stofen(stats.Title))
 				switch i {
 				case 0:
 					detail.Tips1 = s
@@ -250,13 +251,13 @@ func (ndata Data) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		teyvatData.Artifacts = Sywsuit(syws)
 
 		teyvatData.HP = int(0.5 + hp)
-		teyvatData.BaseHP = int(0.5 + v.FightPropMap.Num1)       // 基础生命值
-		teyvatData.Attack = int(0.5 + v.FightPropMap.Num2001)    // 攻击
-		teyvatData.BaseAttack = int(0.5 + v.FightPropMap.Num4)   // 基础攻击力
-		teyvatData.Defend = int(0.5 + v.FightPropMap.Num2002)    // 防御
-		teyvatData.BaseDefend = int(0.5 + v.FightPropMap.Num7)   // 基础防御力
-		teyvatData.Element = int(0.5 + v.FightPropMap.Num28)     // 元素精通
-		teyvatData.Heal = Ftoone(v.FightPropMap.Num26*100) + "%" // 治疗加成
+		teyvatData.BaseHP = int(0.5 + v.Attr.HpBase)      // 基础生命值
+		teyvatData.Attack = int(0.5 + v.Attr.Atk)         // 攻击
+		teyvatData.BaseAttack = int(0.5 + v.Attr.AtkBase) // 基础攻击力
+		teyvatData.Defend = int(0.5 + v.Attr.Def)         // 防御
+		teyvatData.BaseDefend = int(0.5 + v.Attr.DefBase) // 基础防御力
+		teyvatData.Element = int(0.5 + v.Attr.Mastery)    // 元素精通
+		teyvatData.Heal = Ftoone(v.Attr.Heal) + "%"       // 治疗加成
 		teyvatData.Crit = Ftoone(crit) + "%"
 		teyvatData.CritDmg = Ftoone(critDmg) + "%"
 		teyvatData.Recharge = Ftoone(recharge) + "%"

@@ -1,4 +1,4 @@
-// Package kokomi 原神面板v2.3.1
+// Package kokomi 原神面板v2.4
 package kokomi
 
 import (
@@ -54,7 +54,7 @@ func init() { // 主函数
 			"- 删除账号[@xx]",
 	})
 	en.OnRegex(`#?＃?(.*)面板\s*(\[CQ:at,qq=)?(\d+)?(.*)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
-		var wifeid, qquid int64
+		var qquid int64
 		var allfen = 0.00
 		sqquid := ctx.State["regex_matched"].([]string)[3] // 获取第三者qquid
 		k2 := ctx.State["regex_matched"].([]string)[4]
@@ -88,37 +88,51 @@ func init() { // 主函数
 				}
 			}
 			//解析
-			var ndata Data
-			err = json.Unmarshal(es, &ndata)
-			if err != nil {
-				ctx.SendChain(message.Text("出现错误捏：", err))
-				return
-			}
-			if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 || len(ndata.AvatarInfoList) == 0 {
-				ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Config.Postfix))
-				return
-			}
-			wife := GetWifeOrWq("wife")
+			var dam_a []byte
 			var msg strings.Builder
-			msg.WriteString("-获取角色面板成功\n")
-			msg.WriteString("-您的展示角色为:\n")
-			for i := 0; i < len(ndata.PlayerInfo.ShowAvatarInfoList); i++ {
-				mmm := wife.Idmap(strconv.Itoa(ndata.PlayerInfo.ShowAvatarInfoList[i].AvatarID))
-				if mmm == "" {
-					ctx.SendChain(message.Text("Idmap数据缺失"))
+			if Config.Apiid < 3 {
+				var ndata Data
+				err = json.Unmarshal(es, &ndata)
+				if err != nil {
+					ctx.SendChain(message.Text("出现错误捏：", err))
 					return
 				}
-				msg.WriteString(" ")
-				msg.WriteString(mmm)
-				if i < len(ndata.PlayerInfo.ShowAvatarInfoList)-1 {
-					msg.WriteByte('\n')
+				if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 || len(ndata.AvatarInfoList) == 0 {
+					ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Config.Postfix))
+					return
+				}
+				//映射
+				thisdata, err := ndata.ConvertData()
+				if err != nil {
+					ctx.SendChain(message.Text("数据映射错误捏：", err))
+				}
+				//合并映射
+				err = thisdata.MergeFile(suid)
+				es, err = json.Marshal(&thisdata)
+				if err != nil {
+					ctx.SendChain(message.Text("数据反解析错误捏：", err))
+				}
+				wife := GetWifeOrWq("wife")
+				msg.WriteString("-获取角色面板成功\n")
+				msg.WriteString("-您的展示角色为:\n")
+				for i := 0; i < len(thisdata.Chars); i++ {
+					mmm := wife.Idmap(strconv.Itoa(thisdata.Chars[i].ID))
+					if mmm == "" {
+						ctx.SendChain(message.Text("Idmap数据缺失"))
+						return
+					}
+					msg.WriteString(" ")
+					msg.WriteString(mmm)
+					if i < len(thisdata.Chars)-1 {
+						msg.WriteByte('\n')
+					}
+				}
+				dam_a, err = thisdata.GetSumComment(suid, wife)
+				if err != nil {
+					ctx.SendChain(message.Text("-获取伤害数据失败"+Config.Postfix, err))
 				}
 			}
 			//存储伤害计算返回值
-			dam_a, err := ndata.GetSumComment(suid, wife)
-			if err != nil {
-				ctx.SendChain(message.Text("-获取伤害数据失败"+Config.Postfix, err))
-			}
 			file2, _ := os.OpenFile("plugin/kokomi/data/damage/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 			_, _ = file2.Write(dam_a)
 			file2.Close()
@@ -138,13 +152,13 @@ func init() { // 主函数
 		}
 
 		// 解析
-		var alldata Data
+		var alldata Thisdata
 		err = json.Unmarshal(txt, &alldata)
 		if err != nil {
 			ctx.SendChain(message.Text("出现错误捏：", err))
 			return
 		}
-		if len(alldata.PlayerInfo.ShowAvatarInfoList) == 0 || len(alldata.AvatarInfoList) == 0 {
+		if len(alldata.Chars) == 0 {
 			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Config.Postfix))
 			return
 		}
@@ -155,32 +169,26 @@ func init() { // 主函数
 		case "全部", "全部角色":
 			var msg strings.Builder
 			msg.WriteString("-您的展示角色为:\n")
-			for i := 0; i < len(alldata.PlayerInfo.ShowAvatarInfoList); i++ {
-				mmm := wife.Idmap(strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[i].AvatarID))
+			for i := 0; i < len(alldata.Chars); i++ {
+				mmm := alldata.Chars[i].Name
 				if mmm == "" {
 					ctx.SendChain(message.Text("Idmap数据缺失"))
 					return
 				}
 				msg.WriteString(" ")
 				msg.WriteString(mmm)
-				if i < len(alldata.PlayerInfo.ShowAvatarInfoList)-1 {
+				if i < len(alldata.Chars)-1 {
 					msg.WriteByte('\n')
 				}
 			}
 			ctx.SendChain(message.Text(msg.String()))
 			return
 		default: // 角色名解析为id
-			//排除#
-			//if string(([]rune(str))[0]) == "＃" || string(([]rune(str))[0]) == "#" {
-			//	str = string([]rune(str))[1:]
-			//}
-			//匹配简称/外号
 			swifeid := wife.Findnames(str)
 			if swifeid == "" {
 				//ctx.SendChain(message.Text("-请输入角色全名" + Config.Postfix))
 				return
 			}
-			wifeid, _ = strconv.ParseInt(swifeid, 10, 64)
 			str = wife.Idmap(swifeid)
 			if str == "" {
 				ctx.SendChain(message.Text("Idmap数据缺失"))
@@ -189,8 +197,8 @@ func init() { // 主函数
 		}
 		var t = -1
 		// 匹配角色
-		for i := 0; i < len(alldata.PlayerInfo.ShowAvatarInfoList); i++ {
-			if wifeid == int64(alldata.PlayerInfo.ShowAvatarInfoList[i].AvatarID) {
+		for i := 0; i < len(alldata.Chars); i++ {
+			if str == alldata.Chars[i].Name {
 				t = i
 			}
 		}
@@ -235,40 +243,25 @@ func init() { // 主函数
 
 		//武器名
 		//纠正圣遗物空缺报错的无返回情况
-		l := len(alldata.AvatarInfoList[t].EquipList)
-		reliquary := GetReliquary()
-		if reliquary == nil {
-			ctx.SendChain(message.Text("缺少loc.son资源"))
-		}
-		wq := reliquary.WQ[alldata.AvatarInfoList[t].EquipList[l-1].Flat.NameTextHash]
+		wq := alldata.Chars[t].Weapon.Name
 		if wq == "" {
-			ctx.SendChain(message.Text("获取圣遗物武器失败"))
+			ctx.SendChain(message.Text("获取武器名称失败"))
 		}
 		two.DrawString(wq, 150, 50)
 		//星级
-		two.DrawImage(resize.Resize(0, 30, Drawstars("#FFCC00", "#FFE43A", alldata.AvatarInfoList[t].EquipList[l-1].Flat.RankLevel), resize.Bilinear), 150, 60)
+		two.DrawImage(resize.Resize(0, 30, Drawstars("#FFCC00", "#FFE43A", alldata.Chars[t].Weapon.Star), resize.Bilinear), 150, 60)
 		//详细
 		two.DrawString("攻击力:", 150, 160)
 		two.DrawString("精炼:", 245, 120)
 		if err := two.LoadFontFace(FiFile, 30); err != nil { // 字体大小
 			panic(err)
 		}
-		two.DrawString(strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[l-1].Flat.WeaponStat[0].Value, 'f', 1, 32), 250, 160)
+		if alldata.Chars[t].Weapon.Atk != 0.0 {
+			two.DrawString(strconv.FormatFloat(alldata.Chars[t].Weapon.Atk, 'f', 1, 32), 250, 160) //攻击力
+		}
 		//Lv,精炼
-		var wqjl int
-		for m := range alldata.AvatarInfoList[t].EquipList[l-1].Weapon.AffixMap {
-			wqjl = m
-		}
-		two.DrawString("Lv."+strconv.Itoa(alldata.AvatarInfoList[t].EquipList[l-1].Weapon.Level), 150, 120)
-		two.DrawString(strconv.Itoa(alldata.AvatarInfoList[t].EquipList[l-1].Weapon.AffixMap[wqjl]+1), 316, 120)
-		/*副词条,放不下
-		fucitiao, _ := IdforNamemap[alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[1].SubPropId] //名称
-		var baifen = "%"
-		if fucitiao == "元素精通" {
-			baifen = ""
-		}
-		dc.DrawString(fucitiao+":"+strconv.Itoa(int(alldata.AvatarInfoList[t].EquipList[5].Flat.WeaponStat[1].Value))+baifen, 820, 270)
-		*/
+		two.DrawString("Lv."+strconv.Itoa(alldata.Chars[t].Weapon.Level), 150, 120)
+		two.DrawString(strconv.Itoa(alldata.Chars[t].Weapon.Affix), 316, 120)
 		//图片
 		tuwq, err := gg.LoadPNG("plugin/kokomi/data/wq/" + wq + ".png")
 		if err != nil {
@@ -276,7 +269,6 @@ func init() { // 主函数
 			return
 		}
 		tuwq = resize.Resize(130, 0, tuwq, resize.Bilinear)
-
 		// int(213*0.6)
 		yinyinBlack127 := color.NRGBA{R: 0, G: 0, B: 0, A: 127}
 
@@ -286,8 +278,23 @@ func init() { // 主函数
 
 		//圣遗物
 		yinsyw := Yinying(340, 350, 16, yinyinBlack127)
-		syw := GetSywName()
-		for i := 0; i < l-1; i++ {
+		var syw sywm
+		for i := 0; i < 5; i++ {
+			switch i {
+			case 0:
+				syw = alldata.Chars[t].Artis.Hua
+			case 1:
+				syw = alldata.Chars[t].Artis.Yu
+			case 2:
+				syw = alldata.Chars[t].Artis.Sha
+			case 3:
+				syw = alldata.Chars[t].Artis.Bei
+			case 4:
+				syw = alldata.Chars[t].Artis.Guan
+			}
+			if syw.Name == "" {
+				continue
+			}
 			// 字图层
 			three := gg.NewContext(340, 350)
 			if err := three.LoadFontFace(FontFile, 30); err != nil {
@@ -300,10 +307,7 @@ func init() { // 主函数
 				three.DrawLine(0, 157+float64(c)*45, 350, 157+float64(c)*45) //横线条分割
 			}
 			three.Stroke()
-			sywname := reliquary.WQ[alldata.AvatarInfoList[t].EquipList[i].Flat.SetNameTextHash]
-			if sywname == "" {
-				ctx.SendChain(message.Text("缺少loc.son资源"))
-			}
+			sywname := syw.Set
 			tusyw, err := gg.LoadImage("plugin/kokomi/data/syw/" + sywname + "/" + strconv.Itoa(i+1) + ".webp")
 			if err != nil {
 				ctx.SendChain(message.Text("获取圣遗物图标失败", err))
@@ -312,15 +316,8 @@ func init() { // 主函数
 			tusyw = resize.Resize(80, 0, tusyw, resize.Bilinear) //缩小
 			three.DrawImage(tusyw, 15, 15)
 			//圣遗物name
-			sywallname := syw.Names(sywname)
-			if i >= len(sywallname) {
-				ctx.SendChain(message.Text("获取圣遗物名失败"))
-				return
-			}
-			three.DrawString(sywallname[i], 110, 50)
-			//圣遗物属性
-			zhuci := StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID) //主词条
-			zhucitiao := Ftoone(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value)
+			three.DrawString(syw.Name, 110, 50)
+			//圣遗物属性 主词条
 			//间隔45,初始145
 			var xx, yy, pingfeng float64 //xx,yy词条相对位置,x,y文本框在全图位置
 			var x, y int
@@ -328,20 +325,20 @@ func init() { // 主函数
 			yy = 145
 			pingfeng = 0
 			//主词条
-			three.DrawString(zhuci, xx, yy) //"主:"
+			three.DrawString(syw.Main.Title, xx, yy) //"主:"
 			if err := three.LoadFontFace(FiFile, 30); err != nil {
 				panic(err)
 			}
 			//主词条属性
 			//+对齐three.DrawString("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 200, yy)
-			three.DrawStringAnchored("+"+zhucitiao+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.MainPropID), 325, yy, 1, 0) //主词条属性
+			three.DrawStringAnchored("+"+Ftoone(syw.Main.Value)+Stofen(syw.Main.Title), 325, yy, 1, 0) //主词条属性
 			//算分
 			if i > 1 { //不算前两主词条属性
-				pingfeng += Countcitiao(str, zhuci, alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquaryMainStat.Value/4)
+				pingfeng += Countcitiao(str, syw.Main.Title, syw.Main.Value/4)
 			}
 			//副词条
 			three.SetHexColor("#98F5FF") //蓝色
-			p := len(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats)
+			p := len(syw.Attrs)
 			for k := 0; k < p; k++ {
 				switch k {
 				case 0:
@@ -353,31 +350,33 @@ func init() { // 主函数
 				case 3:
 					yy = 325
 				}
-				var fuciname = StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID)
-				var fufigure = alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value
-				switch fuciname {
+				var fuciname = syw.Attrs[k].Title
+				var fuciname2 = syw.Attrs[k].Title
+				var fufigure = syw.Attrs[k].Value
+				var fufigure2 = syw.Attrs[k].Value
+				switch fuciname2 {
 				case "小攻击":
-					fufigure = fufigure / (alldata.AvatarInfoList[t].FightPropMap.Num4 - fufigure)
-					fuciname = "大攻击"
+					fufigure2 = fufigure / (alldata.Chars[t].Attr.AtkBase - fufigure)
+					fuciname2 = "大攻击"
 				case "小防御":
-					fufigure = fufigure / (alldata.AvatarInfoList[t].FightPropMap.Num7 - fufigure)
-					fuciname = "大防御"
+					fufigure2 = fufigure / (alldata.Chars[t].Attr.DefBase - fufigure)
+					fuciname2 = "大防御"
 				case "小生命":
-					fufigure = fufigure / (alldata.AvatarInfoList[t].FightPropMap.Num1 - fufigure)
-					fuciname = "大生命"
+					fufigure2 = fufigure / (alldata.Chars[t].Attr.HpBase - fufigure)
+					fuciname2 = "大生命"
 				}
-				pingfeng += Countcitiao(str, fuciname, fufigure) //单个圣遗物分数合计
-				if Countcitiao(str, fuciname, fufigure) == 0.0 {
+				pingfeng += Countcitiao(str, fuciname2, fufigure2) //单个圣遗物分数合计
+				if Countcitiao(str, fuciname2, fufigure2) == 0.0 {
 					three.SetHexColor("#BEBEBE") //灰色#BEBEBE,浅灰色#D3D3D3
 				}
 				if err := three.LoadFontFace(FontFile, 30); err != nil {
 					panic(err)
 				}
-				three.DrawString(StoS(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), xx, yy)
+				three.DrawString((fuciname), xx, yy)
 				if err := three.LoadFontFace(FiFile, 30); err != nil {
 					panic(err)
 				}
-				three.DrawStringAnchored("+"+strconv.FormatFloat(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].Value, 'f', 1, 64)+Stofen(alldata.AvatarInfoList[t].EquipList[i].Flat.ReliquarySubStats[k].SubPropID), 325, yy, 1, 0)
+				three.DrawStringAnchored("+"+Ftoone(fufigure)+Stofen(fuciname), 325, yy, 1, 0)
 				three.SetHexColor("#98F5FF") //蓝色
 			}
 			//评分处理,对齐
@@ -521,12 +520,11 @@ func init() { // 主函数
 		//************************************************************************************
 		//部分数据提前计算获取
 		//命之座
-		ming := len(alldata.AvatarInfoList[t].TalentIDList)
+		ming := alldata.Chars[t].Cons
 		//天赋等级
-		talentId := role.GetTalentId()
-		lin1 := alldata.AvatarInfoList[t].SkillLevelMap[talentId[0]]
-		lin2 := alldata.AvatarInfoList[t].SkillLevelMap[talentId[1]]
-		lin3 := alldata.AvatarInfoList[t].SkillLevelMap[talentId[2]]
+		lin1 := alldata.Chars[t].Talent.A
+		lin2 := alldata.Chars[t].Talent.E
+		lin3 := alldata.Chars[t].Talent.Q
 		// 角色立绘
 		var lihuifile *os.File
 		var lihui image.Image
@@ -575,8 +573,8 @@ func init() { // 主函数
 			panic(err)
 		}
 		//好感度位置,数据来源
-		dc.DrawString("好感度"+strconv.Itoa(alldata.AvatarInfoList[t].FetterInfo.ExpLevel), 20, 910)
-		dc.DrawStringAnchored("Data From "+Config.Datafrom, 1045, 910, 1, 0)
+		dc.DrawString("好感度"+strconv.Itoa(alldata.Chars[t].Fetter), 20, 910)
+		dc.DrawStringAnchored("Data From "+alldata.Chars[t].DataSource, 1045, 910, 1, 0)
 		//昵称图框
 		five := gg.NewContext(540, 200)
 		five.SetRGB(1, 1, 1) //白色
@@ -588,12 +586,12 @@ func init() { // 主函数
 		if err := five.LoadFontFace(FontFile, 30); err != nil {
 			panic(err)
 		}
-		five.DrawStringAnchored("昵称:"+alldata.PlayerInfo.Nickname, 505, 40, 1, 0)
+		five.DrawStringAnchored("昵称:"+alldata.Nickname, 505, 40, 1, 0)
 		five.DrawString("命", 470, 180)
 		if err := five.LoadFontFace(FiFile, 30); err != nil {
 			panic(err)
 		}
-		five.DrawStringAnchored("UID:"+suid+"--LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level)+"--"+strconv.Itoa(ming), 470, 180, 1, 0)
+		five.DrawStringAnchored("UID:"+suid+"--LV"+strconv.Itoa(alldata.Level)+"--"+strconv.Itoa(ming), 470, 180, 1, 0)
 		// 角色等级,命之座(合并上程序)
 		//dc.DrawString("LV"+strconv.Itoa(alldata.PlayerInfo.ShowAvatarInfoList[t].Level), 630, 130) // 角色等级
 		//dc.DrawString(strconv.Itoa(ming)+"命", 765, 130)
@@ -617,39 +615,7 @@ func init() { // 主函数
 		one.DrawString("暴击伤害:", 70, 340)
 		one.DrawString("元素充能:", 70, 400)
 		// 元素加伤判断
-		adds, addf := "元素加伤", 0.0
-		if alldata.AvatarInfoList[t].FightPropMap.Num30*100 > addf {
-			adds = "物理加伤:"
-			addf = alldata.AvatarInfoList[t].FightPropMap.Num30 * 100
-		}
-		if alldata.AvatarInfoList[t].FightPropMap.Num40*100 > addf {
-			adds = "火元素加伤:"
-			addf = alldata.AvatarInfoList[t].FightPropMap.Num40 * 100
-		}
-		if alldata.AvatarInfoList[t].FightPropMap.Num41*100 > addf {
-			adds = "雷元素加伤:"
-			addf = alldata.AvatarInfoList[t].FightPropMap.Num41 * 100
-		}
-		if alldata.AvatarInfoList[t].FightPropMap.Num42*100 > addf {
-			adds = "水元素加伤:"
-			addf = alldata.AvatarInfoList[t].FightPropMap.Num42 * 100
-		}
-		if alldata.AvatarInfoList[t].FightPropMap.Num44*100 > addf {
-			adds = "风元素加伤:"
-			addf = alldata.AvatarInfoList[t].FightPropMap.Num44 * 100
-		}
-		if alldata.AvatarInfoList[t].FightPropMap.Num45*100 > addf {
-			adds = "岩元素加伤:"
-			addf = alldata.AvatarInfoList[t].FightPropMap.Num45 * 100
-		}
-		if alldata.AvatarInfoList[t].FightPropMap.Num46*100 > addf {
-			adds = "冰元素加伤:"
-			addf = alldata.AvatarInfoList[t].FightPropMap.Num46 * 100
-		}
-		if alldata.AvatarInfoList[t].FightPropMap.Num43*100 > addf {
-			adds = "草元素加伤:"
-			addf = alldata.AvatarInfoList[t].FightPropMap.Num43 * 100
-		}
+		adds, addf := alldata.Chars[t].Attr.DmgName, alldata.Chars[t].Attr.Dmg
 		one.DrawString(adds, 70, 460)
 
 		//值,一一对应
@@ -657,15 +623,15 @@ func init() { // 主函数
 			panic(err)
 		}
 		// 属性540*460,字30,间距15,60
-		one.SetRGB(1, 1, 1)                                                                                  //白色
-		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2000), 470, 40, 1, 0)        //生命
-		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2001), 470, 100, 1, 0)       //攻击
-		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num2002), 470, 160, 1, 0)       //防御
-		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num28), 470, 220, 1, 0)         //精通
-		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num20*100)+"%", 470, 280, 1, 0) //暴击
-		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num22*100)+"%", 470, 340, 1, 0) //爆伤
-		one.DrawStringAnchored(Ftoone(alldata.AvatarInfoList[t].FightPropMap.Num23*100)+"%", 470, 400, 1, 0) //充能
-		one.DrawStringAnchored(Ftoone(addf)+"%", 470, 460, 1, 0)
+		one.SetRGB(1, 1, 1)                                                                //白色
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Hp), 470, 40, 1, 0)            //生命
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Atk), 470, 100, 1, 0)          //攻击
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Def), 470, 160, 1, 0)          //防御
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Mastery), 470, 220, 1, 0)      //精通
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Cpct)+"%", 470, 280, 1, 0)     //暴击
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Cdmg)+"%", 470, 340, 1, 0)     //爆伤
+		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Recharge)+"%", 470, 400, 1, 0) //充能
+		one.DrawStringAnchored(Ftoone(addf)+"%", 470, 460, 1, 0)                           //元素加伤
 
 		dc.DrawImage(Yinying(540, 470, 16, yinyinBlack127), 505, 410) // 背景
 		dc.DrawImage(one.Image(), 505, 410)
@@ -803,38 +769,50 @@ func init() { // 主函数
 				return
 			}
 		}
-		//解析
-		var ndata Data
-		err = json.Unmarshal(es, &ndata)
-		if err != nil {
-			ctx.SendChain(message.Text("出现错误捏：", err))
-			return
-		}
-		if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 || len(ndata.AvatarInfoList) == 0 {
-			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Config.Postfix))
-			return
-		}
-		wife := GetWifeOrWq("wife")
+		var dam_a []byte
 		var msg strings.Builder
-		msg.WriteString("-获取角色面板成功\n")
-		msg.WriteString("-您的展示角色为:\n")
-		for i := 0; i < len(ndata.PlayerInfo.ShowAvatarInfoList); i++ {
-			mmm := wife.Idmap(strconv.Itoa(ndata.PlayerInfo.ShowAvatarInfoList[i].AvatarID))
-			if mmm == "" {
-				ctx.SendChain(message.Text("Idmap数据缺失"))
+		//解析
+		if Config.Apiid < 3 {
+			var ndata Data
+			err = json.Unmarshal(es, &ndata)
+			if err != nil {
+				ctx.SendChain(message.Text("出现错误捏：", err))
 				return
 			}
-			msg.WriteString(" ")
-			msg.WriteString(mmm)
-			if i < len(ndata.PlayerInfo.ShowAvatarInfoList)-1 {
-				msg.WriteByte('\n')
+			if len(ndata.PlayerInfo.ShowAvatarInfoList) == 0 || len(ndata.AvatarInfoList) == 0 {
+				ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Config.Postfix))
+				return
+			}
+			//映射
+			thisdata, err := ndata.ConvertData()
+			if err != nil {
+				ctx.SendChain(message.Text("数据映射错误捏：", err))
+			}
+			es, err = json.Marshal(&thisdata)
+			if err != nil {
+				ctx.SendChain(message.Text("数据反解析错误捏：", err))
+			}
+			wife := GetWifeOrWq("wife")
+			msg.WriteString("-获取角色面板成功\n")
+			msg.WriteString("-您的展示角色为:\n")
+			for i := 0; i < len(thisdata.Chars); i++ {
+				mmm := wife.Idmap(strconv.Itoa(thisdata.Chars[i].ID))
+				if mmm == "" {
+					ctx.SendChain(message.Text("Idmap数据缺失"))
+					return
+				}
+				msg.WriteString(" ")
+				msg.WriteString(mmm)
+				if i < len(thisdata.Chars)-1 {
+					msg.WriteByte('\n')
+				}
+			}
+			dam_a, err = thisdata.GetSumComment(suid, wife)
+			if err != nil {
+				ctx.SendChain(message.Text("-获取伤害数据失败"+Config.Postfix, err))
 			}
 		}
 		//存储伤害计算返回值
-		dam_a, err := ndata.GetSumComment(suid, wife)
-		if err != nil {
-			ctx.SendChain(message.Text("-获取伤害数据失败"+Config.Postfix, err))
-		}
 		file2, _ := os.OpenFile("plugin/kokomi/data/damage/"+suid+".kokomi", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
 		_, _ = file2.Write(dam_a)
 		file2.Close()

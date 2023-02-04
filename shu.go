@@ -2,6 +2,7 @@ package kokomi // Package kokomi 导入yuan-shen模块
 
 import (
 	"encoding/json"
+	"errors"
 	"os"
 	"regexp"
 	"strconv"
@@ -28,11 +29,10 @@ type wifequan struct {
 
 // config内容
 type config struct {
-	Apis     []string `json:"apis"`
-	Apiid    int      `json:"api_id"`
-	Postfix  string   `json:"postfix"`
-	Datafrom string   `json:"from"`
-	Edition  string   `json:"edition"`
+	Apis    []string `json:"apis"`
+	Apiid   int      `json:"api_id"`
+	Postfix string   `json:"postfix"`
+	Edition string   `json:"edition"`
 }
 
 // Wikimap wiki查询地址结构解析
@@ -63,167 +63,6 @@ type Dam struct {
 			Expect string      `json:"expect"`
 		} `json:"damage_result_arr"`
 	} `json:"result"`
-}
-
-// Data 从网站获取的数据
-type Data struct {
-	PlayerInfo struct {
-		Nickname             string `json:"nickname"`
-		Level                int    `json:"level"`
-		Signature            string `json:"signature"`
-		WorldLevel           int    `json:"worldLevel"`
-		NameCardID           int    `json:"nameCardId"`
-		FinishAchievementNum int    `json:"finishAchievementNum"`
-		TowerFloorIndex      int    `json:"towerFloorIndex"`
-		TowerLevelIndex      int    `json:"towerLevelIndex"`
-		ShowAvatarInfoList   []struct {
-			AvatarID  int `json:"avatarId"`
-			Level     int `json:"level"`
-			CostumeID int `json:"costumeId,omitempty"`
-		} `json:"showAvatarInfoList"`
-		ShowNameCardIDList []int `json:"showNameCardIdList"`
-		ProfilePicture     struct {
-			AvatarID int `json:"avatarId"`
-		} `json:"profilePicture"`
-	} `json:"playerInfo"`
-	AvatarInfoList []struct {
-		AvatarID int `json:"avatarId"`
-		PropMap  struct {
-			Num1001 struct {
-				Type int    `json:"type"`
-				Ival string `json:"ival"`
-			} `json:"1001"`
-			Num1002 struct {
-				Type int    `json:"type"`
-				Ival string `json:"ival"`
-				Val  string `json:"val"`
-			} `json:"1002"`
-			Num1003 struct {
-				Type int    `json:"type"`
-				Ival string `json:"ival"`
-			} `json:"1003"`
-			Num1004 struct {
-				Type int    `json:"type"`
-				Ival string `json:"ival"`
-			} `json:"1004"`
-			Num4001 struct {
-				Type int    `json:"type"`
-				Ival string `json:"ival"`
-				Val  string `json:"val"`
-			} `json:"4001"`
-			Num10010 struct {
-				Type int    `json:"type"`
-				Ival string `json:"ival"`
-				Val  string `json:"val"`
-			} `json:"10010"`
-		} `json:"propMap"`
-		FightPropMap struct {
-			Num1    float64 `json:"1"`
-			Num2    float64 `json:"2"`
-			Num3    float64 `json:"3"`
-			Num4    float64 `json:"4"`
-			Num5    float64 `json:"5"`
-			Num6    float64 `json:"6"`
-			Num7    float64 `json:"7"`
-			Num8    float64 `json:"8"`
-			Num20   float64 `json:"20"`
-			Num21   float64 `json:"21"`
-			Num22   float64 `json:"22"`
-			Num23   float64 `json:"23"`
-			Num26   float64 `json:"26"`
-			Num27   float64 `json:"27"`
-			Num28   float64 `json:"28"`
-			Num29   float64 `json:"29"`
-			Num30   float64 `json:"30"`
-			Num40   float64 `json:"40"`
-			Num41   float64 `json:"41"`
-			Num42   float64 `json:"42"`
-			Num43   float64 `json:"43"`
-			Num44   float64 `json:"44"`
-			Num45   float64 `json:"45"`
-			Num46   float64 `json:"46"`
-			Num50   float64 `json:"50"`
-			Num51   float64 `json:"51"`
-			Num52   float64 `json:"52"`
-			Num53   float64 `json:"53"`
-			Num54   float64 `json:"54"`
-			Num55   float64 `json:"55"`
-			Num56   float64 `json:"56"`
-			Num70   float64 `json:"70"`
-			Num80   float64 `json:"80"`
-			Num1000 float64 `json:"1000"`
-			Num1010 float64 `json:"1010"`
-			Num2000 float64 `json:"2000"`
-			Num2001 float64 `json:"2001"`
-			Num2002 float64 `json:"2002"`
-			Num2003 float64 `json:"2003"`
-			Num3007 float64 `json:"3007"`
-			Num3008 float64 `json:"3008"`
-			Num3015 float64 `json:"3015"`
-			Num3016 float64 `json:"3016"`
-			Num3017 float64 `json:"3017"`
-			Num3018 float64 `json:"3018"`
-			Num3019 float64 `json:"3019"`
-			Num3020 float64 `json:"3020"`
-			Num3021 float64 `json:"3021"`
-			Num3022 float64 `json:"3022"`
-			Num3045 float64 `json:"3045"`
-			Num3046 float64 `json:"3046"`
-		} `json:"fightPropMap"`
-		SkillDepotID           int         `json:"skillDepotId"`
-		InherentProudSkillList []int       `json:"inherentProudSkillList"`
-		SkillLevelMap          map[int]int `json:"skillLevelMap"`
-		EquipList              []struct {
-			ItemID    int `json:"itemId"`
-			Reliquary struct {
-				Level            int   `json:"level"`
-				MainPropID       int   `json:"mainPropId"`
-				AppendPropIDList []int `json:"appendPropIdList"`
-			} `json:"reliquary,omitempty"`
-			Flat   Flat `json:"flat"` //标记
-			Weapon struct {
-				Level        int         `json:"level"`
-				PromoteLevel int         `json:"promoteLevel"`
-				AffixMap     map[int]int `json:"affixMap"`
-			} `json:"weapon,omitempty"`
-		} `json:"equipList"`
-		FetterInfo struct {
-			ExpLevel int `json:"expLevel"`
-		} `json:"fetterInfo"`
-		TalentIDList            []int `json:"talentIdList,omitempty"`
-		ProudSkillExtraLevelMap struct {
-			Num4239 int `json:"4239"`
-		} `json:"proudSkillExtraLevelMap,omitempty"`
-		CostumeID int `json:"costumeId,omitempty"`
-	} `json:"avatarInfoList"`
-	TTL int    `json:"ttl"`
-	UID string `json:"uid"`
-}
-
-// Flat ... 详细数据
-type Flat struct {
-	// l10n
-	NameTextHash    string `json:"nameTextMapHash"`
-	SetNameTextHash string `json:"setNameTextMapHash,omitempty"`
-
-	// artifact
-	ReliquaryMainStat Stat   `json:"reliquaryMainstat,omitempty"`
-	ReliquarySubStats []Stat `json:"reliquarySubstats,omitempty"`
-	EquipType         string `json:"equipType,omitempty"`
-
-	// weapon
-	WeaponStat []Stat `json:"weaponStats,omitempty"`
-
-	RankLevel int    `json:"rankLevel"` // 3, 4 or 5
-	ItemType  string `json:"itemType"`  // ITEM_WEAPON or ITEM_RELIQUARY
-	Icon      string `json:"icon"`      // You can get the icon from https://enka.network/ui/{Icon}.png
-}
-
-// Stat ...  属性对
-type Stat struct {
-	MainPropID string  `json:"mainPropId,omitempty"`
-	SubPropID  string  `json:"appendPropId,omitempty"`
-	Value      float64 `json:"statValue"`
 }
 
 // Getuid qquid->uid
@@ -285,37 +124,37 @@ func StoS(val string) string {
 
 func GetAppendProp(v string) string {
 	switch v {
-	case "FIGHT_PROP_HP", "FIGHT_PROP_HP_PERCENT":
+	case "FIGHT_PROP_HP", "FIGHT_PROP_HP_PERCENT", "小生命", "大生命":
 		return "生命值"
-	case "FIGHT_PROP_ATTACK", "FIGHT_PROP_ATTACK_PERCENT":
+	case "FIGHT_PROP_ATTACK", "FIGHT_PROP_ATTACK_PERCENT", "小攻击", "大攻击":
 		return "攻击力"
-	case "FIGHT_PROP_DEFENSE", "FIGHT_PROP_DEFENSE_PERCENT":
+	case "FIGHT_PROP_DEFENSE", "FIGHT_PROP_DEFENSE_PERCENT", "小防御", "大防御":
 		return "防御力"
-	case "FIGHT_PROP_CRITICAL":
+	case "FIGHT_PROP_CRITICAL", "暴击率":
 		return "暴击率"
-	case "FIGHT_PROP_CRITICAL_HURT":
+	case "FIGHT_PROP_CRITICAL_HURT", "暴击伤害":
 		return "暴击伤害"
-	case "FIGHT_PROP_CHARGE_EFFICIENCY":
+	case "FIGHT_PROP_CHARGE_EFFICIENCY", "元素充能":
 		return "元素充能效率"
-	case "FIGHT_PROP_HEAL_ADD":
+	case "FIGHT_PROP_HEAL_ADD", "治疗加成":
 		return "治疗加成"
-	case "FIGHT_PROP_ELEMENT_MASTERY":
+	case "FIGHT_PROP_ELEMENT_MASTERY", "元素精通":
 		return "元素精通"
-	case "FIGHT_PROP_PHYSICAL_ADD_HURT":
+	case "FIGHT_PROP_PHYSICAL_ADD_HURT", "物理加伤":
 		return "物理伤害加成"
-	case "FIGHT_PROP_FIRE_ADD_HURT":
+	case "FIGHT_PROP_FIRE_ADD_HURT", "火元素加伤":
 		return "火元素伤害加成"
-	case "FIGHT_PROP_ELEC_ADD_HURT":
+	case "FIGHT_PROP_ELEC_ADD_HURT", "雷元素加伤":
 		return "雷元素伤害加成"
-	case "FIGHT_PROP_WATER_ADD_HURT":
+	case "FIGHT_PROP_WATER_ADD_HURT", "水元素加伤":
 		return "水元素伤害加成"
-	case "FIGHT_PROP_GRASS_ADD_HURT":
+	case "FIGHT_PROP_GRASS_ADD_HURT", "草元素加伤":
 		return "草元素伤害加成"
-	case "FIGHT_PROP_WIND_ADD_HURT":
+	case "FIGHT_PROP_WIND_ADD_HURT", "风元素加伤":
 		return "风元素伤害加成"
-	case "FIGHT_PROP_ROCK_ADD_HURT":
+	case "FIGHT_PROP_ROCK_ADD_HURT", "岩元素加伤":
 		return "岩元素伤害加成"
-	case "FIGHT_PROP_ICE_ADD_HURT":
+	case "FIGHT_PROP_ICE_ADD_HURT", "冰元素加伤":
 		return "冰元素伤害加成"
 	}
 	return ""
@@ -323,15 +162,15 @@ func GetAppendProp(v string) string {
 
 func GetEquipType(v string) string {
 	switch v {
-	case "EQUIP_BRACER":
+	case "EQUIP_BRACER", "0":
 		return "生之花"
-	case "EQUIP_NECKLACE":
+	case "EQUIP_NECKLACE", "1":
 		return "死之羽"
-	case "EQUIP_SHOES":
+	case "EQUIP_SHOES", "2":
 		return "时之沙"
-	case "EQUIP_RING":
+	case "EQUIP_RING", "3":
 		return "空之杯"
-	case "EQUIP_DRESS":
+	case "EQUIP_DRESS", "4":
 		return "理之冠"
 	}
 	return ""
@@ -340,7 +179,7 @@ func GetEquipType(v string) string {
 // Stofen 判断词条分号
 func Stofen(val string) string {
 	switch val {
-	case "FIGHT_PROP_HP", "FIGHT_PROP_ATTACK", "FIGHT_PROP_DEFENSE", "FIGHT_PROP_ELEMENT_MASTERY":
+	case "FIGHT_PROP_HP", "FIGHT_PROP_ATTACK", "FIGHT_PROP_DEFENSE", "FIGHT_PROP_ELEMENT_MASTERY", "小生命", "小攻击", "小防御", "元素精通":
 		return ""
 		/*
 			case "FIGHT_PROP_HP_PERCENT":
@@ -379,7 +218,7 @@ func Countcitiao(wifename, funame string, figure float64) float64 {
 		return figure * 1.0 * float64(ti.Cdmg) / 100
 	case "元素精通":
 		return figure * 0.33 * float64(ti.Mastery) / 100
-	case "雷元素加伤", "水元素加伤", "火元素加伤", "风元素加伤", "草元素加伤", "岩元素加伤", "冰元素加伤":
+	case "雷元素加伤", "水元素加伤", "火元素加伤", "风元素加伤", "草元素加伤", "岩元素加伤", "冰元素加伤", "元素加伤":
 		return figure * 1.33 * float64(ti.Dmg) / 100
 	case "物理加伤":
 		return figure * 1.33 * float64(ti.Phy) / 100
@@ -606,4 +445,226 @@ func Sywsuit(syws []string) string {
 		return c0 + "2"
 	}
 	return "+"
+}
+
+// 解析为本地结构
+func (n Data) ConvertData() (Thisdata, error) {
+	t := new(Thisdata)
+	t.Chars = make(map[int]CharRole)
+	wife := GetWifeOrWq("wife")
+	t.UID = n.UID
+	t.Nickname = n.PlayerInfo.Nickname
+	t.Level = n.PlayerInfo.Level
+	for k, v := range n.AvatarInfoList {
+		//数据处理区
+		adds, addf := "元素加伤:", 0.0
+		if v.FightPropMap.Num30*100 > addf {
+			adds = "物理加伤:"
+			addf = v.FightPropMap.Num30 * 100
+		}
+		if v.FightPropMap.Num40*100 > addf {
+			adds = "火元素加伤:"
+			addf = v.FightPropMap.Num40 * 100
+		}
+		if v.FightPropMap.Num41*100 > addf {
+			adds = "雷元素加伤:"
+			addf = v.FightPropMap.Num41 * 100
+		}
+		if v.FightPropMap.Num42*100 > addf {
+			adds = "水元素加伤:"
+			addf = v.FightPropMap.Num42 * 100
+		}
+		if v.FightPropMap.Num44*100 > addf {
+			adds = "风元素加伤:"
+			addf = v.FightPropMap.Num44 * 100
+		}
+		if v.FightPropMap.Num45*100 > addf {
+			adds = "岩元素加伤:"
+			addf = v.FightPropMap.Num45 * 100
+		}
+		if v.FightPropMap.Num46*100 > addf {
+			adds = "冰元素加伤:"
+			addf = v.FightPropMap.Num46 * 100
+		}
+		if v.FightPropMap.Num43*100 > addf {
+			adds = "草元素加伤:"
+			addf = v.FightPropMap.Num43 * 100
+		}
+		l := len(v.EquipList)
+		reliquary := GetReliquary()
+		if reliquary == nil {
+			return *t, errors.New("1")
+		}
+		wq := reliquary.WQ[v.EquipList[l-1].Flat.NameTextHash]
+		if wq == "" {
+			return *t, errors.New("2")
+		}
+		var wqjl = 0
+		for m := range v.EquipList[l-1].Weapon.AffixMap {
+			wqjl = m
+		}
+		role := GetRole(wife.Idmap(strconv.Itoa(v.AvatarID)))
+		talentId := role.GetTalentId()
+		syw := GetSywName()
+		var sywhua, sywyu, sywsha, sywbei, sywguan sywm
+		for i := 0; i < l-1; i++ {
+			switch v.EquipList[i].Flat.EquipType {
+			case "EQUIP_BRACER":
+				sywhua = sywm{
+					Set:   reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash],
+					Name:  syw.Names(reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash])[0],
+					Level: v.EquipList[i].Reliquary.Level,
+					Main: attrs{
+						Title: StoS(v.EquipList[i].Flat.ReliquaryMainStat.MainPropID),
+						Value: v.EquipList[i].Flat.ReliquaryMainStat.Value,
+					},
+				}
+				for _, stats := range v.EquipList[i].Flat.ReliquarySubStats {
+					sywhua.Attrs = append(sywhua.Attrs, attrs{
+						Title: StoS(stats.SubPropID),
+						Value: stats.Value,
+					})
+				}
+			case "EQUIP_NECKLACE":
+				sywyu = sywm{
+					Set:   reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash],
+					Name:  syw.Names(reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash])[1],
+					Level: v.EquipList[i].Reliquary.Level,
+					Main: attrs{
+						Title: StoS(v.EquipList[i].Flat.ReliquaryMainStat.MainPropID),
+						Value: v.EquipList[i].Flat.ReliquaryMainStat.Value,
+					},
+				}
+				for _, stats := range v.EquipList[i].Flat.ReliquarySubStats {
+					sywyu.Attrs = append(sywyu.Attrs, attrs{
+						Title: StoS(stats.SubPropID),
+						Value: stats.Value,
+					})
+				}
+			case "EQUIP_SHOES":
+				sywsha = sywm{
+					Set:   reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash],
+					Name:  syw.Names(reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash])[2],
+					Level: v.EquipList[i].Reliquary.Level,
+					Main: attrs{
+						Title: StoS(v.EquipList[i].Flat.ReliquaryMainStat.MainPropID),
+						Value: v.EquipList[i].Flat.ReliquaryMainStat.Value,
+					},
+				}
+				for _, stats := range v.EquipList[i].Flat.ReliquarySubStats {
+					sywsha.Attrs = append(sywsha.Attrs, attrs{
+						Title: StoS(stats.SubPropID),
+						Value: stats.Value,
+					})
+				}
+			case "EQUIP_RING":
+				sywbei = sywm{
+					Set:   reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash],
+					Name:  syw.Names(reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash])[3],
+					Level: v.EquipList[i].Reliquary.Level,
+					Main: attrs{
+						Title: StoS(v.EquipList[i].Flat.ReliquaryMainStat.MainPropID),
+						Value: v.EquipList[i].Flat.ReliquaryMainStat.Value,
+					},
+				}
+				for _, stats := range v.EquipList[i].Flat.ReliquarySubStats {
+					sywbei.Attrs = append(sywbei.Attrs, attrs{
+						Title: StoS(stats.SubPropID),
+						Value: stats.Value,
+					})
+				}
+			case "EQUIP_DRESS":
+				sywguan = sywm{
+					Set:   reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash],
+					Name:  syw.Names(reliquary.WQ[v.EquipList[i].Flat.SetNameTextHash])[4],
+					Level: v.EquipList[i].Reliquary.Level,
+					Main: attrs{
+						Title: StoS(v.EquipList[i].Flat.ReliquaryMainStat.MainPropID),
+						Value: v.EquipList[i].Flat.ReliquaryMainStat.Value,
+					},
+				}
+				for _, stats := range v.EquipList[i].Flat.ReliquarySubStats {
+					sywguan.Attrs = append(sywguan.Attrs, attrs{
+						Title: StoS(stats.SubPropID),
+						Value: stats.Value,
+					})
+				}
+			}
+		}
+		//导入
+		t.Chars[k] = CharRole{
+			ID:     v.AvatarID,
+			Name:   wife.Idmap(strconv.Itoa(v.AvatarID)),
+			Level:  v.PropMap.Num4001.Val,
+			Fetter: v.FetterInfo.ExpLevel,
+			Cons:   len(v.TalentIDList),
+			Attr: attr{
+				Atk:      v.FightPropMap.Num2001,
+				AtkBase:  v.FightPropMap.Num4,
+				Def:      v.FightPropMap.Num2002,
+				DefBase:  v.FightPropMap.Num7,
+				Hp:       v.FightPropMap.Num2000,
+				HpBase:   v.FightPropMap.Num1,
+				Mastery:  v.FightPropMap.Num28,
+				Recharge: v.FightPropMap.Num23 * 100,
+				Heal:     v.FightPropMap.Num26 * 100,
+				Cpct:     v.FightPropMap.Num20 * 100,
+				Cdmg:     v.FightPropMap.Num22 * 100,
+				Dmg:      addf,
+				DmgName:  adds,
+				Phy:      v.FightPropMap.Num30 * 100,
+			},
+			Weapon: weapon{
+				Name:  wq,
+				Star:  v.EquipList[l-1].Flat.RankLevel,
+				Level: v.EquipList[l-1].Weapon.Level,
+				Affix: v.EquipList[l-1].Weapon.AffixMap[wqjl] + 1,
+				Atk:   v.EquipList[l-1].Flat.WeaponStat[0].Value,
+			},
+			Talent: talent{
+				A: v.SkillLevelMap[talentId[0]],
+				E: v.SkillLevelMap[talentId[1]],
+				Q: v.SkillLevelMap[talentId[2]],
+			},
+			Artis: artis{
+				Hua:  sywhua,
+				Yu:   sywyu,
+				Sha:  sywsha,
+				Bei:  sywbei,
+				Guan: sywguan,
+			},
+			DataSource: "Enka.Network",
+		}
+	}
+	return *t, nil
+}
+
+// 合并映射
+func (t *Thisdata) MergeFile(suid string) error {
+	tx, err := os.ReadFile("plugin/kokomi/data/js/" + suid + ".kokomi")
+	if err != nil {
+		return errors.New("1")
+	}
+	// 解析
+	var alldata Thisdata
+	err = json.Unmarshal(tx, &alldata)
+	if err != nil {
+		return errors.New("2")
+	}
+	for i := 0; i < len(alldata.Chars); i++ {
+	asdf:
+		for l := 0; l < len(t.Chars); l++ {
+			if alldata.Chars[i].Name == t.Chars[l].Name {
+				i++
+				if i == len(alldata.Chars)-1 {
+					return nil
+				} else {
+					goto asdf
+				}
+			}
+		}
+		//未找到相同
+		t.Chars[len(t.Chars)] = alldata.Chars[i]
+	}
+	return nil
 }
