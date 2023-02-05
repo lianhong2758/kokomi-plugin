@@ -53,7 +53,7 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 - #原魔xxx [原魔图鉴查询]
 - #xxx [角色图鉴查询]
 
-服务依赖
+# 服务依赖
 
 #更新面板 依赖于面板查询API，面板服务由 http://enka.network/ 提供
 如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在Enka官网 Discord联系
