@@ -83,3 +83,4 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
     若有开发建议,欢迎来开发群内进行讨论
     QQ群
        ZeroBot-Plugin官方二群609640932
+       kokomi开发/维护/交流678586912
