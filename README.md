@@ -51,14 +51,15 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 - #查卡xxx [七圣召唤查卡]
 - #攻略xxx [角色攻略查询]
 - #原魔xxx [原魔图鉴查询]
-- # xxx  [角色图鉴查询]
+- #xxx [角色图鉴查询]
+
+服务依赖
 
 #更新面板 依赖于面板查询API，面板服务由 http://enka.network/ 提供
-
 如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在Enka官网 Discord联系
 
 国内网络如Enka服务访问不稳定，可尝试更换 @MiniGrayGay 大佬提供的中转服务
-方法:将kokomi/kokomi.go中的url二级网址替换即可
+方法:发送切换api即可(需要权限)，未来可能适配喵喵api
 
     【链接1】：https://enka.microgg.cn/
     【链接2】：https://enka.minigg.cn/
