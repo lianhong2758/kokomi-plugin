@@ -356,13 +356,13 @@ func init() { // 主函数
 				var fufigure2 = syw.Attrs[k].Value
 				switch fuciname2 {
 				case "小攻击":
-					fufigure2 = fufigure / (alldata.Chars[t].Attr.AtkBase - fufigure)
+					fufigure2 = fufigure / alldata.Chars[t].Attr.AtkBase * 100
 					fuciname2 = "大攻击"
 				case "小防御":
-					fufigure2 = fufigure / (alldata.Chars[t].Attr.DefBase - fufigure)
+					fufigure2 = fufigure / alldata.Chars[t].Attr.DefBase * 100
 					fuciname2 = "大防御"
 				case "小生命":
-					fufigure2 = fufigure / (alldata.Chars[t].Attr.HpBase - fufigure)
+					fufigure2 = fufigure / alldata.Chars[t].Attr.HpBase * 100
 					fuciname2 = "大生命"
 				}
 				pingfeng += Countcitiao(str, fuciname2, fufigure2) //单个圣遗物分数合计
@@ -618,7 +618,7 @@ func init() { // 主函数
 		// 元素加伤判断
 		adds, addf := alldata.Chars[t].Attr.DmgName, alldata.Chars[t].Attr.Dmg
 		if adds == "" {
-			adds = "元素加伤"
+			adds = "元素加伤:"
 		}
 		one.DrawString(adds, 70, 455)
 
