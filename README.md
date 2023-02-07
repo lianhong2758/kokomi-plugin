@@ -6,11 +6,9 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 具体功能可在安装插件后 通过"kokomi菜单","/用法kokomi","/用法kokomi_wiki"进行查看。
 # 安装与更新
 
-请先安装ZeroBot-Plugin,仓库地址为
+请先安装ZeroBot-Plugin,仓库地址[ZeroBot-Plugin](https://github.com/FloatTech/ZeroBot-Plugin)
 
-  https://github.com/FloatTech/ZeroBot-Plugin
-
-在配置成功上述程序后源码后,再安装本插件,否则无法生效
+在配置成功上述程序源码后,再安装本插件,否则无法生效
 
 
 推荐使用git进行安装，以方便后续升级。在ZeroBot-Plugin根目录夹打开终端，运行
@@ -21,13 +19,13 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 
 进行下载插件。 
 
-然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
+然后在main.go中导入包	`_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板`
 
 //在群文件下载
 
 如果是手动下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugin文件夹内。
 
-然后在main.go中导入包	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
+然后在main.go中导入包	`_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板`
 
 # 功能说明(部分移植喵喵菜单)
 - 原神面板功能:
@@ -55,7 +53,7 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 
 # 服务依赖
 
-#更新面板 依赖于面板查询API，面板服务由 http://enka.network/ 提供
+#更新面板 依赖于面板查询API，面板服务由 `http://enka.network/`提供
 如果可以的话，也请在Patreon上支持Enka，或提供闲置的原神账户，具体可在Enka官网 Discord联系
 
 国内网络如Enka服务访问不稳定，可尝试更换 @MiniGrayGay 大佬提供的中转服务
@@ -74,7 +72,7 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 
 其他
 
-    喵喵插件 Miao-Plugin:感谢喵喵菜单提供模板学习
+    喵喵插件[Miao-Plugin]:感谢喵喵菜单提供模板学习
     Enka: 感谢Enka提供的面板服务
     genshin-atlas:感谢西风驿站提供wiki查询功能
     LittlePaimon:感谢小派蒙提供json数据库
