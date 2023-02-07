@@ -3,7 +3,7 @@
 kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘制,快速返回图片等升级功能。
 相比与喵喵菜单,本插件不依赖浏览器渲染,可以再树莓派等机器上运行(按理来说是可以的),占用内存较低
 
-具体功能可在安装插件后 通过"kokomi菜单","/用法kokomi","/用法kokomi_wiki"进行查看。
+具体功能可在安装插件后 通过`kokomi菜单`,`/用法kokomi`,`/用法kokomi_wiki`进行查看。
 # 安装与更新
 
 请先安装ZeroBot-Plugin,仓库地址[ZeroBot-Plugin](https://github.com/FloatTech/ZeroBot-Plugin)
