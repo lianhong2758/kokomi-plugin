@@ -467,7 +467,6 @@ func init() { // 主函数
 			err = json.Unmarshal(damfile, &roleDam)
 			if err != nil {
 				ok = 1
-				ctx.SendChain(message.Text("ERROR:", err))
 			}
 		}
 		//绘图区
@@ -1011,7 +1010,6 @@ func init() { // 主函数
 	success:
 		Success(ctx, "切换api")
 	})
-}
 
 // Error 尚未启用
 func Error(ctx *zero.Ctx, msg string) {
