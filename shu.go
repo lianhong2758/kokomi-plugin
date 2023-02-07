@@ -233,9 +233,11 @@ func Countcitiao(wifename, funame string, figure float64) float64 {
 // Pingji 词条评级
 func Pingji(val float64) string {
 	switch {
-	case val < 18:
+	case val < 10:
+		return "D"
+	case val < 16.5:
 		return "C"
-	case val < 24:
+	case val < 23.1:
 		return "B"
 	case val < 29.7:
 		return "A"
