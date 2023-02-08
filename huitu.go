@@ -5,10 +5,8 @@ import (
 	"image/color"
 	"math"
 
-	"github.com/Coloured-glaze/gg"
-	"github.com/FloatTech/floatbox/img/writer"
-	mathExtend "github.com/FloatTech/floatbox/math"
-	"github.com/FloatTech/zbputils/img"
+	//"github.com/fogleman/gg"//原版gg
+	"github.com/FloatTech/gg"
 )
 
 // Polygon 画多边形
@@ -16,7 +14,7 @@ func Polygon(n int) []gg.Point {
 	result := make([]gg.Point, n)
 	for i := 0; i < n; i++ {
 		a := float64(i)*2*math.Pi/float64(n) - math.Pi/2
-		result[i] = gg.Point{math.Cos(a), math.Sin(a)}
+		result[i] = gg.Point{X: math.Cos(a), Y: math.Sin(a)}
 	}
 	return result
 }
@@ -71,28 +69,4 @@ func Yinying(x int, y int, r float64, c color.Color) image.Image {
 	ctx.DrawRoundedRectangle(0, 0, float64(x), float64(y), r)
 	ctx.Fill()
 	return ctx.Image()
-}
-
-// SetMark 绘制马赛克
-func SetMark(pic image.Image) (picture []byte) {
-	dst := img.Size(pic, 256*5, 256*5)
-	b := dst.Im.Bounds()
-	markSize := 32
-
-	for y0fMarknum := 0; y0fMarknum <= mathExtend.Ceil(b.Max.Y, markSize); y0fMarknum++ {
-		for x0fMarknum := 0; x0fMarknum <= mathExtend.Ceil(b.Max.X, markSize); x0fMarknum++ {
-			a := dst.Im.At(x0fMarknum*markSize+markSize/2, y0fMarknum*markSize+markSize/2)
-			cc := color.NRGBAModel.Convert(a).(color.NRGBA)
-			for y := 0; y < markSize; y++ {
-				for x := 0; x < markSize; x++ {
-					x0fPic := x0fMarknum*markSize + x
-					y0fPic := y0fMarknum*markSize + y
-					dst.Im.Set(x0fPic, y0fPic, cc)
-				}
-			}
-		}
-	}
-	picture, cl := writer.ToBytes(dst.Im)
-	defer cl()
-	return
 }

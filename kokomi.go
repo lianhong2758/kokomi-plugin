@@ -14,20 +14,18 @@ import (
 	"time"
 
 	//"unicode/utf8"
-
-	"github.com/Coloured-glaze/gg"
 	"github.com/FloatTech/ZeroBot-Plugin/kanban"
-	"github.com/FloatTech/floatbox/img/writer"
 	"github.com/FloatTech/floatbox/web"
+	"github.com/FloatTech/imgfactory"
 	ctrl "github.com/FloatTech/zbpctrl"
 	"github.com/FloatTech/zbputils/control"
-
+	//"github.com/fogleman/gg"//原版gg
+	"github.com/FloatTech/gg"
 	//"github.com/golang/freetype"
-	"golang.org/x/image/webp"
-	//"github.com/FloatTech/zbputils/img"
 	"github.com/nfnt/resize"
 	zero "github.com/wdvxdr1123/ZeroBot"
 	"github.com/wdvxdr1123/ZeroBot/message"
+	"golang.org/x/image/webp"
 )
 
 const (
@@ -744,9 +742,12 @@ func init() { // 主函数
 		}
 		dc.DrawStringAnchored("Created By ZeroBot-Plugin "+kanban.Version+edition, 540, float64(height)-30, 0.5, 0.5)
 		// 输出图片
-		ff, cl := writer.ToBytes(dc.Image())  // 图片放入缓存
+		ff, err := imgfactory.ToBytes(dc.Image()) // 图片放入缓存
+		if err != nil {
+			ctx.SendChain(message.Text("ERROR: ", err))
+			return
+		}
 		ctx.SendChain(message.ImageBytes(ff)) // 输出
-		cl()
 	})
 
 	// 绑定uid
@@ -833,9 +834,12 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("-获取菜单图片失败"+Config.Postfix, err))
 			return
 		}
-		ff, cl := writer.ToBytes(menu)
+		ff, err := imgfactory.ToBytes(menu) // 图片放入缓存
+		if err != nil {
+			ctx.SendChain(message.Text("ERROR: ", err))
+			return
+		}
 		ctx.SendChain(message.ImageBytes(ff))
-		cl()
 	})
 
 	//删除账号信息,限制群内,权限管理员+可以删除别人账号信息
@@ -1009,6 +1013,11 @@ func init() { // 主函数
 		goto success
 	success:
 		Success(ctx, "切换api")
+	})
+
+	//更新全部面板
+	en.OnFullMatch("更新全部信息", zero.SuperUserPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+
 	})
 }
 
