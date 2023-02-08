@@ -114,13 +114,8 @@ func init() { // 主函数
 				msg.WriteString("-获取角色面板成功\n")
 				msg.WriteString("-您的展示角色为:\n")
 				for i := 0; i < len(thisdata.Chars); i++ {
-					mmm := wife.Idmap(strconv.Itoa(thisdata.Chars[i].ID))
-					if mmm == "" {
-						ctx.SendChain(message.Text("Idmap数据缺失"))
-						return
-					}
 					msg.WriteString(" ")
-					msg.WriteString(mmm)
+					msg.WriteString(thisdata.Chars[i].Name)
 					if i < len(thisdata.Chars)-1 {
 						msg.WriteByte('\n')
 					}
