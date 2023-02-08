@@ -601,7 +601,7 @@ func (n Data) ConvertData() (Thisdata, error) {
 			Fetter: v.FetterInfo.ExpLevel,
 			Cons:   len(v.TalentIDList),
 			Attr: attr{
-				Atk:      v.FightPropMap.Num2001,
+				Atk:      v.FightPropMap.Num4*(1+(v.FightPropMap.Num6)) + v.FightPropMap.Num5,
 				AtkBase:  v.FightPropMap.Num4,
 				Def:      v.FightPropMap.Num2002,
 				DefBase:  v.FightPropMap.Num7,
