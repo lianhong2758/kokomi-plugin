@@ -103,12 +103,14 @@ func init() { // 主函数
 				thisdata, err := ndata.ConvertData()
 				if err != nil {
 					ctx.SendChain(message.Text("数据映射错误捏：", err))
+					return
 				}
 				//合并映射
 				thisdata.MergeFile(suid)
 				es, err = json.Marshal(&thisdata)
 				if err != nil {
 					ctx.SendChain(message.Text("数据反解析错误捏：", err))
+					return
 				}
 				wife := GetWifeOrWq("wife")
 				msg.WriteString("-获取角色面板成功\n")
@@ -787,10 +789,12 @@ func init() { // 主函数
 			thisdata, err := ndata.ConvertData()
 			if err != nil {
 				ctx.SendChain(message.Text("数据映射错误捏：", err))
+				return
 			}
 			es, err = json.Marshal(&thisdata)
 			if err != nil {
 				ctx.SendChain(message.Text("数据反解析错误捏：", err))
+				return
 			}
 			wife := GetWifeOrWq("wife")
 			msg.WriteString("-获取角色面板成功\n")
