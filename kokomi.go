@@ -105,8 +105,9 @@ func init() { // 主函数
 					ctx.SendChain(message.Text("数据映射错误捏：", err))
 					return
 				}
-				//合并映射
+				/*合并映射,手动选择打开
 				thisdata.MergeFile(suid)
+				*/
 				es, err = json.Marshal(&thisdata)
 				if err != nil {
 					ctx.SendChain(message.Text("数据反解析错误捏：", err))
