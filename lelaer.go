@@ -101,10 +101,10 @@ func (ndata Thisdata) transToTeyvat(uid string, wife FindMap) (*Teyvat, error) {
 		return nil, lelaerErrorSYS
 	}
 
-	s := getServer(uid)
 	res := &Teyvat{Time: time.Now().Unix()}
 
 	for l := 0; l < len(ndata.Chars); l++ {
+		s := getServer(uid)
 		v := ndata.Chars[l]
 		name := v.Name
 		role := GetRole(name) // 获取角色
