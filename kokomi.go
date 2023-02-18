@@ -71,7 +71,7 @@ func init() { // 主函数
 		uid := Getuid(qquid)
 		suid := strconv.Itoa(uid)
 		if uid == 0 {
-			ctx.SendChain(message.Text("-未绑定uid" + Config.Postfix))
+			ctx.SendChain(message.Text("-未绑定uid\n-第一次使用请发送\"绑定xxx\"" + Config.Postfix))
 			return
 		}
 		//############################################################判断数据更新,逻辑原因不能合并进switch
@@ -105,9 +105,8 @@ func init() { // 主函数
 					ctx.SendChain(message.Text("数据映射错误捏：", err))
 					return
 				}
-				/*合并映射,手动选择打开
+				//合并映射
 				thisdata.MergeFile(suid)
-				*/
 				es, err = json.Marshal(&thisdata)
 				if err != nil {
 					ctx.SendChain(message.Text("数据反解析错误捏：", err))
@@ -143,7 +142,7 @@ func init() { // 主函数
 		// 获取本地缓存数据
 		txt, err := os.ReadFile("plugin/kokomi/data/js/" + suid + ".kokomi")
 		if err != nil {
-			ctx.SendChain(message.Text("-本地未找到账号信息, 请更新面板" + Config.Postfix))
+			ctx.SendChain(message.Text("-本地未找到账号信息, 请\"更新面板\"" + Config.Postfix))
 			return
 		}
 
@@ -155,7 +154,7 @@ func init() { // 主函数
 			return
 		}
 		if len(alldata.Chars) == 0 {
-			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用 更新面板 获取账号信息" + Config.Postfix))
+			ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用\"更新面板\"获取账号信息" + Config.Postfix))
 			return
 		}
 
