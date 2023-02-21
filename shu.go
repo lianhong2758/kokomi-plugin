@@ -653,15 +653,14 @@ func (t *Thisdata) MergeFile(suid string) {
 	if err != nil {
 		return
 	}
+OuterLoop:
 	for i := 0; i < len(alldata.Chars); i++ {
-	asdf:
 		for l := 0; l < len(t.Chars); l++ {
 			if alldata.Chars[i].Name == t.Chars[l].Name {
-				i++
 				if i == len(alldata.Chars)-1 {
 					return
 				} else {
-					goto asdf
+					continue OuterLoop
 				}
 			}
 		}

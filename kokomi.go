@@ -124,7 +124,7 @@ func init() { // 主函数
 				}
 				dam_a, err = thisdata.GetSumComment(suid, wife)
 				if err != nil {
-					ctx.SendChain(message.Text("-获取伤害数据失败"+Config.Postfix, err))
+					ctx.SendChain(message.Text("-获取伤害数据失败\n-请尝试联系维护者或者重新绑定uid\n-若多次尝试无效,请等待修复"+Config.Postfix, err))
 				}
 			}
 			//存储伤害计算返回值
@@ -748,7 +748,7 @@ func init() { // 主函数
 	})
 
 	// 绑定uid
-	en.OnRegex(`^(#|＃)?绑定\s*(uid)?\s*(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(#|＃)?绑定\s*(uid|UID|Uid)?\s*(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		suid := ctx.State["regex_matched"].([]string)[3] // 获取uid
 		int64uid, err := strconv.ParseInt(suid, 10, 64)
 		if suid == "" || int64uid < 100000000 || int64uid > 1000000000 || err != nil {
