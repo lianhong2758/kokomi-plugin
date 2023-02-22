@@ -1,4 +1,4 @@
-package kokomi // Package kokomi 导入yuan-shen模块
+package kokomi // Package kokomi
 
 import ()
 
