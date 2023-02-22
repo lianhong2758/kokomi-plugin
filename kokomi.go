@@ -1206,7 +1206,7 @@ func init() { // 主函数
 					panic(err)
 				}
 				three.SetHexColor("#98F5FF")
-				three.DrawStringAnchored(strconv.Itoa(gdate.Result.ZdlResult), 250, 160, 0.5, 0)
+				three.DrawStringAnchored(fmt.Sprintln(gdate.Result.ZdlResult), 250, 160, 0.5, 0)
 				dc.DrawImage(yingthree, 40, 750)
 				dc.DrawImage(three.Image(), 40, 750)
 			}
