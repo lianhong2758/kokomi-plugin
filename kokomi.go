@@ -1051,7 +1051,7 @@ func init() { // 主函数
 			for i := 0; i < 4; i++ {
 				swifeid := wife.Findnames(names[i])
 				if swifeid == "" {
-					ctx.SendChain(message.Text("-请输入角色全名" + Config.Postfix))
+					ctx.SendChain(message.Text("-未找到角色" + names[i] + Config.Postfix))
 					return
 				}
 				names[i] = wife.Idmap(swifeid)
