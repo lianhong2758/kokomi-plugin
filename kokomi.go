@@ -1049,7 +1049,7 @@ func init() { // 主函数
 		} else {
 			wife := GetWifeOrWq("wife")
 			for i := 0; i < 4; i++ {
-				swifeid := wife.Findnames(names[i])
+				swifeid := wife.Findnames(StringStrip(names[i]))
 				if swifeid == "" {
 					ctx.SendChain(message.Text("-未找到角色" + names[i] + Config.Postfix))
 					return
