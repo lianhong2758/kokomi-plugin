@@ -1159,12 +1159,12 @@ func init() { // 主函数
 						Ftoone(alldata.Chars[is[i]].Attr.Cpct)+"%/"+
 						Ftoone(alldata.Chars[is[i]].Attr.Cdmg)+"%\n生命"+
 						Ftoone(alldata.Chars[is[i]].Attr.Hp)+"\n"+
-						Sywsuit([]string{
+						strings.ReplaceAll(Sywsuit([]string{
 							alldata.Chars[is[i]].Artis.Hua.Set,
 							alldata.Chars[is[i]].Artis.Yu.Set,
 							alldata.Chars[is[i]].Artis.Sha.Set,
 							alldata.Chars[is[i]].Artis.Bei.Set,
-							alldata.Chars[is[i]].Artis.Guan.Set}),
+							alldata.Chars[is[i]].Artis.Guan.Set}), "+", "\n"),
 						float64(20+i%2*200), float64(180+i/2*255), 0, 0, 120, 1.5, gg.AlignLeft)
 				}
 				dc.DrawImage(yingone, 630, 200)
