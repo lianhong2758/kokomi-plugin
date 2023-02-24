@@ -1173,22 +1173,31 @@ func init() { // 主函数
 			//图层2,伤害图
 			{
 				two.SetRGB(1, 1, 1)             //白色
-				two.DrawLine(20, 140, 20, 575)  //|
-				two.DrawLine(20, 575, 440, 575) //--
-				two.SetLineWidth(10)
+				two.DrawLine(20, 40, 20, 515)   //|
+				two.DrawLine(20, 515, 440, 515) //--
+				two.SetLineWidth(6)
 				//two.Stroke()
 				two.StrokePreserve()
 				var numchart float64
 				if err := two.LoadFontFace(FontFile, 20); err != nil {
 					panic(err)
 				}
-				for k, v := range gdate.Result.ChartData {
+				for _, v := range gdate.Result.ChartData {
 					numchart += v.Value
-					two.DrawStringWrapped(v.Name, float64(50+k*60), float64(50+k%2*35), 0.5, 0, 40, 1.5, gg.AlignLeft)
 				}
+				nn := 440 / (len(gdate.Result.ChartData) + 1)
 				for k, v := range gdate.Result.ChartData {
-					two.DrawRectangle(float64(50+k*60), 575, 20, -v.Value/numchart*480)
-					two.DrawRectangle(float64(50+k*60), 20, 20, 20)
+					ss := strings.Split(v.Name, "\n")
+					y := -v.Value / numchart * 560
+					two.SetRGB(1, 1, 1)
+					buff := truncation(two, ss[0], 40) //宽减20
+					for i, v := range buff {
+						if v != "" {
+							two.DrawStringAnchored(v, float64(nn*(k+1))+10, float64(535+i*30), 0.5, 0) // name
+						}
+					}
+					two.DrawStringAnchored(ss[1], float64(nn*(k+1)-8), 515+y, 0.1, -0.5) // 8=0.2*40
+					two.DrawRectangle(float64(nn*(k+1)), 515, 20, y)
 					two.SetHexColor(v.Label.Color) // 设置画笔颜色为绿色
 					two.Fill()                     // 使用当前颜色（绿）填充满当前路径（矩形）所闭合出的区域
 				}
