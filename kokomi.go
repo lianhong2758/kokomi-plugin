@@ -1188,7 +1188,7 @@ func init() { // 主函数
 				nn := 440 / (len(gdate.Result.ChartData) + 1)
 				for k, v := range gdate.Result.ChartData {
 					ss := strings.Split(v.Name, "\n")
-					y := -v.Value / numchart * 560
+					y := -v.Value / numchart * 527
 					two.SetRGB(1, 1, 1)
 					buff := truncation(two, ss[0], 40) //宽减20
 					for i, v := range buff {
