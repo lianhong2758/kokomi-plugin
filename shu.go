@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/FloatTech/gg"
 	"os"
+	"os/exec"
 	"regexp"
 	"strconv"
 	"strings"
@@ -717,5 +718,13 @@ func truncation(canvas *gg.Context, text string, width int) (buff []string) {
 		buff = append(buff, line.String())
 		line.Reset()
 	}
+	return
+}
+
+// cmd后台执行
+func RunCmd(path, order string) (output []byte, err error) {
+	var cmd *exec.Cmd
+	cmd = exec.Command("bash", "-c", "cd "+path+" ; "+order)
+	output, err = cmd.CombinedOutput()
 	return
 }

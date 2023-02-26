@@ -1250,6 +1250,15 @@ func init() { // 主函数
 			ctx.SendChain(message.ImageBytes(ff)) // 输出
 		}
 	})
+	en.OnRegex(`^更新kokomi$`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		path := "plugin/kokomi"
+		output, err := RunCmd(path, "git pull")
+		if err != nil {
+			ctx.SendChain(message.Text("更新失败", Config.Postfix, "\n", string(output)))
+			return
+		}
+		ctx.SendChain(message.Text("更新成功", Config.Postfix, "\n", string(output)))
+	})
 }
 
 // Error 尚未启用
