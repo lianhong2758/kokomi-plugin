@@ -1,1 +1,6 @@
-{"api_id":1,"apis":["https://enka.microgg.cn/api/uid/%v","https://enka.minigg.cn/u/%v/__data.json"],"postfix":"~","edition":" & kokomi v2.4"}
+{
+	"api_id": 1,
+	"apis": ["https://enka.microgg.cn/api/uid/%v", "https://enka.minigg.cn/u/%v/__data.json", "https://enka.network/api/uid/%v"],
+	"postfix": "~",
+	"edition": " & kokomi v2.4.1"
+}

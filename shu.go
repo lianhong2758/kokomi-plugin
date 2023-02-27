@@ -1,11 +1,15 @@
-package kokomi // Package kokomi 导入yuan-shen模块
+package kokomi // Package kokomi
 
 import (
+	"bufio"
 	"encoding/json"
 	"errors"
+	"github.com/FloatTech/gg"
 	"os"
+	"os/exec"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 // Fff 圣遗物武器名匹配
@@ -64,10 +68,35 @@ type Dam struct {
 		} `json:"damage_result_arr"`
 	} `json:"result"`
 }
+type Damgroup struct {
+	Result struct {
+		ZdlResult any        `json:"zdl_result"`
+		ZdlTips0  string     `json:"zdl_tips0"`
+		ZdlTips1  string     `json:"zdl_tips1"`
+		ZdlTips2  string     `json:"zdl_tips2"`
+		ZdlTips3  string     `json:"zdl_tips3"`
+		ChartData []struct { //统计图数据
+			Name  string  `json:"name"`
+			Ename string  `json:"ename"`
+			Value float64 `json:"value"`
+			Label struct {
+				Color string `json:"color"`
+			} `json:"label"`
+		} `json:"chart_data"`
+		ComboIntro   string `json:"combo_intro"`
+		RechargeInfo []struct {
+			Ename    string  `json:"ename"`
+			Energy   float64 `json:"energy"`
+			Rate     string  `json:"rate"`
+			Height   int     `json:"height"`
+			Color    string  `json:"color"`
+			Recharge string  `json:"recharge"`
+		} `json:"recharge_info"`
+	} `json:"result"`
+}
 
 // Getuid qquid->uid
-func Getuid(qquid int64) (uid int) { // 获取对应游戏uid
-	sqquid := strconv.Itoa(int(qquid))
+func Getuid(sqquid string) (uid int) { // 获取对应游戏uid
 	// 获取本地缓存数据
 	txt, err := os.ReadFile("plugin/kokomi/data/uid/" + sqquid + ".kokomi")
 	if err != nil {
@@ -653,20 +682,49 @@ func (t *Thisdata) MergeFile(suid string) {
 	if err != nil {
 		return
 	}
+OuterLoop:
 	for i := 0; i < len(alldata.Chars); i++ {
-	asdf:
 		for l := 0; l < len(t.Chars); l++ {
 			if alldata.Chars[i].Name == t.Chars[l].Name {
-				i++
 				if i == len(alldata.Chars)-1 {
 					return
 				} else {
-					goto asdf
+					continue OuterLoop
 				}
 			}
 		}
 		//未找到相同
 		t.Chars[len(t.Chars)] = alldata.Chars[i]
 	}
+	return
+}
+
+// 字符串分行
+func truncation(canvas *gg.Context, text string, width int) (buff []string) {
+	buff = make([]string, 0, 32)
+	s := bufio.NewScanner(strings.NewReader(text))
+	line := strings.Builder{}
+	for s.Scan() {
+		for _, v := range s.Text() {
+			length, _ := canvas.MeasureString(line.String())
+			if int(length) <= width {
+				line.WriteRune(v)
+			} else {
+				buff = append(buff, line.String())
+				line.Reset()
+				line.WriteRune(v)
+			}
+		}
+		buff = append(buff, line.String())
+		line.Reset()
+	}
+	return
+}
+
+// cmd后台执行
+func RunCmd(path, order string) (output []byte, err error) {
+	var cmd *exec.Cmd
+	cmd = exec.Command("bash", "-c", "cd "+path+" ; "+order)
+	output, err = cmd.CombinedOutput()
 	return
 }

@@ -1,4 +1,4 @@
-// Package kokomi 原神面板v2.4
+// Package kokomi 原神面板v2.4.1
 package kokomi
 
 import (
@@ -31,7 +31,7 @@ import (
 const (
 	//tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
 	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
-	FontFile = "plugin/kokomi/data/font/HYWH-65W.ttf"    // 汉字字体
+	FontFile = "plugin/kokomi/data/font/sakura.ttf"      // 汉字字体
 	FiFile   = "plugin/kokomi/data/font/tttgbnumber.ttf" // 其余字体(数字英文)
 	BaFile   = "plugin/kokomi/data/font/STLITI.TTF"      // 华文隶书版本版本号字体
 )
@@ -44,31 +44,28 @@ func init() { // 主函数
 	en := control.Register("kokomi", &ctrl.Options[*zero.Ctx]{
 		DisableOnDefault: false,
 		Brief:            "原神面板查询",
-		Help: "- kokomi菜单\n" +
+		Help: "- kokomi菜单([]里面为可选项)\n" +
 			"- 绑定......(uid)\n" +
-			"- 更新面板\n" +
-			"- 全部面板\n" +
-			"- XX面板\n" +
-			"- 删除账号[@xx]",
+			"- 更新面板[@xx]\n" +
+			"- 全部面板[@xx]\n" +
+			"- XX面板[@xx]\n" +
+			"- 删除账号[@xx]\n" +
+			"- [@xx]队伍伤害[xx xx xx xx]\n" +
+			"- 管理员专属指令:\n" +
+			"- (上传|删除)第(1|2)立绘 XX\n",
 	})
-	en.OnRegex(`#?＃?(.*)面板\s*(\[CQ:at,qq=)?(\d+)?(.*)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
-		var qquid int64
+	en.OnRegex(`(?:#|＃)?(.*)面板\s*(?:\[CQ:at,qq=)?(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		var allfen = 0.00
-		sqquid := ctx.State["regex_matched"].([]string)[3] // 获取第三者qquid
-		k2 := ctx.State["regex_matched"].([]string)[4]
-		if sqquid == "" && k2 == "" {
-			qquid = ctx.Event.UserID
-		} else if sqquid != "" {
-			qquid, _ = strconv.ParseInt(sqquid, 10, 64)
-		} else {
-			return
+		sqquid := ctx.State["regex_matched"].([]string)[2] // 获取第三者qquid
+		if sqquid == "" {
+			sqquid = strconv.FormatInt(ctx.Event.UserID, 10)
 		}
 		str := ctx.State["regex_matched"].([]string)[1] // 获取key
 		if str == "" {
 			return
 		}
 		// 获取uid
-		uid := Getuid(qquid)
+		uid := Getuid(sqquid)
 		suid := strconv.Itoa(uid)
 		if uid == 0 {
 			ctx.SendChain(message.Text("-未绑定uid\n-第一次使用请发送\"绑定xxx\"" + Config.Postfix))
@@ -112,7 +109,6 @@ func init() { // 主函数
 					ctx.SendChain(message.Text("数据反解析错误捏：", err))
 					return
 				}
-				wife := GetWifeOrWq("wife")
 				msg.WriteString("-获取角色面板成功\n")
 				msg.WriteString("-您的展示角色为:\n")
 				for i := 0; i < len(thisdata.Chars); i++ {
@@ -122,9 +118,9 @@ func init() { // 主函数
 						msg.WriteByte('\n')
 					}
 				}
-				dam_a, err = thisdata.GetSumComment(suid, wife)
+				dam_a, err = thisdata.GetSumComment(suid)
 				if err != nil {
-					ctx.SendChain(message.Text("-获取伤害数据失败"+Config.Postfix, err))
+					ctx.SendChain(message.Text("-获取伤害数据失败\n-请尝试联系维护者或者重新绑定uid\n-若多次尝试无效,请等待修复"+Config.Postfix, err))
 				}
 			}
 			//存储伤害计算返回值
@@ -206,8 +202,6 @@ func init() { // 主函数
 		// 画图
 		const height = 2400 - 360
 		dc := gg.NewContext(1080, height) // 画布大小
-		dc.SetHexColor("#98F5FF")
-		dc.Clear() // 背景
 		//*******************************************************
 		role := GetRole(str)
 		if role == nil {
@@ -221,9 +215,8 @@ func init() { // 主函数
 			ctx.SendChain(message.Text("获取背景失败", err))
 			return
 		}
-		dc.Scale(5/3.0, 5/3.0)
-		dc.DrawImage(beijing, -792, 0)
-		dc.Scale(3/5.0, 3/5.0)
+		beijing = resize.Resize(0, 2040, beijing, resize.Bilinear) //改比例
+		dc.DrawImage(beijing, -690, 0)
 		dc.SetRGB(1, 1, 1) // 换白色
 
 		//武器图层
@@ -748,8 +741,8 @@ func init() { // 主函数
 	})
 
 	// 绑定uid
-	en.OnRegex(`^(#|＃)?绑定\s*(uid)?\s*(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
-		suid := ctx.State["regex_matched"].([]string)[3] // 获取uid
+	en.OnRegex(`^(?:#|＃)?\s*绑定+?\s*(?:uid|UID|Uid)?\s*(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		suid := ctx.State["regex_matched"].([]string)[1] // 获取uid
 		int64uid, err := strconv.ParseInt(suid, 10, 64)
 		if suid == "" || int64uid < 100000000 || int64uid > 1000000000 || err != nil {
 			//ctx.SendChain(message.Text("-请输入正确的uid"))
@@ -811,7 +804,7 @@ func init() { // 主函数
 					msg.WriteByte('\n')
 				}
 			}
-			dam_a, err = thisdata.GetSumComment(suid, wife)
+			dam_a, err = thisdata.GetSumComment(suid)
 			if err != nil {
 				ctx.SendChain(message.Text("-获取伤害数据失败"+Config.Postfix, err))
 			}
@@ -1014,9 +1007,257 @@ func init() { // 主函数
 		Success(ctx, "切换api")
 	})
 
-	//更新全部面板
-	en.OnFullMatch("更新全部信息", zero.SuperUserPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	//队伍伤害
+	en.OnRegex(`(?:\[CQ:at,qq=)?(\d+)?\]?\s*(?:#|＃)?队伍伤害\s*((\D+)\s(\D+)\s(\D+)\s(\D+))?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		var alldata Thisdata
+		is := [4]int{}
+		sqquid := ctx.State["regex_matched"].([]string)[1] // 获取第三者qquid
+		if sqquid == "" {
+			sqquid = strconv.FormatInt(ctx.Event.UserID, 10)
+		}
+		// 获取uid
+		uid := Getuid(sqquid)
+		suid := strconv.Itoa(uid)
+		if uid == 0 {
+			ctx.SendChain(message.Text("-未绑定uid\n-第一次使用请发送\"绑定xxx\"" + Config.Postfix))
+			return
+		}
 
+		{
+			txt, err := os.ReadFile("plugin/kokomi/data/js/" + suid + ".kokomi")
+			if err != nil {
+				ctx.SendChain(message.Text("-本地未找到账号信息, 请\"更新面板\"" + Config.Postfix))
+				return
+			}
+			err = json.Unmarshal(txt, &alldata)
+			if err != nil {
+				ctx.SendChain(message.Text("出现错误捏：", err))
+				return
+			}
+			if len(alldata.Chars) == 0 {
+				ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用\"更新面板\"获取账号信息" + Config.Postfix))
+				return
+			}
+		}
+
+		names := []string{ctx.State["regex_matched"].([]string)[3], ctx.State["regex_matched"].([]string)[4], ctx.State["regex_matched"].([]string)[5], ctx.State["regex_matched"].([]string)[6]} // 获取key
+		if names[0] == "" {
+			is = [4]int{0, 1, 2, 3}
+			for i := 0; i < 4; i++ {
+				names[i] = alldata.Chars[i].Name
+			}
+		} else {
+			wife := GetWifeOrWq("wife")
+			for i := 0; i < 4; i++ {
+				swifeid := wife.Findnames(StringStrip(names[i]))
+				if swifeid == "" {
+					ctx.SendChain(message.Text("-未找到角色" + names[i] + Config.Postfix))
+					return
+				}
+				names[i] = wife.Idmap(swifeid)
+				if names[i] == "" {
+					ctx.SendChain(message.Text("Idmap数据缺失"))
+					return
+				}
+				var t = -1
+				// 匹配角色
+				for p, v := range alldata.Chars {
+					if names[i] == v.Name {
+						t = p
+					}
+				}
+				if t == -1 { // 在返回数据中未找到想要的角色
+					ctx.SendChain(message.Text("-角色", names[i], "未展示", Config.Postfix))
+					return
+				} else {
+					is[i] = t //匹配成功
+				}
+			}
+		}
+
+		ctx.SendChain(message.Text("-伤害计算中...\n-队伍配置", fmt.Sprintln(names)))
+		da, err := alldata.Getgroupdata(suid, is)
+		if err != nil {
+			ctx.SendChain(message.Text("Error:", err))
+			return
+		}
+		//解析
+		var gdate Damgroup
+		err = json.Unmarshal(da, &gdate)
+		if err != nil {
+			ctx.SendChain(message.Text("解析伤害数据错误捏：", err))
+			return
+		}
+		//绘图
+		{
+			dc := gg.NewContext(1080, 1620)
+			dc.SetRGB(1, 1, 1)
+			window, err := gg.LoadImage("plugin/kokomi/data/zawu/window.jpg")
+			if err != nil {
+				ctx.SendChain(message.Text("获取背景失败", err))
+				return
+			}
+			window = resize.Resize(1080, 0, window, resize.Bilinear) //改比例
+			dc.DrawImage(window, 0, -100)
+			black127 := color.NRGBA{R: 0, G: 0, B: 0, A: 127}
+			yingone := Yinying(410, 570, 16, black127)
+			yingtwo := Yinying(460, 600, 16, black127)
+			yingthree := Yinying(500, 230, 16, black127)
+			yingfour := Yinying(500, 400, 16, black127)
+			yingzero := Yinying(410, 160, 16, black127)
+			one := gg.NewContext(410, 570)
+			two := gg.NewContext(460, 600)
+			three := gg.NewContext(500, 230)
+			four := gg.NewContext(500, 400)
+			zero := gg.NewContext(410, 160)
+			//图层零,用户信息
+			{
+				zero.SetRGB(1, 1, 1) //白色
+				if err := zero.LoadFontFace(NameFont, 80); err != nil {
+					panic(err)
+				}
+				zero.DrawStringAnchored(string([]rune(names[0])[:1])+
+					string([]rune(names[1])[:1])+
+					string([]rune(names[2])[:1])+
+					string([]rune(names[3])[:1]), 390, 130, 1, 0)
+				if err := zero.LoadFontFace(FontFile, 30); err != nil {
+					panic(err)
+				}
+				zero.DrawStringAnchored("昵称:"+alldata.Nickname, 390, 40, 1, 0)
+				dc.DrawImage(yingzero, 630, 20)
+				dc.DrawImage(zero.Image(), 630, 20)
+			}
+			//图层1,角色配置
+			{
+				if err := one.LoadFontFace(FontFile, 40); err != nil {
+					panic(err)
+				}
+				one.SetRGB(1, 1, 1) //白色
+				one.DrawString("队伍配置", 30, 50)
+				for i := 0; i < 4; i++ {
+					turole, err := gg.LoadImage("plugin/kokomi/data/character/" + names[i] + "/imgs/face.webp")
+					if err != nil {
+						ctx.SendChain(message.Text("获取角色头像图失败", err))
+						return
+					}
+					turole = resize.Resize(100, 0, turole, resize.Bilinear) //缩小
+					tuwq, err := gg.LoadPNG("plugin/kokomi/data/wq/" + alldata.Chars[is[i]].Weapon.Name + ".png")
+					if err != nil {
+						ctx.SendChain(message.Text("获取武器图片失败", err))
+						return
+					}
+					tuwq = resize.Resize(50, 0, tuwq, resize.Bilinear) //缩小
+					one.DrawImage(turole, 10+i%2*200, 70+i/2*250)
+					one.DrawImage(tuwq, 105+i%2*195, 120+i/2*250)
+					if err := one.LoadFontFace(FontFile, 20); err != nil {
+						panic(err)
+					}
+					one.DrawStringWrapped(alldata.Chars[is[i]].Level+"\n"+
+						strconv.Itoa(alldata.Chars[is[i]].Talent.A)+"-"+
+						strconv.Itoa(alldata.Chars[is[i]].Talent.E)+"-"+
+						strconv.Itoa(alldata.Chars[is[i]].Talent.Q)+"\n"+
+						Ftoone(alldata.Chars[is[i]].Attr.Cpct)+"%/"+
+						Ftoone(alldata.Chars[is[i]].Attr.Cdmg)+"%\n生命"+
+						Ftoone(alldata.Chars[is[i]].Attr.Hp)+"\n"+
+						strings.ReplaceAll(Sywsuit([]string{
+							alldata.Chars[is[i]].Artis.Hua.Set,
+							alldata.Chars[is[i]].Artis.Yu.Set,
+							alldata.Chars[is[i]].Artis.Sha.Set,
+							alldata.Chars[is[i]].Artis.Bei.Set,
+							alldata.Chars[is[i]].Artis.Guan.Set}), "+", "\n"),
+						float64(20+i%2*200), float64(180+i/2*255), 0, 0, 120, 1.5, gg.AlignLeft)
+				}
+				dc.DrawImage(yingone, 630, 200)
+				dc.DrawImage(one.Image(), 630, 200)
+			}
+			//图层2,伤害图
+			{
+				two.SetRGB(1, 1, 1)             //白色
+				two.DrawLine(20, 40, 20, 515)   //|
+				two.DrawLine(20, 515, 440, 515) //--
+				two.SetLineWidth(6)
+				//two.Stroke()
+				two.StrokePreserve()
+				var numchart float64
+				if err := two.LoadFontFace(FontFile, 20); err != nil {
+					panic(err)
+				}
+				for _, v := range gdate.Result.ChartData {
+					numchart += v.Value
+				}
+				nn := 440 / (len(gdate.Result.ChartData) + 1)
+				for k, v := range gdate.Result.ChartData {
+					ss := strings.Split(v.Name, "\n")
+					y := -v.Value / numchart * 527
+					two.SetRGB(1, 1, 1)
+					buff := truncation(two, ss[0], 40) //宽减20
+					for i, v := range buff {
+						if v != "" {
+							two.DrawStringAnchored(v, float64(nn*(k+1))+10, float64(535+i*30), 0.5, 0) // name
+						}
+					}
+					two.DrawStringAnchored(ss[1], float64(nn*(k+1)-8), 515+y, 0.1, -0.5) // 8=0.2*40
+					two.DrawRectangle(float64(nn*(k+1)), 515, 20, y)
+					two.SetHexColor(v.Label.Color) // 设置画笔颜色为绿色
+					two.Fill()                     // 使用当前颜色（绿）填充满当前路径（矩形）所闭合出的区域
+				}
+				dc.DrawImage(yingtwo, 580, 800)
+				dc.DrawImage(two.Image(), 580, 800)
+			}
+			//图层3,总伤害
+			{
+				if err := three.LoadFontFace(FontFile, 25); err != nil {
+					panic(err)
+				}
+				three.SetRGB(1, 1, 1) //白色
+				three.DrawStringAnchored(gdate.Result.ZdlTips0, 250, 40, 0.5, 0)
+				if err := three.LoadFontFace(FontFile, 120); err != nil {
+					panic(err)
+				}
+				three.SetHexColor("#98F5FF")
+				three.DrawStringAnchored(fmt.Sprintln(gdate.Result.ZdlResult), 250, 160, 0.5, 0)
+				dc.DrawImage(yingthree, 40, 750)
+				dc.DrawImage(three.Image(), 40, 750)
+			}
+			//图层4,手法展示
+			{
+				if err := four.LoadFontFace(FontFile, 40); err != nil {
+					panic(err)
+				}
+				four.SetRGB(1, 1, 1) //白色
+				four.DrawString("操作手法", 30, 50)
+				buff := truncation(four, gdate.Result.ComboIntro, 440) //宽减20
+				for i, v := range buff {
+					if v != "" {
+						four.DrawString(v, 30, float64(100+i*35))
+					}
+				}
+
+				dc.DrawImage(yingfour, 40, 1000)
+				dc.DrawImage(four.Image(), 40, 1000)
+			}
+			// 版本号
+			if err := dc.LoadFontFace(BaFile, 30); err != nil {
+				panic(err)
+			}
+			dc.DrawStringAnchored("Created By ZeroBot-Plugin "+kanban.Version+edition, 540, 1620-30, 0.5, 0.5)
+			// 输出图片
+			ff, err := imgfactory.ToBytes(dc.Image()) // 图片放入缓存
+			if err != nil {
+				ctx.SendChain(message.Text("ERROR: ", err))
+				return
+			}
+			ctx.SendChain(message.ImageBytes(ff)) // 输出
+		}
+	})
+	en.OnRegex(`^更新kokomi$`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+		path := "plugin/kokomi"
+		output, err := RunCmd(path, "git pull")
+		if err != nil {
+			ctx.SendChain(message.Text("更新失败", Config.Postfix, "\n", string(output)))
+			return
+		}
+		ctx.SendChain(message.Text("更新成功", Config.Postfix, "\n", string(output)))
 	})
 }
 

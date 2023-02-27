@@ -21,15 +21,13 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 
     git clone https://gitee.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 
-进行下载插件。 
-
-然后在main.go中导入包	`_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板`
-
 //在群文件下载
 
 如果是手动下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugin文件夹内。
 
-然后在main.go中导入包	`_ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板`
+通过上述三种方法之一下载，然后在main.go中导入包
+
+    _ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
 # 功能说明(部分移植喵喵菜单)
 - 原神面板功能:
@@ -39,6 +37,7 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 - 更新面板
 - 全部面板
 - 雷神面板
+- 队伍伤害[xx xx xx xx]
 管理员专属
 - 上传第(1|2)立绘XX
 - 删除第(1|2)立绘XX
@@ -65,7 +64,7 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 
     【链接1】：https://enka.microgg.cn/
     【链接2】：https://enka.minigg.cn/
-# 未来可期 (以后将适配的功能)
+# 未来可期 (以后可能适配的功能)
 #雷神伤害
 #本地计算
 
