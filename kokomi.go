@@ -14,7 +14,7 @@ import (
 	"time"
 
 	//"unicode/utf8"
-	"github.com/FloatTech/ZeroBot-Plugin/kanban"
+	kanban "github.com/FloatTech/ZeroBot-Plugin/kanban/banner"
 	"github.com/FloatTech/floatbox/web"
 	"github.com/FloatTech/imgfactory"
 	ctrl "github.com/FloatTech/zbpctrl"
