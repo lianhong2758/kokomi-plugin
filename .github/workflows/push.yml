@@ -1,0 +1,19 @@
+name: PushLint
+on: [ push ]
+jobs:
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@master
+        with:
+          go-version: 1.19
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@master
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@master
+        with:
+          version: latest
