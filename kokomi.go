@@ -1250,7 +1250,7 @@ func init() { // 主函数
 			ctx.SendChain(message.ImageBytes(ff)) // 输出
 		}
 	})
-	en.OnRegex(`^更新kokomi$`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^更新kokomi$`, zero.SuperUserPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		path := "plugin/kokomi"
 		output, err := RunCmd(path, "git pull")
 		if err != nil {
