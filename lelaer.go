@@ -254,9 +254,6 @@ func (res *Teyvat) getroeldata(l int, uid string, ndata Thisdata) (*Teyvat, erro
 		case 4:
 			equip = v.Artis.Guan
 		}
-		if equip.Name == "" {
-			continue
-		}
 		// 圣遗物name
 		detail := TeyvatDetail{
 			Name:     equip.Name,

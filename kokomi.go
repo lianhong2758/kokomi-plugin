@@ -30,10 +30,10 @@ import (
 
 const (
 	//tu       = "https://api.yimian.xyz/img?type=moe&size=1920x1080"
-	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"        // 名字字体
-	FontFile = "plugin/kokomi/data/font/sakura.ttf"      // 汉字字体
-	FiFile   = "plugin/kokomi/data/font/tttgbnumber.ttf" // 其余字体(数字英文)
-	BaFile   = "plugin/kokomi/data/font/STLITI.TTF"      // 华文隶书版本版本号字体
+	NameFont = "plugin/kokomi/data/font/NZBZ.ttf"                    // 名字字体
+	FontFile = "plugin/kokomi/data/font/SourceHanMonoSC-HeavyIt.ttf" // 汉字字体
+	FiFile   = "plugin/kokomi/data/font/tttgbnumber.ttf"             // 其余字体(数字英文)
+	BaFile   = "plugin/kokomi/data/font/STLITI.TTF"                  // 华文隶书版本版本号字体
 )
 
 func init() { // 主函数
@@ -858,7 +858,7 @@ func init() { // 主函数
 	})
 
 	//上传立绘,限制群内,权限管理员+
-	en.OnRegex(`^上传第(1|2|一|二)立绘\s*(.*)`, zero.OnlyGroup, zero.AdminPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^上传第(1|2|一|二)立绘\s*(.*)`, zero.SuperUserPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
 		wifename := ctx.State["regex_matched"].([]string)[2]
 		var pathw string
@@ -930,7 +930,7 @@ func init() { // 主函数
 		}
 	})
 	//删除立绘图,权限同上
-	en.OnRegex(`^删除第(1|2|一|二)立绘\s*(.*)`, zero.OnlyGroup, zero.AdminPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^删除第(1|2|一|二)立绘\s*(.*)`, zero.SuperUserPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
 		wifename := ctx.State["regex_matched"].([]string)[2]
 		var pathw string
@@ -1037,6 +1037,9 @@ func init() { // 主函数
 			if len(alldata.Chars) == 0 {
 				ctx.SendChain(message.Text("-请在游戏中打开角色展柜,并将想查询的角色进行展示" + "\n-完成上述操作并等待5分钟后,请使用\"更新面板\"获取账号信息" + Config.Postfix))
 				return
+			} else if len(alldata.Chars) < 4 {
+				ctx.SendChain(message.Text("-展示的角色数量不足4" + Config.Postfix))
+				return
 			}
 		}
 
@@ -1058,6 +1061,9 @@ func init() { // 主函数
 				if names[i] == "" {
 					ctx.SendChain(message.Text("Idmap数据缺失"))
 					return
+				} else if names[i] == "空" || names[i] == "荧" || names[i] == "旅行者" {
+					ctx.SendChain(message.Text("-暂不支持空/荧伤害数据" + Config.Postfix))
+					return
 				}
 				var t = -1
 				// 匹配角色
@@ -1075,7 +1081,7 @@ func init() { // 主函数
 			}
 		}
 
-		ctx.SendChain(message.Text("-伤害计算中...\n-队伍配置", fmt.Sprintln(names)))
+		ctx.SendChain(message.Text("-伤害计算中...\n-队伍配置", fmt.Sprint(names)))
 		da, err := alldata.Getgroupdata("123456789", is)
 		if err != nil {
 			ctx.SendChain(message.Text("Error:", err))
@@ -1210,12 +1216,14 @@ func init() { // 主函数
 					panic(err)
 				}
 				three.SetRGB(1, 1, 1) //白色
-				three.DrawStringAnchored(gdate.Result.ZdlTips0, 250, 40, 0.5, 0)
-				if err := three.LoadFontFace(FontFile, 120); err != nil {
+				strArr := strings.Split(gdate.Result.ZdlTips0, "，")
+				three.DrawStringAnchored(strArr[0], 250, 30, 0.5, 0)
+				three.DrawStringAnchored(strArr[1], 250, 60, 0.5, 0)
+				if err := three.LoadFontFace(FiFile, 120); err != nil {
 					panic(err)
 				}
 				three.SetHexColor("#98F5FF")
-				three.DrawStringAnchored(fmt.Sprintln(gdate.Result.ZdlResult), 250, 160, 0.5, 0)
+				three.DrawStringAnchored(fmt.Sprint(gdate.Result.ZdlResult), 250, 180, 0.5, 0)
 				dc.DrawImage(yingthree, 40, 750)
 				dc.DrawImage(three.Image(), 40, 750)
 			}
@@ -1225,14 +1233,31 @@ func init() { // 主函数
 					panic(err)
 				}
 				four.SetRGB(1, 1, 1) //白色
-				four.DrawString("操作手法", 30, 50)
-				buff := truncation(four, gdate.Result.ComboIntro, 440) //宽减20
-				for i, v := range buff {
-					if v != "" {
-						four.DrawString(v, 30, float64(100+i*35))
-					}
+				four.DrawString("操作手法", 30, 40)
+				/*	buff := truncation(four, gdate.Result.ComboIntro, 440) //宽减20
+					for i, v := range buff {
+						if v != "" {
+							four.DrawString(v, 30, float64(100+i*35))
+						}
+					}*/
+				strArr := strings.Split(gdate.Result.ComboIntro, ",")
+				if err := four.LoadFontFace(FontFile, 30); err != nil {
+					panic(err)
 				}
-
+				var ws, hs float64
+				var c [3]int
+				var a = regexp.MustCompile("^[\u4e00-\u9fa5]$")
+				for _, v := range strArr {
+					if a.MatchString(string([]rune(v)[0:1])) {
+						c = randfill()
+					}
+					four.SetRGB255(c[0], c[1], c[2])
+					if ws >= 440 {
+						ws = 0
+						hs += 50
+					}
+					ws += DrawStringRec(four, v, "#FFFFFF", ws+5, 50+hs) + 15
+				}
 				dc.DrawImage(yingfour, 40, 1000)
 				dc.DrawImage(four.Image(), 40, 1000)
 			}

@@ -4,6 +4,7 @@ import (
 	"image"
 	"image/color"
 	"math"
+	"math/rand"
 
 	//"github.com/fogleman/gg"//原版gg
 	"github.com/FloatTech/gg"
@@ -69,4 +70,22 @@ func Yinying(x int, y int, r float64, c color.Color) image.Image {
 	ctx.DrawRoundedRectangle(0, 0, float64(x), float64(y), r)
 	ctx.Fill()
 	return ctx.Image()
+}
+
+// 绘制带底色的字块,color为字体颜色,x,y左上角位置
+func DrawStringRec(dc *gg.Context, str, color string, x, y float64) (w float64) {
+	w, h := dc.MeasureString(str)
+	dc.DrawRoundedRectangle(x, y, w+8, h+10, 8)
+	dc.Fill()
+	dc.SetHexColor(color)
+	dc.DrawString(str, x+3, h+y+4)
+	return
+}
+
+// 随机颜色
+func randfill() (c [3]int) {
+	c[0] = rand.Intn(195) + 15 //r
+	c[1] = rand.Intn(195) + 15 //g
+	c[2] = rand.Intn(195) + 15 //b
+	return
 }
