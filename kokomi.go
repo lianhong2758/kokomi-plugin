@@ -1076,7 +1076,7 @@ func init() { // 主函数
 		}
 
 		ctx.SendChain(message.Text("-伤害计算中...\n-队伍配置", fmt.Sprintln(names)))
-		da, err := alldata.Getgroupdata(suid, is)
+		da, err := alldata.Getgroupdata("123456789", is)
 		if err != nil {
 			ctx.SendChain(message.Text("Error:", err))
 			return
