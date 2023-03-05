@@ -41,10 +41,10 @@ func init() { // 主函数
 			"- #武器xxx[武器图鉴查询]\n" +
 			"- #xxx[角色图鉴查询]",
 	})
-	en.OnRegex(`(#|＃)\s?(查卡|七圣|培养|材料|特产|位置|武器|图鉴|收益|参考|攻略|原魔)?\s?(\D*)(\d)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(?:#|＃)\s?(\D+)(查卡|七圣|培养|材料|特产|位置|武器|图鉴|收益|参考|攻略|原魔)\s?(\d)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		keys := ctx.State["regex_matched"].([]string)[2] //匹配种类
-		word := ctx.State["regex_matched"].([]string)[3] //关键字
-		//num := ctx.State["regex_matched"].([]string)[4]  //可能存在的选择数
+		word := ctx.State["regex_matched"].([]string)[1] //关键字
+		//num := ctx.State["regex_matched"].([]string)[3]  //可能存在的选择数
 		var url, k string //匹配链接
 		var paths Wikimap
 		t, err := os.ReadFile("plugin/kokomi/data/json/path.json") //获取文件
@@ -74,7 +74,7 @@ func init() { // 主函数
 		case "特产", "位置": //区域特产
 			url = url6
 			k = www.QueryEscape(word)
-		case "武器", "图鉴": //武器图鉴
+		case "武器": //武器图鉴
 			url = url3
 			wq := GetWifeOrWq("wq")
 			word = wq.Findnames(word)
@@ -125,17 +125,25 @@ func init() { // 主函数
 		case "原魔": //原魔图鉴
 			url = url8
 			k = word
-		default: //角色图鉴
+		case "图鉴": //角色/武器图鉴
 			url = url1
 			wife := GetWifeOrWq("wife")
 			swifeid := wife.Findnames(word)
-			if swifeid == "" {
-				return
-			}
-			k = wife.Idmap(swifeid)
-			if k == "" {
-				ctx.SendChain(message.Text("Idmap数据缺失"))
-				return
+			if swifeid != "" {
+				k = wife.Idmap(swifeid)
+				if k == "" {
+					ctx.SendChain(message.Text("Idmap数据缺失"))
+					return
+				}
+			} else { //未找到角色,开始匹配武器
+				url = url3
+				wq := GetWifeOrWq("wq")
+				word = wq.Findnames(word)
+				if word == "" {
+					ctx.SendChain(message.Text("-未找到信息" + Postfix))
+					return
+				}
+				k = paths.Weapon[word]
 			}
 		}
 		if k == "" {
