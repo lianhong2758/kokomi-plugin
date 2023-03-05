@@ -54,7 +54,7 @@ func init() { // 主函数
 			"- 管理员专属指令:\n" +
 			"- (上传|删除)第(1|2)立绘 XX\n",
 	})
-	en.OnRegex(`(?:#|＃)?(.*)面板\s*(?:\[CQ:at,qq=)?(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(?:#|＃)?(.*)面板\s*(?:\[CQ:at,qq=)?(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		var allfen = 0.00
 		sqquid := ctx.State["regex_matched"].([]string)[2] // 获取第三者qquid
 		if sqquid == "" {
@@ -984,7 +984,7 @@ func init() { // 主函数
 		}
 	})
 	//切换api
-	en.OnRegex(`切换api(\d)?`, zero.SuperUserPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^切换api(\d)?`, zero.SuperUserPermission).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		z := ctx.State["regex_matched"].([]string)[1] // 获取编号
 		if z != "" {
 			zz, _ := strconv.Atoi(z)
@@ -1008,7 +1008,7 @@ func init() { // 主函数
 	})
 
 	//队伍伤害
-	en.OnRegex(`(?:\[CQ:at,qq=)?(\d+)?\]?\s*(?:#|＃)?队伍伤害\s*((\D+)\s(\D+)\s(\D+)\s(\D+))?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(?:\[CQ:at,qq=)?(\d+)?\]?\s*(?:#|＃)?队伍伤害\s*((\D+)\s(\D+)\s(\D+)\s(\D+))?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		var alldata Thisdata
 		is := [4]int{}
 		sqquid := ctx.State["regex_matched"].([]string)[1] // 获取第三者qquid
