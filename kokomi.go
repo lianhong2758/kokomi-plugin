@@ -238,9 +238,9 @@ func init() { // 主函数
 		two.DrawImage(resize.Resize(0, 30, Drawstars("#FFCC00", "#FFE43A", alldata.Chars[t].Weapon.Star), resize.Bilinear), 150, 60)
 		//详细
 		if alldata.Chars[t].Weapon.Atk != 0.0 {
-			two.DrawString("攻击力:", 150, 160)
+			two.DrawString("攻击力:", 145, 160)
 		}
-		two.DrawString("精炼:", 245, 120)
+		two.DrawString("精炼:", 240, 120)
 		if err := two.LoadFontFace(FiFile, 30); err != nil { // 字体大小
 			panic(err)
 		}
