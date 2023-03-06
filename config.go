@@ -2,6 +2,7 @@ package kokomi
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"os"
 )
@@ -19,4 +20,10 @@ func init() {
 		logrus.Errorln("解析kokomi配置文件错误")
 		os.Exit(1)
 	}
+	fmt.Print(
+		"==========[ZeroBot-Plugin", Config.Edition, "]==================",
+		"\n插件配置加载完成,本插件完全免费,作者尽力维护",
+		"\n若出现问题请加群解决,678586912",
+		"\n============================================================\n\n",
+	)
 }

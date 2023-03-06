@@ -624,6 +624,21 @@ func init() { // 主函数
 		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Cdmg)+"%", 470, 352.5, 1, 0)      //爆伤
 		one.DrawStringAnchored(Ftoone(alldata.Chars[t].Attr.Recharge)+"%", 470, 403.75, 1, 0) //充能
 		one.DrawStringAnchored(Ftoone(addf)+"%", 470, 455, 1, 0)                              //元素加伤
+		//评分权重
+		ttt := []string{
+			strconv.Itoa(Wifequanmap[str].Hp),
+			strconv.Itoa(Wifequanmap[str].Atk),
+			strconv.Itoa(Wifequanmap[str].Def),
+			strconv.Itoa(Wifequanmap[str].Mastery),
+			strconv.Itoa(Wifequanmap[str].Cpct),
+			strconv.Itoa(Wifequanmap[str].Cdmg),
+			strconv.Itoa(Wifequanmap[str].Recharge),
+			strconv.Itoa(Wifequanmap[str].Dmg),
+		}
+		one.SetHexColor("#98F5FF")
+		for i, v := range ttt {
+			one.DrawString(v, 8, 96+51.25*float64(i))
+		}
 
 		dc.DrawImage(Yinying(540, 470, 16, yinyinBlack127), 505, 410) // 背景
 		dc.DrawImage(one.Image(), 505, 410)
