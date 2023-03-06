@@ -147,8 +147,8 @@ func (res *Teyvat) getroeldata(l int, uid string, ndata Thisdata) (*Teyvat, erro
 	s := getServer(uid)
 	v := ndata.Chars[l]
 	name := v.Name
-	role := GetRole(name) // 获取角色
-	if role == nil {
+	role, err := GetRole(name) // 获取角色
+	if err != nil {
 		return nil, lelaerErrorSYS
 	}
 	affix := v.Weapon.Affix

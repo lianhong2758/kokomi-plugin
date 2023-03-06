@@ -203,9 +203,9 @@ func init() { // 主函数
 		const height = 2400 - 360
 		dc := gg.NewContext(1080, height) // 画布大小
 		//*******************************************************
-		role := GetRole(str)
-		if role == nil {
-			ctx.SendChain(message.Text("获取角色失败"))
+		role, err := GetRole(str)
+		if err != nil {
+			ctx.SendChain(message.Text("获取角色失败", err))
 			return
 		}
 		//*******************************************************
