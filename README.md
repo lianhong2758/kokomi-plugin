@@ -21,9 +21,10 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 
     git clone https://gitee.com/lianhong2758/kokomi-plugin.git ./plugin/kokomi/
 
-//在群文件下载
+//在群文件或别的地方通过压缩包方式下载
 
 如果是手动下载的zip压缩包，请将解压后的kokomi文件夹放置在ZeroBot-Plugin目录下的plugin文件夹内。
+如果解压后文件夹名称不是kokomi，请动手修改。
 
 通过上述三种方法之一下载，然后在main.go中导入包
 
