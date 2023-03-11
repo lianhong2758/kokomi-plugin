@@ -73,10 +73,18 @@ func init() { // 主函数
 		}
 		//############################################################判断数据更新,逻辑原因不能合并进switch
 		if str == "更新" {
-			es, err := web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
+			es, err := web.RequestDataWith(web.NewDefaultClient(),
+				fmt.Sprintf(url, suid), "GET", "",
+				"zerobot-plugin-kokomi",
+				nil,
+			)
 			if err != nil {
-				time.Sleep(500 * time.Microsecond)            //0.5s
-				es, err = web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
+				time.Sleep(500 * time.Microsecond) //0.5s
+				es, err = web.RequestDataWith(web.NewDefaultClient(),
+					fmt.Sprintf(url, suid), "GET", "",
+					"zerobot-plugin-kokomi",
+					nil,
+				)
 				if err != nil {
 					ctx.SendChain(message.Text("-网站获取角色信息失败"+Config.Postfix, err))
 					return
@@ -745,7 +753,7 @@ func init() { // 主函数
 		if err := dc.LoadFontFace(BaFile, 30); err != nil {
 			panic(err)
 		}
-		dc.DrawStringAnchored("Created By ZeroBot-Plugin "+kanban.Version+edition, 540, float64(height)-30, 0.5, 0.5)
+		dc.DrawStringAnchored("Created By ZeroBot-Plugin "+kanban.Version+" & "+edition, 540, float64(height)-30, 0.5, 0.5)
 		// 输出图片
 		ff, err := imgfactory.ToBytes(dc.Image()) // 图片放入缓存
 		if err != nil {
@@ -770,10 +778,19 @@ func init() { // 主函数
 		ctx.SendChain(message.Text("-绑定uid" + suid + "成功" + "\n-尝试获取角色面板信息" + Config.Postfix))
 
 		//更新面板程序
-		es, err := web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
+		//es, err := web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
+		es, err := web.RequestDataWith(web.NewDefaultClient(),
+			fmt.Sprintf(url, suid), "GET", "",
+			"zerobot-plugin-kokomi",
+			nil,
+		)
 		if err != nil {
-			time.Sleep(500 * time.Microsecond)            //0.5s
-			es, err = web.GetData(fmt.Sprintf(url, suid)) // 网站返回结果
+			time.Sleep(500 * time.Microsecond) //0.5s
+			es, err = web.RequestDataWith(web.NewDefaultClient(),
+				fmt.Sprintf(url, suid), "GET", "",
+				"zerobot-plugin-kokomi",
+				nil,
+			)
 			if err != nil {
 				ctx.SendChain(message.Text("-网站获取角色信息失败"+Config.Postfix, err))
 				return
@@ -1280,7 +1297,7 @@ func init() { // 主函数
 			if err := dc.LoadFontFace(BaFile, 30); err != nil {
 				panic(err)
 			}
-			dc.DrawStringAnchored("Created By ZeroBot-Plugin "+kanban.Version+edition, 540, 1620-30, 0.5, 0.5)
+			dc.DrawStringAnchored("Created By ZeroBot-Plugin "+kanban.Version+" & "+edition, 540, 1620-30, 0.5, 0.5)
 			// 输出图片
 			ff, err := imgfactory.ToBytes(dc.Image()) // 图片放入缓存
 			if err != nil {
