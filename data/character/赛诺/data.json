@@ -1,43 +1,43 @@
 {
-  "id": 10000043,
-  "name": "砂糖",
-  "abbr": "砂糖",
-  "title": "无害甜度",
-  "star": 4,
-  "elem": "anemo",
-  "allegiance": "西风骑士团",
-  "weapon": "catalyst",
-  "birth": "11-26",
-  "astro": "烧瓶座",
-  "desc": "对万物充满好奇的炼金术士，「生物炼金」学派的研究者。",
-  "cncv": "小敢",
-  "jpcv": "藤田茜",
+  "id": 10000071,
+  "name": "赛诺",
+  "abbr": "赛诺",
+  "title": "缄秘的裁遣",
+  "star": 5,
+  "elem": "electro",
+  "allegiance": "缄默之殿",
+  "weapon": "polearm",
+  "birth": "6-23",
+  "astro": "金狼座",
+  "desc": "教令院内负责监管学者们的「大风纪官」。工作时比刹诃伐罗学院制作的「大风机关」更有效率。",
+  "cncv": "李轻扬",
+  "jpcv": "入野自由",
   "costume": false,
   "ver": 1,
   "baseAttr": {
-    "hp": 9244,
-    "atk": 169.92,
-    "def": 703
+    "hp": 12491,
+    "atk": 318.11,
+    "def": 859.24
   },
   "growAttr": {
-    "key": "dmg",
-    "value": 24
+    "key": "cdmg",
+    "value": 38.4
   },
   "talentId": {
-    "10431": "a",
-    "10432": "e",
-    "10435": "q"
+    "10711": "a",
+    "10712": "e",
+    "10715": "q"
   },
   "talentCons": {
-    "e": 3,
-    "q": 5
+    "e": 5,
+    "q": 3
   },
   "materials": {
-    "gem": "自在松石",
-    "boss": "飓风之种",
-    "specialty": "风车菊",
-    "normal": "原素花蜜",
-    "talent": "「自由」的哲学",
-    "weekly": "北风的魂匣"
+    "gem": "最胜紫晶",
+    "boss": "藏雷野实",
+    "specialty": "圣金虫",
+    "normal": "禁咒绘卷",
+    "talent": "「诤言」的哲学",
+    "weekly": "凶将之手眼"
   }
 }
