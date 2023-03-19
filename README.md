@@ -30,6 +30,8 @@ kokomi是一个ZeroBot-Plugin的扩展插件，提供包括原神角色面板绘
 
     _ "github.com/FloatTech/ZeroBot-Plugin/plugin/kokomi"  // kokomi原神面板
 
+当然，如果你实在看不懂，这边还有详细的手把手图文教程[kokomi图文详细教程](https://b23.tv/CZDooLr)
+
 # 功能说明(部分移植喵喵菜单)
 - 原神面板功能:
 - kokomi菜单
