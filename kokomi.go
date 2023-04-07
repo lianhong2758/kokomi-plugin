@@ -78,7 +78,7 @@ func init() { // 主函数
 				"zerobot-plugin-kokomi",
 				nil,
 			)
-			if err != nil {
+			if err != nil || len(es) == 0{
 				time.Sleep(500 * time.Microsecond) //0.5s
 				es, err = web.RequestDataWith(web.NewDefaultClient(),
 					fmt.Sprintf(url, suid), "GET", "",
