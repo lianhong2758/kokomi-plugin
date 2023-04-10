@@ -323,12 +323,11 @@ func (m FindMap) Findnames(val string) string {
 
 // Idmap wifeid->wifename
 func (m FindMap) Idmap(val string) string {
-	for k, v := range m {
-		if k == val {
-			return v[0]
-		}
+	f, b := m[val]
+	if !b {
+		return ""
 	}
-	return ""
+	return f[0]
 }
 
 // StringStrip 字符串删空格

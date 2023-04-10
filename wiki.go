@@ -26,7 +26,6 @@ const ( //~标记已实现
 )
 
 func init() { // 主函数
-	var Postfix = Config.Postfix
 	en := control.Register("kokomi_wiki", &ctrl.Options[*zero.Ctx]{
 		DisableOnDefault: false,
 		Brief:            "原神wiki查询",
