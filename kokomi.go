@@ -19,7 +19,6 @@ import (
 	"github.com/FloatTech/imgfactory"
 	ctrl "github.com/FloatTech/zbpctrl"
 	"github.com/FloatTech/zbputils/control"
-
 	//"github.com/fogleman/gg"//原版gg
 	"github.com/FloatTech/gg"
 	//"github.com/golang/freetype"
@@ -58,9 +57,6 @@ func init() { // 主函数
 			sqquid = strconv.FormatInt(ctx.Event.UserID, 10)
 		}
 		str := ctx.State["regex_matched"].([]string)[1] // 获取key
-		if str == "" {
-			return
-		}
 		//修复指令
 		if ctx.State["regex_matched"].([]string)[3] == "更新" {
 			str = "更新"
