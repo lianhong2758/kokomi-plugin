@@ -57,9 +57,8 @@ func init() { // 主函数
 			sqquid = strconv.FormatInt(ctx.Event.UserID, 10)
 		}
 		str := ctx.State["regex_matched"].([]string)[1] // 获取key
-		//修复指令
-		if ctx.State["regex_matched"].([]string)[3] == "更新" {
-			str = "更新"
+		if str == "" {
+			str = ctx.State["regex_matched"].([]string)[3]
 		}
 		//尝试匹配角色名或者指令
 		wife := GetWifeOrWq("wife")
