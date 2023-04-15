@@ -5,13 +5,13 @@
   "title": "遵生合和",
   "star": 5,
   "elem": "dendro",
-  "allegiance": "？？？",
+  "allegiance": "不卜庐",
   "weapon": "catalyst",
-  "birth": "1-1",
+  "birth": "4-25",
   "astro": "悬壶座",
-  "desc": "测试角色",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "desc": "药庐「不卜庐」的主人，随身悬着名为「长生」的白蛇。精于药石，深于城府。",
+  "cncv": "秦且歌&王晓彤",
+  "jpcv": "游佐浩二&庄子裕衣",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -34,7 +34,7 @@
     "specialty": "琉璃袋",
     "normal": "孢囊晶尘",
     "talent": "「黄金」的哲学",
-    "weekly": "？？？"
+    "weekly": "生长天地之蕨草"
   },
-  "eta": 1681264800000
+  "eta": 1682992800000
 }

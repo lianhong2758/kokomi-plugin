@@ -2,16 +2,16 @@
   "id": 10000081,
   "name": "卡维",
   "abbr": "卡维",
-  "title": "天穹之境",
+  "title": "天穹之镜",
   "star": 4,
   "elem": "dendro",
-  "allegiance": "？？？",
+  "allegiance": "独立设计工作室",
   "weapon": "claymore",
-  "birth": "1-1",
+  "birth": "7-9",
   "astro": "天堂鸟座",
-  "desc": "测试角色",
-  "cncv": "？？？",
-  "jpcv": "？？？",
+  "desc": "须弥著名建筑设计师，对太多事物抱有过度关怀心。美学主义者，为现实所困扰。",
+  "cncv": "刘三木",
+  "jpcv": "内田雄马",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -34,7 +34,7 @@
     "specialty": "悼灵花",
     "normal": "孢囊晶尘",
     "talent": "「巧思」的哲学",
-    "weekly": "？？？"
+    "weekly": "原初绿洲之初绽"
   },
-  "eta": 1681264800000
+  "eta": 1682992800000
 }
