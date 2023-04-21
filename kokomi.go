@@ -74,6 +74,10 @@ func init() { // 主函数
 				return
 			}
 		}
+		if str == "空" || str == "荧" || str == "旅行者" {
+			ctx.SendChain(message.Text("-暂不支持查看该角色" + Postfix))
+			return
+		}
 		// 获取uid
 		uid := Getuid(sqquid)
 		suid := strconv.Itoa(uid)
@@ -184,11 +188,9 @@ func init() { // 主函数
 				t = i
 			}
 		}
+
 		if t == -1 { // 在返回数据中未找到想要的角色
 			ctx.SendChain(message.Text("-该角色未展示" + Postfix))
-			return
-		} else if str == "空" || str == "荧" || str == "旅行者" {
-			ctx.SendChain(message.Text("-暂不支持查看该角色" + Postfix))
 			return
 		}
 
