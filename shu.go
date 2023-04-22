@@ -475,11 +475,7 @@ func (n Data) ConvertData() (Thisdata, error) {
 	t.Nickname = n.PlayerInfo.Nickname
 	t.Level = n.PlayerInfo.Level
 	for k, v := range n.AvatarInfoList {
-		//排除旅行者
 		name := wife.Idmap(strconv.Itoa(v.AvatarID))
-		if name == "空" || name == "荧" || name == "旅行者" {
-			continue
-		}
 		//数据处理区
 		adds, addf := "元素加伤:", 0.0
 		if v.FightPropMap.Num30*100 > addf {
