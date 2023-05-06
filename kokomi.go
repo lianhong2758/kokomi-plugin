@@ -50,7 +50,7 @@ func init() { // 主函数
 			"- 管理员专属指令:\n" +
 			"- (上传|删除)第(1|2)立绘 XX\n",
 	})
-	en.OnRegex(`^(?:#|＃)?(.*)面板\s*(?:\[CQ:at,qq=)?(\d+)?(.*)`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(?:#|＃)(.*)面板\s*(?:\[CQ:at,qq=)?(\d+)?(.*)`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		var allfen = 0.00
 		sqquid := ctx.State["regex_matched"].([]string)[2] // 获取第三者qquid
 		if sqquid == "" {
@@ -731,7 +731,7 @@ func init() { // 主函数
 	})
 
 	// 绑定uid
-	en.OnRegex(`^(?:#|＃)?\s*绑定+?\s*(?:uid|UID|Uid)?\s*(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(?:#|＃)\s*绑定+?\s*(?:uid|UID|Uid)?\s*(\d+)?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		suid := ctx.State["regex_matched"].([]string)[1] // 获取uid
 		int64uid, err := strconv.ParseInt(suid, 10, 64)
 		if suid == "" || int64uid < 100000000 || int64uid > 1000000000 || err != nil {
@@ -995,7 +995,7 @@ func init() { // 主函数
 	})
 
 	//队伍伤害
-	en.OnRegex(`^(?:\[CQ:at,qq=)?(\d+)?\]?\s*(?:#|＃)?队伍伤害\s*((\D+)\s(\D+)\s(\D+)\s(\D+))?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
+	en.OnRegex(`^(?:\[CQ:at,qq=)?(\d+)?\]?\s*(?:#|＃)队伍伤害\s*((\D+)\s(\D+)\s(\D+)\s(\D+))?`).SetBlock(true).Handle(func(ctx *zero.Ctx) {
 		var alldata Thisdata
 		is := [4]int{}
 		sqquid := ctx.State["regex_matched"].([]string)[1] // 获取第三者qquid
